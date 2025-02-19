@@ -3,20 +3,37 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from 'next/navigation';
 import { TextAnimate } from "@/components/magicui/text-animate";
-import PartnerCard from "@/components/Cards/PartnersCard";
+import { Particles } from "@/components/magicui/particles";
 import { IGLogo } from "@/components/Icons/Instagram";
 import { XIcon } from "@/components/Icons/Twitter";
-import { LinkedingIcon } from "@/components/Icons/Linkedin";
+import { LinkedinIcon } from "@/components/Icons/Linkedin";
 import { YoutubeLogo } from "@/components/Icons/Youtube";
 import { DiscordIcon } from "@/components/Icons/Discord";
+import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
 
 export default function Home() {
 
   const router = useRouter();
 
+  const { resolvedTheme } = useTheme();
+  const [color, setColor] = useState("#ffffff");
+ 
+  useEffect(() => {
+    setColor(resolvedTheme === "dark" ? "#ffffff" : "#000000");
+  }, [resolvedTheme]);
+
   return (
-    <main>
+    <main className="mb-12">
       <div className="relative w-full h-screen flex flex-col justify-center items-center overflow-hidden">
+        <Particles
+        className="absolute inset-0 z-0"
+        quantity={100}
+        ease={80}
+        color={color}
+        refresh
+         />
+
         <section className="relative z-10 flex flex-col items-center text-center px-4" id="hero">
           <TextAnimate as="h1" animation="slideRight" className="text-4xl md:text-6xl font-extrabold">
             MITZUSTUDIOS
@@ -47,35 +64,6 @@ En MitzuStudios, creemos en la innovación constante y en la creación de valor 
         </p>
       </section>
 
-      <section id="projects" className="w-full flex flex-col items-center mt-12 px-4">
-        <TextAnimate as="h1" animation="slideUp" className="text-3xl md:text-4xl font-extrabold text-center">
-          NUESTROS SOCIOS
-        </TextAnimate>
-        <div className="w-full mx-4 md:mx-20 lg:mx-20">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-6 mb-6">
-           <PartnerCard
-           description="Zeew Space es una pagina donde puedes encontrar los mejores cursos de programación y diseño web."
-           logo="ZeewSpaceLogo.webp"
-           name="Zeew Space"
-           website="https://www.zeew.space/"
-           socialMedia={[
-            { name: "Instagram", url: "https://www.instagram.com/zeewspace/", icon: <IGLogo /> },
-            { name: "Youtube", url: "https://www.youtube.com/@zeewspace", icon: <YoutubeLogo /> },
-            { name:"Discord", url: "https://discord.com/invite/TbB88pnH3w", icon: <DiscordIcon /> },
-            { name: "Linkedin", url: "https://www.linkedin.com/company/zeewspace/", icon: <LinkedingIcon /> },
-           ]}/>
-           <PartnerCard
-           description="Neenbyss es una empresa de desarrollo web, Fivem, Aplicaciones, entre otros tipos de desarrollo."
-           logo="NB_ICON.svg"
-           name="NEENBYSS"
-           website="https://www.neenbyss.com/"
-           socialMedia={[
-              { name: "X", url: "https://x.com/neenbyss", icon: <XIcon /> },
-              { name: "Linkedin", url: "https://www.linkedin.com/company/neenbyss/?originalSubdomain=mx", icon: <LinkedingIcon /> },
-           ]}/>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

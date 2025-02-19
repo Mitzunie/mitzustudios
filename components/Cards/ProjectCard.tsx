@@ -12,10 +12,10 @@ interface ProjectCardProps {
   image: string;
   website: string;
   github: string;
-  frameworks?: string[]; // Frameworks utilizados
+  frameworks?: string[];
   socialMedia?: { name: string; url: string; icon: JSX.Element }[];
   description?: string;
-  className?: string; // Prop para clases personalizadas
+  className?: string;
 }
 
 export default function ProjectCard({
@@ -30,7 +30,6 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   return (
     <Card className={`relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ${className}`}>
-      {/* BorderBeam dentro de la tarjeta */}
       <BorderBeam
         duration={5}
         size={400}
@@ -43,26 +42,22 @@ export default function ProjectCard({
         className="from-transparent via-purple-500 to-transparent"
       />
 
-      {/* Imagen de vista previa */}
       <div
         className="h-48 bg-cover bg-center"
         style={{ backgroundImage: `url('${image}')` }}
       ></div>
 
       <div className="p-6">
-        {/* Nombre del proyecto */}
         <CardHeader className="p-0">
           <CardTitle className="text-2xl font-bold text-foreground">{title}</CardTitle>
         </CardHeader>
 
-        {/* Descripción breve */}
         {description && (
           <p className="text-foreground text-sm">
             {description}
           </p>
         )}
 
-        {/* Frameworks utilizados */}
         {frameworks && frameworks.length > 0 && (
           <div className="mt-4">
             <h3 className="text-sm font-semibold text-foreground">Frameworks utilizados:</h3>
@@ -80,9 +75,7 @@ export default function ProjectCard({
         )}
       </div>
 
-      {/* Footer con botón, redes sociales y GitHub */}
       <CardFooter className="p-6 flex justify-between items-center">
-        {/* Botón para visitar el sitio web */}
         <Link href={website} passHref legacyBehavior>
           <a target="_blank" rel="noopener noreferrer">
             <Button variant={"primary"}>
@@ -91,16 +84,13 @@ export default function ProjectCard({
           </a>
         </Link>
 
-        {/* Redes sociales y GitHub */}
         <div className="flex space-x-4">
-          {/* Enlace a GitHub */}
           <Link href={github} passHref legacyBehavior>
             <a target="_blank" rel="noopener noreferrer" className="text-foregorund hover:text-gray-900 transition-colors duration-300">
               <GithubIcon />
             </a>
           </Link>
 
-          {/* Redes sociales (si existen) */}
           {socialMedia?.map((social, index) => (
             <Link
               key={index}
