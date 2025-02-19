@@ -4,13 +4,10 @@ import useAge from "@/lib/ageCalculator/script";
 import { Button } from "@/components/ui/button";
 import { FileDown } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { IGLogo } from "@/components/Icons/Instagram";
 import { XIcon } from "@/components/Icons/Twitter";
-import { LinkedinIcon } from "@/components/Icons/Linkedin";
-import { YoutubeLogo } from "@/components/Icons/Youtube";
-import { DiscordIcon } from "@/components/Icons/Discord";
-import { GithubIcon } from "@/components/Icons/Github";
 
 const staffMember = {
   name: "Mitzunie",
@@ -40,10 +37,13 @@ export default function StaffProfile() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center py-12 px-4">
         <div className="flex flex-col items-center">
-          <img
+          <Image
             src={staffMember.image || generateAvatar()}
             alt={staffMember.name}
-            className="w-32 h-32 rounded-full border-4 border-gray-300 dark:border-gray-700 mb-4"
+            width={120}
+            height={100}
+            unoptimized
+            className=" rounded-full border-4 border-gray-300 dark:border-gray-700 mb-4"
           />
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white">{staffMember.name}</h1>
           <p className="text-gray-500 text-lg mt-2">Edad: {age} años</p>

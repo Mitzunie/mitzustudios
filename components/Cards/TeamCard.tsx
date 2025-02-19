@@ -4,6 +4,7 @@ import Link from "next/link";
 import { JSX } from "react";
 import useAge from "@/lib/ageCalculator/script";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface TeamCardProps {
   name: string;
@@ -40,9 +41,12 @@ export default function TeamCard({
   return (
     <div className="bg-card rounded-lg shadow-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-xl cursor-pointer" onClick={() => router.push(`/staff/${name.toLowerCase()}`)}>
       <div className="relative w-full h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-        <img
+        <Image
           src={image || generateAvatar()}
+          width={200}
+          height={200}
           alt={`${name} Image`}
+          unoptimized
           className="w-full h-full object-cover"
         />
     

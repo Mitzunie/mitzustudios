@@ -1,10 +1,6 @@
 import TeamCard from "@/components/Cards/TeamCard";
 import { IGLogo } from "@/components/Icons/Instagram";
 import { XIcon } from "@/components/Icons/Twitter";
-import { LinkedinIcon } from "@/components/Icons/Linkedin";
-import { YoutubeLogo } from "@/components/Icons/Youtube";
-import { DiscordIcon } from "@/components/Icons/Discord";
-import { GithubIcon } from "@/components/Icons/Github";
 import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
 import { cn } from "@/lib/utils";
 
@@ -24,7 +20,7 @@ export default function TeamPage() {
     {
         name: "Conekitoo",
         role: "Diseñadora",
-        description: "Diseñadora de MitzuStudios",
+        description: "Diseñadora de MitzuStudios y OniWorkshop.",
         birthdate: [21, 10, 2003] as [number, number, number],
         socialMedia: [
             { name: "Instagram", url: "https://www.instagram.com/conekitooo/", icon: <IGLogo /> },

@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { GithubIcon } from "@/components/Icons/Github";
 import Link from "next/link";

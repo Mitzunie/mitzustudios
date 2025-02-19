@@ -15,7 +15,7 @@ import { LineMdSunRisingLoop } from '@/components/Icons/Sun';
 import { LineMdMoonRisingAltLoop } from '@/components/Icons/Moon';
 
 const ThemeToggle = () => {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

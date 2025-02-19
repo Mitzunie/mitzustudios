@@ -4,11 +4,6 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from 'next/navigation';
 import { TextAnimate } from "@/components/magicui/text-animate";
 import { Particles } from "@/components/magicui/particles";
-import { IGLogo } from "@/components/Icons/Instagram";
-import { XIcon } from "@/components/Icons/Twitter";
-import { LinkedinIcon } from "@/components/Icons/Linkedin";
-import { YoutubeLogo } from "@/components/Icons/Youtube";
-import { DiscordIcon } from "@/components/Icons/Discord";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 

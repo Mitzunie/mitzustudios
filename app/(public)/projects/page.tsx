@@ -1,10 +1,6 @@
 import ProjectCard from "@/components/Cards/ProjectCard";
 import { IGLogo } from "@/components/Icons/Instagram";
 import { XIcon } from "@/components/Icons/Twitter";
-import { GithubIcon } from "@/components/Icons/Github";
-import { FacebookLogo } from "@/components/Icons/Facebook";
-import { BorderBeam } from "@/components/magicui/border-beam";
-
 import { cn } from "@/lib/utils";
 import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
 
