@@ -16,24 +16,12 @@ export default function ProjectsPage() {
       socialMedia: [
         { name: "Instagram", url: "https://www.instagram.com/oniworkshop", icon: <IGLogo /> },
       ],
-    },
-    {
-      title: "MitzuStudios Web",
-      description: "Esta pagina web que estas viendo actualmente.",
-      github: "https://github.com/MitzuStudios/-WEB-MitzuStudios",
-      website: "https://www.mitzustudios.tech/",
-      image: "/Previews/MitzuStudiosPage.png",
-      frameworks: ["Next.js", "Tailwind CSS"],
-      socialMedia: [
-        { name: "Instagram", url: "https://www.instagram.com/mitzustudios_cl", icon: <IGLogo /> },
-        { name: "X", url: "https://x.com/mitzustudios_cl", icon: <XIcon /> },
-      ],
-    },
+    },  
   ];
 
   return (
-    <main className="min-h-screen relative overflow-hidden">
-      <div className="absolute inset-0 -z-10">
+    <main className="min-h-screen">
+      <div className="absolute inset-0 -z-10 overflow-hidden">
         <AnimatedGridPattern
           numSquares={30}
           maxOpacity={0.1}
@@ -46,7 +34,7 @@ export default function ProjectsPage() {
         />
       </div>
 
-      <div className="relative z-10 min-h-screen py-12 px-4 sm:px-6 lg:px-8 pt-24">
+      <div className="relative z-10 py-12 px-4 sm:px-6 lg:px-8 pt-24">
         <section className="max-w-7xl mx-auto">
           <h1 className="text-4xl font-extrabold text-center mb-8">Nuestros Proyectos</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

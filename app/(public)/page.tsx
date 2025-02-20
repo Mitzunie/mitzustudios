@@ -38,8 +38,7 @@ export default function Home() {
           </TextAnimate>
           
           <div className="mt-4 flex space-x-4">
-              <Button className="text-sm md:text-md" variant={"primary"} onClick={() => router.push("/projects")}>Ver Portafolio</Button>
-              <Button className="text-sm md:text-md" variant={"primary"} onClick={() => router.push("/contact")}>Contacto</Button>
+              <Button className="text-sm md:text-md" variant={"primary"} onClick={() => router.push("/projects")}>Ver Proyectos</Button>
           </div>
         </section>
       </div>

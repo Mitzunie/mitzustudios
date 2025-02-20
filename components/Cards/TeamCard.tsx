@@ -67,9 +67,7 @@ export default function TeamCard({
               <Link
                 key={index}
                 href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
+                className="text-foreground hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
               >
                 {social.icon}
               </Link>
