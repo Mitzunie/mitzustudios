@@ -1,6 +1,7 @@
 import ProjectCard from "@/components/Cards/ProjectCard";
 import { IGLogo } from "@/components/Icons/Instagram";
 import { XIcon } from "@/components/Icons/Twitter";
+import { DiscordIcon } from "@/components/Icons/Discord"
 import { cn } from "@/lib/utils";
 import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
 
@@ -17,6 +18,17 @@ export default function ProjectsPage() {
         { name: "Instagram", url: "https://www.instagram.com/oniworkshop", icon: <IGLogo /> },
       ],
     },  
+        {
+      title: "R.E.P.O Bot",
+      description: "Bot personalizado para R.E.P.O Latam | Español.",
+      github: "https://github.com/MitzuStudios/R.E.P.O-Discord-Bot",
+      website: "https://disboard.org/es/server/1345616453356879874",
+      image: "/Previews/REPO.png",
+      frameworks: ["JS", "Discord.js"],
+      socialMedia: [
+        { name: "Discord", url: "https://www.discord.com/invite/a3sJmeknnd", icon: <DiscordIcon /> },
+      ],
+    }, 
   ];
 
   return (
