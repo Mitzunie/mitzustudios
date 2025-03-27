@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Quicksand } from "next/font/google";
 import "./../styles/globals.css";
 import Providers from "@/app/providers";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics"
 import clsx from "clsx";
 
 const quicksand = Quicksand({
