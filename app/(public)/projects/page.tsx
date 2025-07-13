@@ -2,7 +2,7 @@ import ProjectCard from "@/components/Cards/ProjectCard";
 import { IGLogo } from "@/components/Icons/Instagram";
 import { XIcon } from "@/components/Icons/Twitter";
 import { FacebookLogo } from "@/components/Icons/Facebook";
-import { TikTokIcon } from "@/components/Icons/Tiktok.tsx";
+import { TikTokIcon } from "@/components/Icons/TikTok.tsx";
 import { DiscordIcon } from "@/components/Icons/Discord";
 import { cn } from "@/lib/utils";
 import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
