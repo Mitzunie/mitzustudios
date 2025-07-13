@@ -8,14 +8,14 @@ import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern"
 export default function ProjectsPage() {
   const projects = [
     {
-      title: "ONI WORKSHOP",
-      description: "Tienda online de vinilos y decals personalizados",
-      github: "https://github.com/MitzuStudios/OniWorkshop",
-      website: "https://oppaisoft.store",
-      image: "/Previews/OniWorkshop.png",
+      title: "NEKOHELL",
+      description: "Catálogo online de la tienda fisica de stickers, llaveros y más.",
+      github: "https://github.com/MitzuStudios/NekoHell",
+      website: "https://nekohello.store",
+      image: "/Previews/NekoHell.png",
       frameworks: ["Next.js", "Tailwind CSS"],
       socialMedia: [
-        { name: "Instagram", url: "https://www.instagram.com/oniworkshop", icon: <IGLogo /> },
+        { name: "Instagram", url: "https://www.instagram.com/nekohell.store", icon: <IGLogo /> },
       ],
     },  
         {
