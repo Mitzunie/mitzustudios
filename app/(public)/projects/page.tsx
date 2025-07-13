@@ -12,7 +12,7 @@ export default function ProjectsPage() {
       description: "Catálogo online de la tienda fisica de stickers, llaveros y más.",
       github: "https://github.com/MitzuStudios/NekoHell",
       website: "https://nekohello.store",
-      image: "/Previews/NekoHell.png",
+      image: "/Previews/NEKOHELL.png",
       frameworks: ["Next.js", "Tailwind CSS"],
       socialMedia: [
         { name: "Instagram", url: "https://www.instagram.com/nekohell.store", icon: <IGLogo /> },
