@@ -1,7 +1,9 @@
 import ProjectCard from "@/components/Cards/ProjectCard";
 import { IGLogo } from "@/components/Icons/Instagram";
 import { XIcon } from "@/components/Icons/Twitter";
-import { DiscordIcon } from "@/components/Icons/Discord"
+import { FacebookLogo } from "@/components/Icons/Facebook";
+import { TiktokIcon } from "@/components/Iconts/Tiktok.tsx";
+import { DiscordIcon } from "@/components/Icons/Discord";
 import { cn } from "@/lib/utils";
 import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
 
@@ -10,12 +12,15 @@ export default function ProjectsPage() {
     {
       title: "NEKOHELL",
       description: "Catálogo online de la tienda fisica de stickers, llaveros y más.",
-      github: "https://github.com/MitzuStudios/NekoHell",
+      github: "https://github.com/MitzuStudios",
       website: "https://nekohello.store",
       image: "/Previews/NEKOHELL.png",
       frameworks: ["Next.js", "Tailwind CSS"],
       socialMedia: [
         { name: "Instagram", url: "https://www.instagram.com/nekohell.store", icon: <IGLogo /> },
+        { name: "Facebook", url: "https://www.facebook.com/profile.php?id=61577944083577", icon: <FacebookLogo /> },
+        { name: "X", url: "https://x.com/NekoHellStore", icon: <XIcon /> },
+        { name: "TikTok", url: "https://www.tiktok.com/@nekohell.store", icon: <TikTokIcon /> },
       ],
     },  
         {
