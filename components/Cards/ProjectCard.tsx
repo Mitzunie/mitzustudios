@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { GithubIcon } from "@/components/Icons/Github";
 import Link from "next/link";
 import { JSX } from "react";
-import { BorderBeam } from "@/components/magicui/border-beam"; // Importar BorderBeam
 
 interface ProjectCardProps {
   title: string;
@@ -29,82 +28,102 @@ export default function ProjectCard({
   className,
 }: ProjectCardProps) {
   return (
-    <Card className={`relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ${className}`}>
-      <BorderBeam
-        duration={5}
-        size={400}
-        className="from-transparent via-purple-500 to-transparent"
-      />
-      <BorderBeam
-        duration={5}
-        delay={3}
-        size={400}
-        className="from-transparent via-purple-500 to-transparent"
-      />
+    <div className={`project-card-enhanced group ${className} max-w-sm mx-auto`}>
+      {/* Hero Image Section */}
+      <div className="relative h-48 overflow-hidden rounded-t-2xl">
+        <div
+          className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+          style={{ backgroundImage: `url('${image}')` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+        
+        {/* Floating Action Button */}
+        <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+          <Link href={website} passHref legacyBehavior>
+            <a target="_blank" rel="noopener noreferrer">
+              <button className="clean-button text-xs px-3 py-1.5 rounded-lg shadow-lg">
+                Ver Sitio
+              </button>
+            </a>
+          </Link>
+        </div>
 
-      <div
-        className="h-48 bg-cover bg-center"
-        style={{ backgroundImage: `url('${image}')` }}
-      ></div>
+        {/* Title Overlay */}
+        <div className="absolute bottom-4 left-4 right-4">
+          <h3 className="text-white font-bold text-xl mb-1 drop-shadow-lg">
+            {title}
+          </h3>
+        </div>
+      </div>
 
-      <div className="p-6">
-        <CardHeader className="p-0">
-          <CardTitle className="text-2xl font-bold text-foreground">{title}</CardTitle>
-        </CardHeader>
-
+      {/* Content Section */}
+      <div className="p-6 space-y-5">
         {description && (
-          <p className="text-foreground text-sm">
-            {description}
-          </p>
+          <div className="text-center">
+            <p className="clean-subtitle text-sm leading-relaxed line-clamp-3">
+              {description}
+            </p>
+          </div>
         )}
 
+        {/* Frameworks Section */}
         {frameworks && frameworks.length > 0 && (
-          <div className="mt-4">
-            <h3 className="text-sm font-semibold text-foreground">Frameworks utilizados:</h3>
-            <div className="flex flex-wrap gap-2 mt-1">
+          <div className="space-y-3">
+            <div className="flex flex-wrap gap-2 justify-center">
               {frameworks.map((framework, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-1 text-sm bg-background text-foreground rounded-full"
-                >
+                <span key={index} className="clean-tag text-xs px-3 py-1.5">
                   {framework}
                 </span>
               ))}
             </div>
           </div>
         )}
-      </div>
 
-      <CardFooter className="p-6 flex justify-between items-center">
-        <Link href={website} passHref legacyBehavior>
-          <a target="_blank" rel="noopener noreferrer">
-            <Button variant={"primary"}>
-              Sitio Web
-            </Button>
-          </a>
-        </Link>
+        {/* Social Media Section - Enhanced */}
+        {socialMedia && socialMedia.length > 0 && (
+          <div className="space-y-4">
+            <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider text-center">
+              Redes Sociales
+            </h4>
+            <div className="social-grid">
+              {socialMedia.map((social, index) => (
+                <Link key={index} href={social.url} passHref legacyBehavior>
+                  <a 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="clean-social-icon"
+                    title={social.name}
+                  >
+                    <div className="w-5 h-5">{social.icon}</div>
+                  </a>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
-        <div className="flex space-x-4">
-          <Link href={github} passHref legacyBehavior>
-            <a target="_blank" rel="noopener noreferrer" className="text-foregorund hover:text-gray-900 transition-colors duration-300">
-              <GithubIcon />
-            </a>
-          </Link>
-
-          {socialMedia?.map((social, index) => (
-            <Link
-              key={index}
-              href={social.url}
-              passHref
-              legacyBehavior
-            >
-              <a target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-gray-900 transition-colors duration-300">
-                {social.icon}
+        {/* Action Section - Enhanced */}
+        <div className="pt-4 border-t border-border">
+          <div className="button-grid">
+            <Link href={github} passHref legacyBehavior>
+              <a target="_blank" rel="noopener noreferrer" className="w-full">
+                <button className="clean-button-outline w-full">
+                  <GithubIcon className="w-4 h-4" />
+                  Código
+                </button>
               </a>
             </Link>
-          ))}
+
+            <Link href={website} passHref legacyBehavior>
+              <a target="_blank" rel="noopener noreferrer" className="w-full">
+                <button className="clean-button w-full">
+                  Ver Sitio
+                </button>
+              </a>
+            </Link>
+          </div>
         </div>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 }

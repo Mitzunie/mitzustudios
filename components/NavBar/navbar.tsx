@@ -11,76 +11,78 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="backdrop-blur-lg py-3 fixed w-full z-50 bg-background/90 border-b border-gray-300 dark:border-gray-700 shadow-md">
+    <header className="backdrop-blur-xl py-4 fixed w-full z-50 bg-background/90 border-b border-border">
       <div className="container mx-auto flex justify-between items-center px-6">
-   
-        <div className="flex items-center space-x-2 text-foreground hover:text-primary transition-colors duration-300">
-          <Link href="/">
-            <Logo className="cursor-pointer w-10 h-10 transition-transform duration-300 hover:scale-110" />
-          </Link>
-          <Link href="/">
-            <span className="text-xl font-bold cursor-pointer">
+        {/* Logo Section */}
+        <div className="flex items-center space-x-4 group">
+          <Link href="/" className="flex items-center space-x-4">
+            <div className="relative">
+              <Logo className="w-12 h-12 transition-all duration-200 group-hover:scale-105 text-primary" />
+            </div>
+            <span className="clean-heading-md text-foreground">
               MitzuStudios
             </span>
           </Link>
         </div>
 
-        {/* Botón de menú en dispositivos móviles */}
+        {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-primary hover:text-primary/80 transition-colors duration-300"
+          className="md:hidden clean-social-icon"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
 
+        {/* Navigation */}
         <nav
-          className={`md:relative md:flex bg-background md:bg-transparent backdrop-blur-lg w-full md:w-auto fixed md:static top-0 left-0 h-screen md:h-auto p-6 md:p-0 transition-transform duration-300 ${
-            isMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+          className={`md:relative md:flex bg-background/95 md:bg-transparent backdrop-blur-xl w-full md:w-auto fixed md:static top-0 left-0 h-screen md:h-auto p-6 md:p-0 transition-all duration-300 ${
+            isMenuOpen ? 'translate-x-0 opacity-100' : '-translate-x-full md:translate-x-0 opacity-0 md:opacity-100'
           }`}
         >
-          <div className="md:hidden flex justify-between items-center mb-6">
-            <span className="text-lg font-bold ml-2 text-foreground">MITZUSTUDIOS</span>
-            <button onClick={() => setIsMenuOpen(false)} className="text-foreground hover:text-primary transition-colors duration-300">
-              <X size={28} />
+          {/* Mobile Header */}
+          <div className="md:hidden flex justify-between items-center mb-8 pb-6 border-b border-border">
+            <span className="clean-heading-md text-foreground">MITZUSTUDIOS</span>
+            <button 
+              onClick={() => setIsMenuOpen(false)} 
+              className="clean-social-icon"
+            >
+              <X size={20} />
             </button>
           </div>
 
-          <ul className="flex flex-col md:flex-row md:space-x-6 text-lg w-full items-center justify-center md:justify-end">
+          {/* Navigation Links */}
+          <ul className="flex flex-col md:flex-row md:items-center md:space-x-8 space-y-6 md:space-y-0">
             <li>
               <Link
                 href="/"
-                className="relative block py-2 md:py-0 text-center text-sm font-semibold text-foreground transition-colors duration-300 hover:text-primary after:block after:content-[''] after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 after:hover:w-full"
+                className="relative block text-center text-foreground font-medium text-base transition-all duration-200 hover:text-muted-foreground group"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Inicio
+                <span className="relative z-10">Inicio</span>
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-200 group-hover:w-full"></div>
               </Link>
             </li>
             <li>
               <Link
                 href="/projects"
-                className="relative block py-2 md:py-0 text-center text-sm font-semibold text-foreground transition-colors duration-300 hover:text-primary after:block after:content-[''] after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 after:hover:w-full"
+                className="relative block text-center text-foreground font-medium text-base transition-all duration-200 hover:text-muted-foreground group"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Proyectos
+                <span className="relative z-10">Proyectos</span>
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-200 group-hover:w-full"></div>
               </Link>
             </li>
-            <li>
-              <Link
-                href="/staff"
-                className="relative block py-2 md:py-0 text-center text-sm font-semibold text-foreground transition-colors duration-300 hover:text-primary after:block after:content-[''] after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 after:hover:w-full"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Personal
-              </Link>
-            </li>
-            <li className="mt-4 md:mt-0 flex justify-center md:justify-start">
-              <ThemeToggle />
+            <li className="md:ml-4">
+              <div className="flex justify-center md:justify-start">
+                <ThemeToggle />
+              </div>
             </li>
           </ul>
         </nav>
       </div>
 
-      <ScrollProgress className="top-[65px]" />
+      {/* Simple Scroll Progress with Purple */}
+      <ScrollProgress className="top-[81px] h-1 bg-primary" />
     </header>
   );
 };

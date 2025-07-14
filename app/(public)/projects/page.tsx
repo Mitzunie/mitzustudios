@@ -1,11 +1,12 @@
+'use client';
+
 import ProjectCard from "@/components/Cards/ProjectCard";
 import { IGLogo } from "@/components/Icons/Instagram";
 import { XIcon } from "@/components/Icons/Twitter";
 import { FacebookLogo } from "@/components/Icons/Facebook";
 import { TikTokIcon } from "@/components/Icons/TikTok";
 import { DiscordIcon } from "@/components/Icons/Discord";
-import { cn } from "@/lib/utils";
-import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
+import { DarkBackground } from "@/components/magicui/dark-background";
 
 export default function ProjectsPage() {
   const projects = [
@@ -23,7 +24,7 @@ export default function ProjectsPage() {
         { name: "TikTok", url: "https://www.tiktok.com/@nekohell.store", icon: <TikTokIcon /> },
       ],
     },  
-        {
+    {
       title: "R.E.P.O Bot",
       description: "Bot personalizado para R.E.P.O Latam | Español.",
       github: "https://github.com/MitzuStudios/R.E.P.O-Discord-Bot",
@@ -37,27 +38,34 @@ export default function ProjectsPage() {
   ];
 
   return (
-    <main className="min-h-screen">
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <AnimatedGridPattern
-          numSquares={30}
-          maxOpacity={0.1}
-          duration={3}
-          repeatDelay={1}
-          className={cn(
-            "[mask-image:radial-gradient(1000px_circle_at_center,white,transparent)]",
-            "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12",
-          )}
-        />
-      </div>
+    <main className="min-h-screen relative overflow-hidden">
+      
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto text-center">
+          <div className="space-y-6">
+            <h1 className="clean-heading-xl">
+              Mis Proyectos
+            </h1>
+            <p className="clean-subtitle max-w-2xl mx-auto">
+              Una colección de mis proyectos personales desarrollados bajo la marca MitzuStudios. 
+              Cada uno representa mi exploración de diferentes tecnologías y conceptos.
+            </p>
+            
+            {/* Simple Decorative Line with Purple */}
+            <div className="flex justify-center pt-4">
+              <div className="w-24 h-0.5 bg-primary rounded-full"></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <div className="relative z-10 py-12 px-4 sm:px-6 lg:px-8 pt-24">
-        <section className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-extrabold text-center mb-8">Nuestros Proyectos</h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Projects Grid */}
+      <section className="relative pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 place-items-center">
             {projects.map((project, index) => (
               <ProjectCard
-                className="hover:scale-105 shadow-lg hover:shadow-xl transition-transform duration-300"
                 key={index}
                 title={project.title}
                 description={project.description}
@@ -66,11 +74,41 @@ export default function ProjectsPage() {
                 image={project.image}
                 frameworks={project.frameworks}
                 socialMedia={project.socialMedia}
+                className="w-full transform transition-all duration-300 hover:scale-105"
               />
             ))}
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="relative py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="clean-card p-10 space-y-6">
+            <h2 className="clean-heading-lg">
+              ¿Interesado en mi trabajo?
+            </h2>
+            <p className="clean-subtitle">
+              Puedes explorar el código de mis proyectos en GitHub o seguir mis actualizaciones 
+              para ver en qué estoy trabajando actualmente.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <button 
+                className="clean-button"
+                onClick={() => window.open("https://github.com/MitzuStudios", "_blank")}
+              >
+                Ver GitHub
+              </button>
+              <button 
+                className="clean-button-outline"
+                onClick={() => window.open("https://x.com/mitzustudios_cl", "_blank")}
+              >
+                Seguir Actualizaciones
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
