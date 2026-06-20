@@ -1,7 +1,7 @@
 {
-  "phase": "spec-analyst-complete",
+  "phase": "architect-approved",
   "feature": "mitzustudios-portfolio",
-  "branch": "main",
+  "branch": "master",
   "stack": {
     "frontend": "nextjs-16",
     "backend": "nextjs-api-routes",
@@ -16,28 +16,45 @@
     "storage": "cloudinary",
     "hosting": "vercel",
     "testing": "vitest",
-    "monorepo": "turborepo-pnpm"
+    "monorepo": "turborepo-pnpm",
+    "whatsapp": "wa-me-links",
+    "analytics": "google-analytics"
   },
   "history": [
     {
-      "phase": "init",
-      "timestamp": "2026-06-19T23:18:00Z",
-      "notes": "Preflight completado. Stack confirmado con usuario: Next.js 16, shadcn/ui+Tailwind v4, Prisma, Auth.js (email+password), Resend, Cloudinary, Vitest, Turborepo. Panel admin para solicitudes y proyectos."
+      "phase": "architect-update-d01",
+      "timestamp": "2026-06-20T00:45:00Z",
+      "notes": "D-01 actualizado por petición del usuario: Auth.js + PrismaAdapter + User model. Página de registro temporal para que Mitzu cree los 3 admins desde la UI. Después del setup se eliminará /register + /api/auth/register."
     },
     {
-      "phase": "spec-iteration-2",
-      "timestamp": "2026-06-20T00:00:00Z",
-      "notes": "Iteración #2 de specs. Decisiones finales aplicadas: select tipo proyecto con 'Otro', WhatsApp integrado en flujo contacto/respuesta, 3 admins via env vars, estados proyecto (publicado/oculto/borrador), imagen opcional, links GitHub opcionales, i18n solo labels, GA solo prod."
+      "phase": "git-keeper-commit-specs",
+      "timestamp": "2026-06-20T00:22:00Z",
+      "notes": "Root commit creado: docs(specs): especificaciones completas del portfolio MitzuStudios."
+    },
+    {
+      "phase": "architect-generated",
+      "timestamp": "2026-06-20T00:30:00Z",
+      "notes": "Architecture.md generado con 10 decisiones (D-01 a D-10). 40 specs mapeadas a componentes/rutas. 1382 lineas de diseño arquitectónico."
     },
     {
       "phase": "spec-iteration-3",
       "timestamp": "2026-06-20T00:10:00Z",
-      "notes": "Iteración #3. Eliminados todos los items relacionados con SEO: SF-31 (meta/OG/sitemap), SNF-10, SNF-11, CA-16, escenario BDD en landing.feature, asunción de sitemap. Renumeración de SF/SNF/CA posterior."
+      "notes": "Iteración #3. SEO eliminado."
+    },
+    {
+      "phase": "spec-iteration-2",
+      "timestamp": "2026-06-20T00:00:00Z",
+      "notes": "Iteración #2 de specs. Decisiones finales aplicadas."
+    },
+    {
+      "phase": "init",
+      "timestamp": "2026-06-19T23:18:00Z",
+      "notes": "Preflight completado."
     }
   ],
   "approvals": {
     "specs": true,
-    "architecture": null,
+    "architecture": true,
     "release": null
   },
   "review_iteration": 0,
