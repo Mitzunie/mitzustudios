@@ -14,21 +14,21 @@ No hay package.json, tsconfig, prisma/ ni src/.
 
 ## Stack aplicado a este feature
 
-| Capa | Tech | Razón |
-|------|------|-------|
-| Frontend | Next.js 16 (App Router) | Framework todo-en-uno, API routes + RSC |
-| UI | shadcn/ui + Tailwind CSS v4 | Componentes accesibles, dark mode nativo |
-| Estado cliente | Zustand | Ligero, persist middleware para tema/idioma |
-| Formularios | react-hook-form + @hookform/resolvers/zod | Validación cliente/servidor unificada |
-| ORM | Prisma | Tipado fuerte, migrations, serverless-friendly |
-| DB | PostgreSQL (Neon serverless) | Escalable, compatible Prisma |
-| Auth | Auth.js (NextAuth v5) — Credentials provider | JWT stateless, sin dependencia de DB |
-| Email | Resend | API simple, SDK moderno, React email templates |
-| Storage | Cloudinary | Upload server-side, optimización automática |
-| Hosting | Vercel | Edge network, dominio `mitzustudios.online` apuntado |
-| Monorepo | Turborepo + pnpm workspaces | Escalabilidad futura (packages/db, packages/shared) |
-| Testing | Vitest | Rápido, compatible Vite, usado en ecosistema Turborepo |
-| Analytics | Google Analytics v4 (GA4) | Solo producción, page views + evento contacto |
+| Capa           | Tech                                         | Razón                                                  |
+| -------------- | -------------------------------------------- | ------------------------------------------------------ |
+| Frontend       | Next.js 16 (App Router)                      | Framework todo-en-uno, API routes + RSC                |
+| UI             | shadcn/ui + Tailwind CSS v4                  | Componentes accesibles, dark mode nativo               |
+| Estado cliente | Zustand                                      | Ligero, persist middleware para tema/idioma            |
+| Formularios    | react-hook-form + @hookform/resolvers/zod    | Validación cliente/servidor unificada                  |
+| ORM            | Prisma                                       | Tipado fuerte, migrations, serverless-friendly         |
+| DB             | PostgreSQL (Neon serverless)                 | Escalable, compatible Prisma                           |
+| Auth           | Auth.js (NextAuth v5) — Credentials provider | JWT stateless, sin dependencia de DB                   |
+| Email          | Resend                                       | API simple, SDK moderno, React email templates         |
+| Storage        | Cloudinary                                   | Upload server-side, optimización automática            |
+| Hosting        | Vercel                                       | Edge network, dominio `mitzustudios.online` apuntado   |
+| Monorepo       | Turborepo + pnpm workspaces                  | Escalabilidad futura (packages/db, packages/shared)    |
+| Testing        | Vitest                                       | Rápido, compatible Vite, usado en ecosistema Turborepo |
+| Analytics      | Google Analytics v4 (GA4)                    | Solo producción, page views + evento contacto          |
 
 ## Decisiones arquitectónicas
 
@@ -454,6 +454,7 @@ model Response {
 ```
 
 **Migración inicial:**
+
 ```bash
 cd packages/db
 npx prisma migrate dev --name init
@@ -461,6 +462,7 @@ npx prisma generate      # genera cliente en packages/db
 ```
 
 **Seed (opcional):**
+
 ```bash
 # packages/db/prisma/seed.ts — proyectos demo para desarrollo
 npx prisma db seed       # si se configura en package.json
@@ -483,7 +485,7 @@ export interface ProjectDTO {
   imageUrl: string | null
   status: 'PUBLISHED' | 'HIDDEN' | 'DRAFT'
   technologies: TechnologyDTO[]
-  createdAt: string   // ISO date
+  createdAt: string // ISO date
   updatedAt: string
 }
 
@@ -503,7 +505,7 @@ export interface CreateProjectInput {
 }
 
 export interface UpdateProjectInput extends Partial<CreateProjectInput> {
-  imageUrl?: string | null  // null = eliminar imagen
+  imageUrl?: string | null // null = eliminar imagen
 }
 ```
 
@@ -568,14 +570,7 @@ export interface PaginatedResponse<T> extends ApiResponse<T[]> {
 // packages/shared/src/schemas/contact.ts
 import { z } from 'zod'
 
-export const PROJECT_TYPES = [
-  'landing',
-  'ecommerce',
-  'webapp',
-  'api',
-  'redesign',
-  'other',
-] as const
+export const PROJECT_TYPES = ['landing', 'ecommerce', 'webapp', 'api', 'redesign', 'other'] as const
 
 export const PROJECT_TYPE_LABELS: Record<string, string> = {
   landing: 'Landing Page',
@@ -586,17 +581,19 @@ export const PROJECT_TYPE_LABELS: Record<string, string> = {
   other: 'Otro',
 }
 
-export const contactSchema = z.object({
-  clientName: z.string().min(1, 'El nombre es requerido').max(100),
-  clientEmail: z.string().email('Email inválido'),
-  clientPhone: z.string().min(7, 'Teléfono inválido').max(20),
-  projectType: z.enum(PROJECT_TYPES),
-  otherType: z.string().optional(),
-  description: z.string().min(10, 'Describe tu proyecto (mín. 10 caracteres)').max(2000),
-}).refine(
-  (data) => data.projectType !== 'other' || (data.otherType && data.otherType.length > 0),
-  { message: 'Describe el tipo de proyecto', path: ['otherType'] }
-)
+export const contactSchema = z
+  .object({
+    clientName: z.string().min(1, 'El nombre es requerido').max(100),
+    clientEmail: z.string().email('Email inválido'),
+    clientPhone: z.string().min(7, 'Teléfono inválido').max(20),
+    projectType: z.enum(PROJECT_TYPES),
+    otherType: z.string().optional(),
+    description: z.string().min(10, 'Describe tu proyecto (mín. 10 caracteres)').max(2000),
+  })
+  .refine((data) => data.projectType !== 'other' || (data.otherType && data.otherType.length > 0), {
+    message: 'Describe el tipo de proyecto',
+    path: ['otherType'],
+  })
 
 export type ContactFormValues = z.infer<typeof contactSchema>
 ```
@@ -615,7 +612,7 @@ export type LoginFormValues = z.infer<typeof loginSchema>
 // packages/shared/src/schemas/project.ts
 export const technologySchema = z.object({
   name: z.string().min(1).max(50),
-  icon: z.string().min(1).max(50),   // nombre del icono (lucide, simple-icons, etc.)
+  icon: z.string().min(1).max(50), // nombre del icono (lucide, simple-icons, etc.)
   url: z.string().url().optional().or(z.literal('')),
 })
 
@@ -639,7 +636,7 @@ export type UpdateProjectFormValues = z.infer<typeof updateProjectSchema>
 
 ```ts
 // packages/shared/src/i18n/index.ts
-export type Dictionary = typeof es  // es como referencia, define la estructura
+export type Dictionary = typeof es // es como referencia, define la estructura
 
 export { es } from './es'
 export { en } from './en'
@@ -664,27 +661,28 @@ footer: { copyright, ... }
 
 ## API Routes
 
-| Método | Path | Auth | Input | Output | Spec |
-|--------|------|------|-------|--------|------|
-| POST | `/api/auth/[...nextauth]` | No | credentials | sesión JWT (Auth.js) | SF-13 |
-| POST | `/api/auth/register` | No (TEMPORAL) | `{ name, email, password }` | `ApiResponse<null>` | SF-13 (setup) |
-| GET | `/api/auth/session` | No | — | session object | SF-16 |
-| POST | `/api/contact` | No | `multipart/form-data` o JSON con `ContactFormValues` | `ApiResponse<{ id: string }>` | SF-08, SF-10 |
-| GET | `/api/admin/projects` | Sí (admin) | `?status=PUBLISHED&page=1` | `PaginatedResponse<ProjectDTO>` | SF-26, SF-40 |
-| POST | `/api/admin/projects` | Sí (admin) | `multipart/form-data` (fields + image opcional) | `ApiResponse<ProjectDTO>` | SF-22, SF-25 |
-| GET | `/api/admin/projects/[id]` | Sí (admin) | — | `ApiResponse<ProjectDTO>` | SF-23 |
-| PATCH | `/api/admin/projects/[id]` | Sí (admin) | `multipart/form-data` (fields + image opcional) | `ApiResponse<ProjectDTO>` | SF-23, SF-25 |
-| DELETE | `/api/admin/projects/[id]` | Sí (admin) | — | `ApiResponse<null>` | SF-24 |
-| POST | `/api/upload` | Sí (admin) | `multipart/form-data` (file) | `ApiResponse<{ url: string }>` | SF-25 (fallback si se usa upload separado) |
-| GET | `/api/admin/requests` | Sí (admin) | `?status=UNREAD&page=1` | `PaginatedResponse<ServiceRequestDTO>` | SF-18, SF-21 |
-| GET | `/api/admin/requests/[id]` | Sí (admin) | — | `ApiResponse<ServiceRequestDTO>` | SF-19 |
-| PATCH | `/api/admin/requests/[id]` | Sí (admin + ADMIN_EMAILS) | `{ status: 'READ' \| 'ANSWERED' }` | `ApiResponse<ServiceRequestDTO>` | SF-19 |
-| POST | `/api/admin/requests/[id]/respond` | Sí (admin) | `{ content: string, channel: 'WHATSAPP' \| 'EMAIL' }` | `ApiResponse<ResponseDTO>` | SF-36, SF-37 |
+| Método | Path                               | Auth                      | Input                                                 | Output                                 | Spec                                       |
+| ------ | ---------------------------------- | ------------------------- | ----------------------------------------------------- | -------------------------------------- | ------------------------------------------ |
+| POST   | `/api/auth/[...nextauth]`          | No                        | credentials                                           | sesión JWT (Auth.js)                   | SF-13                                      |
+| POST   | `/api/auth/register`               | No (TEMPORAL)             | `{ name, email, password }`                           | `ApiResponse<null>`                    | SF-13 (setup)                              |
+| GET    | `/api/auth/session`                | No                        | —                                                     | session object                         | SF-16                                      |
+| POST   | `/api/contact`                     | No                        | `multipart/form-data` o JSON con `ContactFormValues`  | `ApiResponse<{ id: string }>`          | SF-08, SF-10                               |
+| GET    | `/api/admin/projects`              | Sí (admin)                | `?status=PUBLISHED&page=1`                            | `PaginatedResponse<ProjectDTO>`        | SF-26, SF-40                               |
+| POST   | `/api/admin/projects`              | Sí (admin)                | `multipart/form-data` (fields + image opcional)       | `ApiResponse<ProjectDTO>`              | SF-22, SF-25                               |
+| GET    | `/api/admin/projects/[id]`         | Sí (admin)                | —                                                     | `ApiResponse<ProjectDTO>`              | SF-23                                      |
+| PATCH  | `/api/admin/projects/[id]`         | Sí (admin)                | `multipart/form-data` (fields + image opcional)       | `ApiResponse<ProjectDTO>`              | SF-23, SF-25                               |
+| DELETE | `/api/admin/projects/[id]`         | Sí (admin)                | —                                                     | `ApiResponse<null>`                    | SF-24                                      |
+| POST   | `/api/upload`                      | Sí (admin)                | `multipart/form-data` (file)                          | `ApiResponse<{ url: string }>`         | SF-25 (fallback si se usa upload separado) |
+| GET    | `/api/admin/requests`              | Sí (admin)                | `?status=UNREAD&page=1`                               | `PaginatedResponse<ServiceRequestDTO>` | SF-18, SF-21                               |
+| GET    | `/api/admin/requests/[id]`         | Sí (admin)                | —                                                     | `ApiResponse<ServiceRequestDTO>`       | SF-19                                      |
+| PATCH  | `/api/admin/requests/[id]`         | Sí (admin + ADMIN_EMAILS) | `{ status: 'READ' \| 'ANSWERED' }`                    | `ApiResponse<ServiceRequestDTO>`       | SF-19                                      |
+| POST   | `/api/admin/requests/[id]/respond` | Sí (admin)                | `{ content: string, channel: 'WHATSAPP' \| 'EMAIL' }` | `ApiResponse<ResponseDTO>`             | SF-36, SF-37                               |
 
 ### Registro temporal (se eliminará tras setup)
 
 `POST /api/auth/register` es **temporal**. Solo existe para que Mitzu cree sus 3 cuentas admin desde la UI. Después de crear las 3 cuentas, se elimina:
-- `apps/web/src/app/api/auth/register/route.ts` 
+
+- `apps/web/src/app/api/auth/register/route.ts`
 - `apps/web/src/app/register/page.tsx` (o el componente de registro)
 - Cualquier referencia en el navbar/routing
 
@@ -702,7 +700,7 @@ export async function requireAdmin() {
     throw new Error('Unauthorized')
   }
   // Verificar que el email está en ADMIN_EMAILS (autorización, no autenticación)
-  const adminEmails = env.ADMIN_EMAILS.split(',').map(e => e.trim().toLowerCase())
+  const adminEmails = env.ADMIN_EMAILS.split(',').map((e) => e.trim().toLowerCase())
   if (!adminEmails.includes(session.user.email.toLowerCase())) {
     throw new Error('Forbidden')
   }
@@ -941,48 +939,48 @@ ContactForm submit exitoso:
 
 ## Mapeo specs → archivos
 
-| Spec | Archivo(s) | Función(es) / Componente(s) |
-|------|------------|---------------------------|
-| SF-01 | `apps/web/src/app/page.tsx`, `components/landing/HeroSection.tsx` | HeroSection render |
-| SF-02 | `components/landing/AboutSection.tsx` | AboutSection render |
-| SF-03 | `components/landing/ServicesSection.tsx` | ServicesSection render |
-| SF-04 | `components/landing/ProjectsSection.tsx` | fetch projects → mapea ProjectCard[] |
-| SF-05 | `components/landing/ContactSection.tsx` | wrapper que contiene ContactForm |
-| SF-06 | `components/landing/ContactSection.tsx`, `components/.../ContactForm.tsx` (creado inline o separado) | Form fields + projectType select + otherType condicional |
-| SF-07 | `packages/shared/src/schemas/contact.ts` | `contactSchema` (Zod) |
-| SF-08 | `apps/web/src/app/api/contact/route.ts`, `lib/resend.ts` | `POST /api/contact` handler, `sendEmail()` |
-| SF-09 | `components/.../ContactForm.tsx` | toast/alert success/error |
-| SF-10 | `lib/rate-limit.ts` + `app/api/contact/route.ts` | rate limiter check antes de procesar |
-| SF-11 | `components/projects/ProjectCard.tsx`, `components/projects/TechnologyBadge.tsx` | Card con título, desc, img, techs |
-| SF-12 | `app/api/admin/projects/route.ts` | `orderBy: { createdAt: 'desc' }` |
-| SF-13 | `app/admin/login/page.tsx`, `app/register/page.tsx` (temporal), `lib/auth.ts`, `lib/auth.config.ts` | LoginForm, RegisterForm (temporal), Auth.js credentials provider |
-| SF-14 | `lib/auth.ts`, `middleware.ts` | `authorize()` busca user en DB + verifica contra `ADMIN_EMAILS` |
-| SF-15 | `components/admin/AdminHeader.tsx` | signOut() button |
-| SF-16 | `lib/auth.ts` (JWT strategy), `middleware.ts` | JWT session, middleware protege rutas |
-| SF-17 | `lib/rate-limit.ts` + `lib/auth.ts` | rate limiter en endpoint credentials |
-| SF-18 | `app/admin/requests/page.tsx`, `components/admin/RequestsList.tsx` | Lista de solicitudes |
-| SF-19 | `app/admin/requests/[id]/page.tsx`, `app/api/admin/requests/[id]/route.ts` | Detail + PATCH status |
-| SF-20 | `components/admin/ResponseForm.tsx`, `app/api/admin/requests/[id]/respond/route.ts` | ResponseForm + POST respond |
-| SF-21 | `components/admin/FilterBar.tsx`, `app/api/admin/requests/route.ts` | Filter por status query param |
-| SF-22 | `app/admin/projects/new/page.tsx`, `components/admin/ProjectForm.tsx` | Form create + submit |
-| SF-23 | `app/admin/projects/[id]/page.tsx`, `app/api/admin/projects/[id]/route.ts` | Form edit + submit |
-| SF-24 | `components/admin/ProjectsTable.tsx`, `app/api/admin/projects/[id]/route.ts` | Delete confirm + DELETE |
-| SF-25 | `components/admin/ImageUploadField.tsx`, `lib/cloudinary.ts` | Upload form field + Cloudinary helper |
-| SF-26 | `app/api/admin/projects/route.ts` | `orderBy: { createdAt: 'desc' }` |
-| SF-27 | `components/shared/ThemeToggle.tsx`, `stores/theme.ts`, `app/layout.tsx` | Toggle + Zustand + class on html |
-| SF-28 | `components/shared/SectionAnimation.tsx`, `hooks/useIntersectionObserver.ts` | Observer + CSS transitions |
-| SF-29 | (global) `app/globals.css` | Media queries, responsive classes |
-| SF-30 | `components/shared/LanguageToggle.tsx`, `stores/language.ts`, `hooks/useTranslations.ts`, `packages/shared/src/i18n/` | Toggle + Zustand + dictionary |
-| SF-31 | `components/shared/GoogleAnalytics.tsx`, `app/layout.tsx` | GA4 script + event tracking |
-| SF-32 | `packages/shared/src/schemas/contact.ts` | PROJECT_TYPES enum + conditional otherType |
-| SF-33 | `lib/whatsapp.ts`, `components/admin/RequestsList.tsx` | wa.me link generator, button en admin |
-| SF-34 | `components/.../ContactForm.tsx` | Mensaje post-submit |
-| SF-35 | `app/api/admin/projects/route.ts` (GET pública) | `where: { status: 'PUBLISHED' }` |
-| SF-36 | `components/admin/ResponseForm.tsx`, `lib/whatsapp.ts` | wa.me link con número del cliente |
-| SF-37 | `components/admin/ResponseForm.tsx`, `lib/resend.ts` | Resend.send() al email del cliente |
-| SF-38 | `packages/shared/src/schemas/project.ts`, `app/api/admin/projects/route.ts` | `status: ProjectStatus`, default DRAFT |
-| SF-39 | `components/admin/ProjectForm.tsx`, `app/api/admin/projects/[id]/route.ts` | Status selector + PATCH |
-| SF-40 | `components/admin/FilterBar.tsx`, `app/api/admin/projects/route.ts` | Filter por status query param |
+| Spec  | Archivo(s)                                                                                                            | Función(es) / Componente(s)                                      |
+| ----- | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| SF-01 | `apps/web/src/app/page.tsx`, `components/landing/HeroSection.tsx`                                                     | HeroSection render                                               |
+| SF-02 | `components/landing/AboutSection.tsx`                                                                                 | AboutSection render                                              |
+| SF-03 | `components/landing/ServicesSection.tsx`                                                                              | ServicesSection render                                           |
+| SF-04 | `components/landing/ProjectsSection.tsx`                                                                              | fetch projects → mapea ProjectCard[]                             |
+| SF-05 | `components/landing/ContactSection.tsx`                                                                               | wrapper que contiene ContactForm                                 |
+| SF-06 | `components/landing/ContactSection.tsx`, `components/.../ContactForm.tsx` (creado inline o separado)                  | Form fields + projectType select + otherType condicional         |
+| SF-07 | `packages/shared/src/schemas/contact.ts`                                                                              | `contactSchema` (Zod)                                            |
+| SF-08 | `apps/web/src/app/api/contact/route.ts`, `lib/resend.ts`                                                              | `POST /api/contact` handler, `sendEmail()`                       |
+| SF-09 | `components/.../ContactForm.tsx`                                                                                      | toast/alert success/error                                        |
+| SF-10 | `lib/rate-limit.ts` + `app/api/contact/route.ts`                                                                      | rate limiter check antes de procesar                             |
+| SF-11 | `components/projects/ProjectCard.tsx`, `components/projects/TechnologyBadge.tsx`                                      | Card con título, desc, img, techs                                |
+| SF-12 | `app/api/admin/projects/route.ts`                                                                                     | `orderBy: { createdAt: 'desc' }`                                 |
+| SF-13 | `app/admin/login/page.tsx`, `app/register/page.tsx` (temporal), `lib/auth.ts`, `lib/auth.config.ts`                   | LoginForm, RegisterForm (temporal), Auth.js credentials provider |
+| SF-14 | `lib/auth.ts`, `middleware.ts`                                                                                        | `authorize()` busca user en DB + verifica contra `ADMIN_EMAILS`  |
+| SF-15 | `components/admin/AdminHeader.tsx`                                                                                    | signOut() button                                                 |
+| SF-16 | `lib/auth.ts` (JWT strategy), `middleware.ts`                                                                         | JWT session, middleware protege rutas                            |
+| SF-17 | `lib/rate-limit.ts` + `lib/auth.ts`                                                                                   | rate limiter en endpoint credentials                             |
+| SF-18 | `app/admin/requests/page.tsx`, `components/admin/RequestsList.tsx`                                                    | Lista de solicitudes                                             |
+| SF-19 | `app/admin/requests/[id]/page.tsx`, `app/api/admin/requests/[id]/route.ts`                                            | Detail + PATCH status                                            |
+| SF-20 | `components/admin/ResponseForm.tsx`, `app/api/admin/requests/[id]/respond/route.ts`                                   | ResponseForm + POST respond                                      |
+| SF-21 | `components/admin/FilterBar.tsx`, `app/api/admin/requests/route.ts`                                                   | Filter por status query param                                    |
+| SF-22 | `app/admin/projects/new/page.tsx`, `components/admin/ProjectForm.tsx`                                                 | Form create + submit                                             |
+| SF-23 | `app/admin/projects/[id]/page.tsx`, `app/api/admin/projects/[id]/route.ts`                                            | Form edit + submit                                               |
+| SF-24 | `components/admin/ProjectsTable.tsx`, `app/api/admin/projects/[id]/route.ts`                                          | Delete confirm + DELETE                                          |
+| SF-25 | `components/admin/ImageUploadField.tsx`, `lib/cloudinary.ts`                                                          | Upload form field + Cloudinary helper                            |
+| SF-26 | `app/api/admin/projects/route.ts`                                                                                     | `orderBy: { createdAt: 'desc' }`                                 |
+| SF-27 | `components/shared/ThemeToggle.tsx`, `stores/theme.ts`, `app/layout.tsx`                                              | Toggle + Zustand + class on html                                 |
+| SF-28 | `components/shared/SectionAnimation.tsx`, `hooks/useIntersectionObserver.ts`                                          | Observer + CSS transitions                                       |
+| SF-29 | (global) `app/globals.css`                                                                                            | Media queries, responsive classes                                |
+| SF-30 | `components/shared/LanguageToggle.tsx`, `stores/language.ts`, `hooks/useTranslations.ts`, `packages/shared/src/i18n/` | Toggle + Zustand + dictionary                                    |
+| SF-31 | `components/shared/GoogleAnalytics.tsx`, `app/layout.tsx`                                                             | GA4 script + event tracking                                      |
+| SF-32 | `packages/shared/src/schemas/contact.ts`                                                                              | PROJECT_TYPES enum + conditional otherType                       |
+| SF-33 | `lib/whatsapp.ts`, `components/admin/RequestsList.tsx`                                                                | wa.me link generator, button en admin                            |
+| SF-34 | `components/.../ContactForm.tsx`                                                                                      | Mensaje post-submit                                              |
+| SF-35 | `app/api/admin/projects/route.ts` (GET pública)                                                                       | `where: { status: 'PUBLISHED' }`                                 |
+| SF-36 | `components/admin/ResponseForm.tsx`, `lib/whatsapp.ts`                                                                | wa.me link con número del cliente                                |
+| SF-37 | `components/admin/ResponseForm.tsx`, `lib/resend.ts`                                                                  | Resend.send() al email del cliente                               |
+| SF-38 | `packages/shared/src/schemas/project.ts`, `app/api/admin/projects/route.ts`                                           | `status: ProjectStatus`, default DRAFT                           |
+| SF-39 | `components/admin/ProjectForm.tsx`, `app/api/admin/projects/[id]/route.ts`                                            | Status selector + PATCH                                          |
+| SF-40 | `components/admin/FilterBar.tsx`, `app/api/admin/projects/route.ts`                                                   | Filter por status query param                                    |
 
 ---
 
@@ -1057,28 +1055,28 @@ export const env = createEnv({
 
 > **Nota:** Las versiones exactas deben verificarse al momento de instalar con `npm view <pkg> versions --json`. Las que listo son referenciales (compatibles con Next.js 16 + React 19). El `coder` debe verificar peers.
 
-| Paquete | Versión (referencial) | Ámbito | Para qué | Peer deps a verificar |
-|---------|----------------------|--------|----------|----------------------|
-| `prisma` | `^6.x` | dev (root o packages/db) | CLI migrations | — |
-| `@prisma/client` | `^6.x` | packages/db | ORM runtime | — |
-| `next-auth` | `^5.x` (beta) | apps/web | Auth.js v5 | next@16 |
-| `@auth/core` | `^0.x` | apps/web | Auth.js v5 core (peer) | — |
-| `resend` | `^4.x` | apps/web | Email API | react@19 |
-| `cloudinary` | `^2.x` | apps/web | Upload imágenes | — |
-| `zustand` | `^5.x` | apps/web | Estado global | react@19 |
-| `react-hook-form` | `^7.x` | apps/web | Formularios | react@19 |
-| `@hookform/resolvers` | `^3.x` | apps/web | Zod resolver | react-hook-form@7 |
-| `zod` | `^3.x` | packages/shared, apps/web | Validación | — |
-| `@t3-oss/env-nextjs` | `^0.x` | apps/web | Env validation | next@16, zod@3 |
-| `lucide-react` | `^0.x` | apps/web | Iconos | react@19 |
-| `clsx` | `^2.x` | apps/web | cn() utility | — |
-| `tailwind-merge` | `^3.x` | apps/web | cn() utility | — |
-| `@types/node` | `^22.x` | dev (root) | Tipos Node | — |
-| `typescript` | `^5.x` | dev (root) | TS compiler | — |
-| `turbo` | `^2.x` | dev (root) | Turborepo CLI | — |
-| `vitest` | `^3.x` | dev (cada paquete) | Testing | — |
-| `prettier` | `^3.x` | dev (root) | Formatter | — |
-| `prettier-plugin-tailwindcss` | `^0.x` | dev (root) | Sort classes | prettier@3 |
+| Paquete                       | Versión (referencial) | Ámbito                    | Para qué               | Peer deps a verificar |
+| ----------------------------- | --------------------- | ------------------------- | ---------------------- | --------------------- |
+| `prisma`                      | `^6.x`                | dev (root o packages/db)  | CLI migrations         | —                     |
+| `@prisma/client`              | `^6.x`                | packages/db               | ORM runtime            | —                     |
+| `next-auth`                   | `^5.x` (beta)         | apps/web                  | Auth.js v5             | next@16               |
+| `@auth/core`                  | `^0.x`                | apps/web                  | Auth.js v5 core (peer) | —                     |
+| `resend`                      | `^4.x`                | apps/web                  | Email API              | react@19              |
+| `cloudinary`                  | `^2.x`                | apps/web                  | Upload imágenes        | —                     |
+| `zustand`                     | `^5.x`                | apps/web                  | Estado global          | react@19              |
+| `react-hook-form`             | `^7.x`                | apps/web                  | Formularios            | react@19              |
+| `@hookform/resolvers`         | `^3.x`                | apps/web                  | Zod resolver           | react-hook-form@7     |
+| `zod`                         | `^3.x`                | packages/shared, apps/web | Validación             | —                     |
+| `@t3-oss/env-nextjs`          | `^0.x`                | apps/web                  | Env validation         | next@16, zod@3        |
+| `lucide-react`                | `^0.x`                | apps/web                  | Iconos                 | react@19              |
+| `clsx`                        | `^2.x`                | apps/web                  | cn() utility           | —                     |
+| `tailwind-merge`              | `^3.x`                | apps/web                  | cn() utility           | —                     |
+| `@types/node`                 | `^22.x`               | dev (root)                | Tipos Node             | —                     |
+| `typescript`                  | `^5.x`                | dev (root)                | TS compiler            | —                     |
+| `turbo`                       | `^2.x`                | dev (root)                | Turborepo CLI          | —                     |
+| `vitest`                      | `^3.x`                | dev (cada paquete)        | Testing                | —                     |
+| `prettier`                    | `^3.x`                | dev (root)                | Formatter              | —                     |
+| `prettier-plugin-tailwindcss` | `^0.x`                | dev (root)                | Sort classes           | prettier@3            |
 
 ### shadcn/ui components (instalar con `npx shadcn@latest add`)
 
@@ -1093,13 +1091,15 @@ Estos componentes se instalan en `apps/web/src/components/ui/`.
 ## Turborepo configuration
 
 **`pnpm-workspace.yaml`:**
+
 ```yaml
 packages:
-  - "apps/*"
-  - "packages/*"
+  - 'apps/*'
+  - 'packages/*'
 ```
 
 **`turbo.json`:**
+
 ```json
 {
   "$schema": "https://turbo.build/schema.json",
@@ -1124,6 +1124,7 @@ packages:
 ```
 
 **`package.json` (raíz):**
+
 ```json
 {
   "name": "mitzustudios",
@@ -1155,6 +1156,7 @@ packages:
 ## Configuración de Next.js
 
 **`apps/web/next.config.ts`:**
+
 ```ts
 import type { NextConfig } from 'next'
 
@@ -1182,17 +1184,17 @@ export default nextConfig
 
 ### Capas de protección
 
-| Capa | Mecanismo | Spec |
-|------|-----------|------|
-| Input validation | Zod schemas en todas las API routes | SNF-06 |
-| SQL injection | Prisma parameterized queries (nativo) | SNF-04 |
-| Auth API | Rate limit en `/api/contact` y login | SNF-05 |
-| Admin routes | Auth.js middleware + JWT verification | SNF-08 |
-| Credentials | bcrypt via Auth.js (para hash interno de secret), comparación segura | SNF-03 |
-| Env secrets | `@t3-oss/env-nextjs` + Zod, nunca `process.env` directo | SNF-07 |
-| PII | Datos de contacto solo visibles en panel admin autenticado | — |
-| CORS | No expuesto (todo same-origin en Vercel) | — |
-| CSRF | Auth.js incluye CSRF token en endpoints de auth. Para API routes, el token JWT en cookie httpOnly + SameSite=Lax protege | — |
+| Capa             | Mecanismo                                                                                                                | Spec   |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------ | ------ |
+| Input validation | Zod schemas en todas las API routes                                                                                      | SNF-06 |
+| SQL injection    | Prisma parameterized queries (nativo)                                                                                    | SNF-04 |
+| Auth API         | Rate limit en `/api/contact` y login                                                                                     | SNF-05 |
+| Admin routes     | Auth.js middleware + JWT verification                                                                                    | SNF-08 |
+| Credentials      | bcrypt via Auth.js (para hash interno de secret), comparación segura                                                     | SNF-03 |
+| Env secrets      | `@t3-oss/env-nextjs` + Zod, nunca `process.env` directo                                                                  | SNF-07 |
+| PII              | Datos de contacto solo visibles en panel admin autenticado                                                               | —      |
+| CORS             | No expuesto (todo same-origin en Vercel)                                                                                 | —      |
+| CSRF             | Auth.js incluye CSRF token en endpoints de auth. Para API routes, el token JWT en cookie httpOnly + SameSite=Lax protege | —      |
 
 ### Rate limiter (`lib/rate-limit.ts`)
 
@@ -1233,7 +1235,7 @@ class RateLimiter {
 // Singletons por endpoint
 export const contactLimiter = new RateLimiter(
   Number(process.env.RATE_LIMIT_MAX) || 10,
-  Number(process.env.RATE_LIMIT_WINDOW_MS) || 60000
+  Number(process.env.RATE_LIMIT_WINDOW_MS) || 60000,
 )
 
 export const loginLimiter = new RateLimiter(5, 60000) // 5 intentos/min para login
@@ -1243,26 +1245,28 @@ export const loginLimiter = new RateLimiter(5, 60000) // 5 intentos/min para log
 
 ## Riesgos y trade-offs
 
-| ID | Riesgo | Impacto | Mitigación | Aceptado |
-|----|--------|---------|------------|----------|
-| R-01 | Rate limiter en memoria no funciona entre instancias serverless | Falsos positivos/negativos en rate limit | Bajo tráfico esperado. Documentado como trade-off | Sí (MVP) |
-| R-02 | Pérdida de localStorage (tema/idioma) | Usuario vuelve a defaults | Defaults sensibles (dark, es). Sin pérdida funcional | Sí |
-| R-03 | Auth.js JWT no revocable (stateless) | No se puede forzar logout remoto | Aceptable para 3 admins. Si se necesita, migrar a adapter DB | Sí (MVP) |
-| R-04 | Subida de archivos grande a Cloudinary | Timeout o consumo de memoria | Límite de 10MB en frontend + validación server | Sí |
-| R-05 | Sin User model en DB | No hay auditoría de quién creó/modificó | El email del admin está en el JWT, se puede añadir `createdBy` opcional después | Sí (MVP) |
-| R-06 | WhatsApp no automático (wa.me links) | Admin debe hacer clic manualmente | El email de notificación avisa. El panel muestra las no leídas | Sí (decisión usuario) |
+| ID   | Riesgo                                                          | Impacto                                  | Mitigación                                                                      | Aceptado              |
+| ---- | --------------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------- | --------------------- |
+| R-01 | Rate limiter en memoria no funciona entre instancias serverless | Falsos positivos/negativos en rate limit | Bajo tráfico esperado. Documentado como trade-off                               | Sí (MVP)              |
+| R-02 | Pérdida de localStorage (tema/idioma)                           | Usuario vuelve a defaults                | Defaults sensibles (dark, es). Sin pérdida funcional                            | Sí                    |
+| R-03 | Auth.js JWT no revocable (stateless)                            | No se puede forzar logout remoto         | Aceptable para 3 admins. Si se necesita, migrar a adapter DB                    | Sí (MVP)              |
+| R-04 | Subida de archivos grande a Cloudinary                          | Timeout o consumo de memoria             | Límite de 10MB en frontend + validación server                                  | Sí                    |
+| R-05 | Sin User model en DB                                            | No hay auditoría de quién creó/modificó  | El email del admin está en el JWT, se puede añadir `createdBy` opcional después | Sí (MVP)              |
+| R-06 | WhatsApp no automático (wa.me links)                            | Admin debe hacer clic manualmente        | El email de notificación avisa. El panel muestra las no leídas                  | Sí (decisión usuario) |
 
 ---
 
 ## Checklist de adherencia (para reviewer)
 
 ### Estructura y organización
+
 - [ ] Turborepo con 3 paquetes: `apps/web`, `packages/db`, `packages/shared`
 - [ ] `packages/db/prisma/schema.prisma` contiene todos los modelos
 - [ ] `pnpm-workspace.yaml` lista `apps/*` y `packages/*`
 - [ ] `turbo.json` define tareas build, dev, lint, test con dependencias correctas
 
 ### Prisma
+
 - [ ] Modelos: Project, Technology, ServiceRequest, Response
 - [ ] Enums: ProjectStatus, RequestStatus, ResponseChannel
 - [ ] Sin User model (admins van por env vars)
@@ -1270,6 +1274,7 @@ export const loginLimiter = new RateLimiter(5, 60000) // 5 intentos/min para log
 - [ ] Los campos sensibles (PII) solo son accesibles desde queries autenticadas
 
 ### API Routes
+
 - [ ] `/api/auth/[...nextauth]` — handler Auth.js
 - [ ] `/api/contact` — POST público con rate limiting
 - [ ] `/api/admin/*` — todas autenticadas con `requireAdmin()`
@@ -1282,6 +1287,7 @@ export const loginLimiter = new RateLimiter(5, 60000) // 5 intentos/min para log
 - [ ] Formato de respuesta unificado `ApiResponse<T>` en todas
 
 ### Auth
+
 - [ ] Auth.js con Credentials provider
 - [ ] JWT strategy (stateless), sin adapter DB
 - [ ] `ADMIN_EMAILS` y `ADMIN_PASSWORD` validados en `authorize()`
@@ -1291,6 +1297,7 @@ export const loginLimiter = new RateLimiter(5, 60000) // 5 intentos/min para log
 - [ ] Las API admin verifican sesión con `auth()` de Auth.js
 
 ### Componentes landing
+
 - [ ] `HeroSection` — título + CTA
 - [ ] `AboutSection` — información mínima
 - [ ] `ServicesSection` — lista servicios
@@ -1298,6 +1305,7 @@ export const loginLimiter = new RateLimiter(5, 60000) // 5 intentos/min para log
 - [ ] `ContactSection` — contiene ContactForm
 
 ### Componentes admin
+
 - [ ] `AdminSidebar` + `AdminHeader` con logout
 - [ ] `LoginForm` con react-hook-form + loginSchema
 - [ ] `RequestsList` con filtros por estado
@@ -1305,12 +1313,14 @@ export const loginLimiter = new RateLimiter(5, 60000) // 5 intentos/min para log
 - [ ] `ProjectsTable` con filtros + `ProjectForm` con `ImageUploadField`
 
 ### Componentes shared
+
 - [ ] `Navbar` con ThemeToggle + LanguageToggle
 - [ ] `Footer`
 - [ ] `SectionAnimation` (IntersectionObserver)
 - [ ] `GoogleAnalytics` (solo producción)
 
 ### i18n
+
 - [ ] Diccionarios en `packages/shared/src/i18n/{es,en}.ts`
 - [ ] `useTranslations()` hook con Zustand store
 - [ ] `LanguageToggle` en Navbar
@@ -1318,6 +1328,7 @@ export const loginLimiter = new RateLimiter(5, 60000) // 5 intentos/min para log
 - [ ] Persistencia en localStorage
 
 ### Tema
+
 - [ ] Tailwind v4 dark mode con class strategy
 - [ ] `ThemeToggle` + Zustand store
 - [ ] Default: dark
@@ -1325,6 +1336,7 @@ export const loginLimiter = new RateLimiter(5, 60000) // 5 intentos/min para log
 - [ ] Clase `dark` en `<html>` gestionada por el store
 
 ### Cloudinary
+
 - [ ] `lib/cloudinary.ts` con upload helper
 - [ ] Upload server-side (API route recibe file, sube, devuelve URL)
 - [ ] `ImageUploadField` componente de formulario
@@ -1332,22 +1344,26 @@ export const loginLimiter = new RateLimiter(5, 60000) // 5 intentos/min para log
 - [ ] Manejo de error con mensaje claro (CB-03)
 
 ### WhatsApp
+
 - [ ] `lib/whatsapp.ts` con `generateWameLink(phone, message)`
 - [ ] Botón en admin para notificar PYME (nueva solicitud)
 - [ ] ResponseForm con opción WhatsApp → wa.me link con datos del cliente
 - [ ] Respuesta siempre registrada en DB antes de abrir link
 
 ### Rate limiting
+
 - [ ] `lib/rate-limit.ts` con LRU Cache
 - [ ] Aplicado en: `POST /api/contact` (10/min) y login (5/min)
 - [ ] Responde 429 con `Retry-After` header
 
 ### Env
+
 - [ ] `lib/env.ts` con `@t3-oss/env-nextjs`
 - [ ] `.env.example` con todas las variables documentadas
 - [ ] Sin `process.env` directo en código de aplicación
 
 ### Testing
+
 - [ ] Vitest configurado en cada paquete
 - [ ] Tests unitarios para: Zod schemas, rate limiter, Cloudinary helper, wa.me generator
 - [ ] Tests de API routes con `nextTest` o similar
@@ -1362,10 +1378,10 @@ graph TD
     root --> web[apps/web]
     root --> db[packages/db]
     root --> shared[packages/shared]
-    
+
     web --> db
     web --> shared
-    
+
     db --> prisma[@prisma/client]
     web --> nextauth[next-auth]
     web --> resend[resend]
@@ -1374,7 +1390,7 @@ graph TD
     web --> rhf[react-hook-form]
     web --> zod[zod]
     web --> t3env[@t3-oss/env-nextjs]
-    
+
     shared --> zod
 ```
 

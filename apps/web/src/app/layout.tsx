@@ -1,0 +1,43 @@
+import type { Metadata } from 'next'
+import { ThemeInitializer } from '@/components/shared/ThemeInitializer'
+import { GoogleAnalytics } from '@/components/shared/GoogleAnalytics'
+import './globals.css'
+
+export const metadata: Metadata = {
+  title: {
+    default: 'MitzuStudios | Desarrollo Web Profesional',
+    template: '%s | MitzuStudios',
+  },
+  description:
+    'Desarrollo web a medida. Transformamos tus ideas en software profesional. Landing pages, e-commerce, aplicaciones web y más.',
+  keywords: [
+    'desarrollo web',
+    'landing page',
+    'e-commerce',
+    'aplicaciones web',
+    'MitzuStudios',
+    'programador freelance',
+  ],
+  authors: [{ name: 'MitzuStudios' }],
+  metadataBase: new URL('https://mitzustudios.online'),
+  openGraph: {
+    title: 'MitzuStudios | Desarrollo Web Profesional',
+    description: 'Desarrollo web a medida. Transformamos tus ideas en software profesional.',
+    type: 'website',
+    locale: 'es_CL',
+  },
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="es" className="dark" suppressHydrationWarning>
+      <head>
+        <ThemeInitializer />
+      </head>
+      <body className="bg-background text-foreground min-h-screen antialiased">
+        {children}
+        {process.env.NODE_ENV === 'production' && <GoogleAnalytics />}
+      </body>
+    </html>
+  )
+}
