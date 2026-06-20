@@ -1,16 +1,66 @@
 # MEMORY — mitzustudios-portfolio
 
-> Última actualización: 2026-06-20 (por git-keeper)
+> Última actualización: 2026-06-20 15:00 (por git-keeper)
 > Para retomar: lee este archivo + `.composer/state.json` + `git log --oneline -10`
 
 ## Estado actual
 
-- **Fase:** coder completada — código implementado y commiteado
-- **Próxima fase:** tester
+- **Fase:** ci-cd (review aprobado, pipeline continúa)
+- **Próxima fase:** release-manager
 - **Feature:** MitzuStudios Portfolio
-- **Branch:** master (3 commits, no pusheado)
+- **Branch:** master (8 commits, no pusheado)
 
 ## Lo que se hizo (cronológico, último primero)
+
+### 2026-06-20 15:00 — git-keeper: CI/CD infrastructure (Fase 6)
+
+- `797e759` `ci(infra): add CI/CD workflows, Docker config, and secrets documentation`
+- 7 archivos, 494 líneas añadidas
+- Cubre:
+  - GitHub Actions: CI (build+lint+test) + manual deploy to Vercel
+  - Docker dev environment: Postgres 16 + Redis 7
+  - Dependabot config for automated dependency updates
+  - Documented all 12 production env vars and 5 CI secrets
+- Branch: master (no pusheado)
+- Verificación:
+  - ✅ Sin referencias a IA en mensajes
+  - ✅ Conventional Commits válido
+  - ✅ Sin secrets ni .env commiteados
+  - ✅ Working tree: MEMORY.md con cambios pendientes
+
+### 2026-06-20 — git-keeper: review report (Iteración #2)
+
+- `1f869b8` `docs(review): verificacion de 3 bloqueantes resueltos, 0 pendientes`
+- 1 archivo, 144 líneas añadidas (`.composer/review.md`)
+- Resultado: B-01 ✅, B-02 ✅, B-03 ✅ resueltos — 0 bloqueantes, 0 regresiones
+- Branch: master (no pusheado)
+- Verificación:
+  - ✅ Sin referencias a IA en mensajes
+  - ✅ Conventional Commits válido
+  - ✅ Working tree: MEMORY.md con cambios pendientes
+
+### 2026-06-20 — git-keeper: coder fix iteration (re-review pending)
+
+- `d9e3a72` `fix(security): corregir 3 bloqueantes de seguridad del review`
+- 4 archivos, 33 líneas añadidas, 13 eliminadas
+- Fixes: B-01 (email env var), B-02 (ADMIN_EMAILS middleware), B-03 (real IP extraction), M-03 (duplicate service)
+- Branch: master (no pusheado)
+- Verificación:
+  - ✅ Sin referencias a IA en mensajes
+  - ✅ Conventional Commits válido
+  - ✅ Sin secrets ni .env commiteados
+
+### 2026-06-20 — git-keeper: suite completa de tests (Fase 4)
+
+- `ffadb69` `test(portfolio): suite completa de tests unitarios e integracion`
+- 12 archivos, 1,649 líneas añadidas
+- 138 tests, 0 fallos
+- Cubre: schemas Zod, diccionarios i18n, rate limiter, WhatsApp, stores Zustand, hooks, API routes
+- Branch: master (no pusheado)
+- Verificación:
+  - ✅ Sin referencias a IA en mensajes
+  - ✅ Conventional Commits válido
+  - ✅ Working tree limpio
 
 ### 2026-06-20 — git-keeper: implementación completa del portfolio
 
@@ -97,18 +147,13 @@
 
 ## Lo que falta
 
-### Fase 4 — tester (próxima)
+### Fase 7 — release-manager (próxima)
 
-- [ ] Configurar Vitest en los 3 packages
-- [ ] Tests unitarios para packages/shared (schemas, i18n)
-- [ ] Tests unitarios para packages/db (client)
-- [ ] Tests de integración para API routes
-- [ ] Tests de componentes con jsdom
-- [ ] Tests E2E (Playwright) para flujos críticos
-
-### Fases pendientes
-
-- reviewer, ci-cd, release-manager
+- [ ] Generar CHANGELOG.md con cambios desde el último tag
+- [ ] Version bump en package.json
+- [ ] Tag semántico (v1.0.0)
+- [ ] Commit + tag local
+- [ ] Push a GitHub (usuario)
 
 ## Decisiones pendientes del usuario
 
