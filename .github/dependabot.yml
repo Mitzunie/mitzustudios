@@ -1,0 +1,84 @@
+# Dependabot — Mantener dependencias actualizadas
+# Versión: 2
+# Documentación: https://docs.github.com/en/code-security/dependabot
+
+version: 2
+updates:
+  # ─── Root monorepo + workspaces ───
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/Santiago"
+    versioning-strategy: increase
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "automated"
+    groups:
+      nextjs:
+        patterns:
+          - "next"
+          - "next-auth"
+          - "eslint-config-next"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+      prisma:
+        patterns:
+          - "prisma"
+          - "@prisma/client"
+      turborepo:
+        patterns:
+          - "turbo"
+      typescript:
+        patterns:
+          - "typescript"
+          - "@types/node"
+      tailwind:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
+          - "postcss"
+      shadcn:
+        patterns:
+          - "@radix-ui/*"
+          - "class-variance-authority"
+          - "clsx"
+          - "tailwind-merge"
+          - "lucide-react"
+      testing:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+    ignore:
+      # Major upgrades de Next.js requieren revisión manual
+      - dependency-name: "next"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+
+  # ─── GitHub Actions ───
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/Santiago"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "ci"
+      - "automated"
+    groups:
+      actions:
+        patterns:
+          - "*"
