@@ -4,6 +4,7 @@ import { useTranslations } from '@/hooks/useTranslations'
 
 export function Footer() {
   const t = useTranslations()
+  const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL
 
   return (
     <footer className="border-border/50 bg-background border-t" role="contentinfo">
@@ -16,7 +17,6 @@ export function Footer() {
           <div>
             <h3 className="mb-3 text-lg font-semibold">{t.nav.services}</h3>
             <ul className="text-muted-foreground space-y-2 text-sm">
-              {t.about.content && <li>{t.services.items[0].title}</li>}
               {t.services.items.map((item) => (
                 <li key={item.title}>{item.title}</li>
               ))}
@@ -24,16 +24,18 @@ export function Footer() {
           </div>
           <div>
             <h3 className="mb-3 text-lg font-semibold">{t.nav.contact}</h3>
-            <ul className="text-muted-foreground space-y-2 text-sm">
-              <li>
-                <a
-                  href="mailto:mitzustudioscl@gmail.com"
-                  className="hover:text-primary transition-colors"
-                >
-                  mitzustudioscl@gmail.com
-                </a>
-              </li>
-            </ul>
+            {contactEmail && (
+              <ul className="text-muted-foreground space-y-2 text-sm">
+                <li>
+                  <a
+                    href={`mailto:${contactEmail}`}
+                    className="hover:text-primary transition-colors"
+                  >
+                    {contactEmail}
+                  </a>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
         <div className="border-border/50 text-muted-foreground mt-8 border-t pt-8 text-center text-sm">

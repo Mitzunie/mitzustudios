@@ -15,6 +15,16 @@ export const authConfig: NextAuthConfig = {
       const isOnAdmin = nextUrl.pathname.startsWith('/admin')
       const isOnLogin = nextUrl.pathname === '/admin/login'
 
+      // Verify the user's email is in ADMIN_EMAILS for admin routes (except login)
+      if (isLoggedIn && isOnAdmin && !isOnLogin) {
+        const adminEmails =
+          process.env.ADMIN_EMAILS?.split(',').map((e) => e.trim().toLowerCase()) || []
+        const userEmail = auth?.user?.email?.toLowerCase()
+        if (userEmail && !adminEmails.includes(userEmail)) {
+          return Response.redirect(new URL('/', nextUrl))
+        }
+      }
+
       if (isOnAdmin) {
         if (isOnLogin) {
           if (isLoggedIn) return Response.redirect(new URL('/admin/dashboard', nextUrl))
@@ -45,12 +55,16 @@ export const authConfig: NextAuthConfig = {
   },
   providers: [
     Credentials({
-      async authorize(credentials) {
+      async authorize(credentials, request) {
         const parsed = loginSchema.safeParse(credentials)
         if (!parsed.success) return null
 
         const { email, password } = parsed.data
-        const ip = 'unknown' // En producción se obtendría de headers
+
+        // Extract real IP from request headers for rate limiting
+        const forwardedFor = request?.headers?.get('x-forwarded-for')
+        const realIp = request?.headers?.get('x-real-ip')
+        const ip = forwardedFor?.split(',')[0]?.trim() || realIp || 'unknown'
 
         const { allowed } = loginLimiter.check(`login:${ip}:${email}`)
         if (!allowed) return null
