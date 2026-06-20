@@ -1,0 +1,46 @@
+{
+  "phase": "spec-analyst-complete",
+  "feature": "mitzustudios-portfolio",
+  "branch": "main",
+  "stack": {
+    "frontend": "nextjs-16",
+    "backend": "nextjs-api-routes",
+    "ui": "shadcn-ui-tailwind-v4",
+    "state": "zustand",
+    "forms": "react-hook-form",
+    "orm": "prisma",
+    "database": "postgresql-serverless",
+    "auth": "authjs-nextauth-v5",
+    "auth-strategy": "email-password",
+    "email": "resend",
+    "storage": "cloudinary",
+    "hosting": "vercel",
+    "testing": "vitest",
+    "monorepo": "turborepo-pnpm"
+  },
+  "history": [
+    {
+      "phase": "init",
+      "timestamp": "2026-06-19T23:18:00Z",
+      "notes": "Preflight completado. Stack confirmado con usuario: Next.js 16, shadcn/ui+Tailwind v4, Prisma, Auth.js (email+password), Resend, Cloudinary, Vitest, Turborepo. Panel admin para solicitudes y proyectos."
+    },
+    {
+      "phase": "spec-iteration-2",
+      "timestamp": "2026-06-20T00:00:00Z",
+      "notes": "Iteración #2 de specs. Decisiones finales aplicadas: select tipo proyecto con 'Otro', WhatsApp integrado en flujo contacto/respuesta, 3 admins via env vars, estados proyecto (publicado/oculto/borrador), imagen opcional, links GitHub opcionales, i18n solo labels, GA solo prod."
+    },
+    {
+      "phase": "spec-iteration-3",
+      "timestamp": "2026-06-20T00:10:00Z",
+      "notes": "Iteración #3. Eliminados todos los items relacionados con SEO: SF-31 (meta/OG/sitemap), SNF-10, SNF-11, CA-16, escenario BDD en landing.feature, asunción de sitemap. Renumeración de SF/SNF/CA posterior."
+    }
+  ],
+  "approvals": {
+    "specs": true,
+    "architecture": null,
+    "release": null
+  },
+  "review_iteration": 0,
+  "no_progress_streak": 0,
+  "blockers_tracker": {}
+}
