@@ -1,16 +1,29 @@
 # MEMORY — mitzustudios-portfolio
 
-> Última actualización: 2026-06-20 00:45 (por composer)
+> Última actualización: 2026-06-20 (por git-keeper)
 > Para retomar: lee este archivo + `.composer/state.json` + `git log --oneline -10`
 
 ## Estado actual
 
-- **Fase:** architect completada — esperando aprobación humana [GATE 👤]
-- **Próxima fase:** coder (3/7)
+- **Fase:** coder completada — código implementado y commiteado
+- **Próxima fase:** tester
 - **Feature:** MitzuStudios Portfolio
-- **Branch:** master (1 commit — specs commiteadas, architecture.md sin commitear)
+- **Branch:** master (3 commits, no pusheado)
 
 ## Lo que se hizo (cronológico, último primero)
+
+### 2026-06-20 — git-keeper: implementación completa del portfolio
+
+- `2fe8817` `feat(portfolio): implementacion completa del portfolio MitzuStudios`
+- 120 archivos, 11,425 líneas añadidas, 350 eliminadas
+- Cubre: monorepo completo con 3 workspaces (web, db, shared)
+- Prisma schema, 12 API routes, 30+ componentes, 10 páginas
+- Branch: master (no pusheado)
+- Verificación:
+  - ✅ Sin referencias a IA en mensajes
+  - ✅ Conventional Commits válido
+  - ✅ Sin secrets ni .env commiteados
+  - ✅ Working tree limpio
 
 ### 2026-06-20 00:50 — composer: D-01 refinado con página de registro temporal
 
@@ -84,30 +97,18 @@
 
 ## Lo que falta
 
-### Gate de aprobación 👤 (pendiente)
+### Fase 4 — tester (próxima)
 
-- [ ] Usuario debe aprobar architecture.md (D-01 corregido)
-- [ ] Tras aprobación: commit via git-keeper + pasar a coder
-
-### Fase 3 — coder (próxima tras aprobación)
-
-- [ ] Inicializar monorepo (Turborepo + pnpm workspaces)
-- [ ] Configurar packages/db con Prisma schema + seed
-- [ ] Configurar apps/web con Next.js 16 + shadcn/ui
-- [ ] Implementar landing page (Hero, About, Services, Projects, Contact)
-- [ ] Implementar formulario de contacto + API route
-- [ ] Implementar Auth.js + User model + seed admins
-- [ ] Implementar panel admin (layout protegido)
-- [ ] Implementar CRUD proyectos + subida Cloudinary
-- [ ] Implementar gestión de solicitudes + responder WhatsApp/Email
-- [ ] Implementar i18n es/en
-- [ ] Implementar tema claro/oscuro
-- [ ] Implementar animaciones (IntersectionObserver + CSS)
-- [ ] Implementar Google Analytics
+- [ ] Configurar Vitest en los 3 packages
+- [ ] Tests unitarios para packages/shared (schemas, i18n)
+- [ ] Tests unitarios para packages/db (client)
+- [ ] Tests de integración para API routes
+- [ ] Tests de componentes con jsdom
+- [ ] Tests E2E (Playwright) para flujos críticos
 
 ### Fases pendientes
 
-- tester, reviewer, ci-cd, release-manager
+- reviewer, ci-cd, release-manager
 
 ## Decisiones pendientes del usuario
 
