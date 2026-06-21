@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth'
-import { authConfig } from '@/lib/auth.config'
+import { authMiddlewareConfig } from '@/lib/auth.middleware.config'
 
-export default NextAuth(authConfig).auth
+export default NextAuth(authMiddlewareConfig).auth
 
 export const config = {
   matcher: ['/admin/:path*'],
