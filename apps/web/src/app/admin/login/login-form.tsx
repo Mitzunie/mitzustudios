@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { loginSchema, type LoginFormValues } from '@mitzustudios/shared'
+import { loginSchema, type LoginFormValues } from '@/shared'
 import { useTranslations } from '@/hooks/useTranslations'
 import { cn } from '@/lib/utils'
-import { AlertCircle, ArrowLeft } from 'lucide-react'
+import { AlertCircle, ArrowLeft, Eye, EyeOff } from 'lucide-react'
 import Link from 'next/link'
 
 export function LoginForm() {
@@ -16,6 +16,7 @@ export function LoginForm() {
   const t = useTranslations()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const {
     register,
@@ -55,19 +56,19 @@ export function LoginForm() {
       <div className="w-full max-w-sm">
         <Link
           href="/"
-          className="text-muted-foreground hover:text-foreground mb-8 inline-flex items-center gap-2 text-sm transition-colors"
+          className="text-muted-foreground hover:text-foreground mb-8 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           {t.nav.hero}
         </Link>
 
-        <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold">{t.admin.login.title}</h1>
+        <div className="neo-card bg-card mb-8 p-6 text-center">
+          <h1 className="text-2xl font-black uppercase tracking-wide">{t.admin.login.title}</h1>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           <div>
-            <label htmlFor="email" className="mb-2 block text-sm font-medium">
+            <label htmlFor="email" className="mb-2 block text-sm font-bold uppercase tracking-wide">
               {t.admin.login.email}
             </label>
             <input
@@ -76,40 +77,48 @@ export function LoginForm() {
               placeholder={t.admin.login.emailPlaceholder}
               {...register('email')}
               className={cn(
-                'bg-card w-full rounded-lg border px-4 py-2.5 text-sm transition-colors',
-                'focus:ring-ring focus:outline-none focus:ring-2',
-                errors.email ? 'border-destructive' : 'border-input',
+                'neo-input w-full px-4 py-2.5 text-sm font-bold uppercase tracking-wide',
+                errors.email ? 'border-destructive' : '',
               )}
               autoComplete="email"
             />
             {errors.email && (
-              <p className="text-destructive mt-1.5 text-xs">{errors.email.message}</p>
+              <p className="text-destructive mt-1.5 text-xs font-bold uppercase">{errors.email.message}</p>
             )}
           </div>
 
           <div>
-            <label htmlFor="password" className="mb-2 block text-sm font-medium">
+            <label htmlFor="password" className="mb-2 block text-sm font-bold uppercase tracking-wide">
               {t.admin.login.password}
             </label>
-            <input
-              id="password"
-              type="password"
-              placeholder={t.admin.login.passwordPlaceholder}
-              {...register('password')}
-              className={cn(
-                'bg-card w-full rounded-lg border px-4 py-2.5 text-sm transition-colors',
-                'focus:ring-ring focus:outline-none focus:ring-2',
-                errors.password ? 'border-destructive' : 'border-input',
-              )}
-              autoComplete="current-password"
-            />
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                placeholder={t.admin.login.passwordPlaceholder}
+                {...register('password')}
+                className={cn(
+                  'neo-input w-full px-4 py-2.5 pr-10 text-sm font-bold uppercase tracking-wide',
+                  errors.password ? 'border-destructive' : '',
+                )}
+                autoComplete="current-password"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="text-muted-foreground hover:text-foreground absolute right-3 top-1/2 -translate-y-1/2"
+                tabIndex={-1}
+              >
+                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </button>
+            </div>
             {errors.password && (
-              <p className="text-destructive mt-1.5 text-xs">{errors.password.message}</p>
+              <p className="text-destructive mt-1.5 text-xs font-bold uppercase">{errors.password.message}</p>
             )}
           </div>
 
           {error && (
-            <div className="border-destructive/50 bg-destructive/10 text-destructive flex items-start gap-2 rounded-lg border p-3 text-sm">
+            <div className="neo-border border-destructive bg-destructive/10 text-destructive flex items-start gap-2 p-3 text-sm font-bold">
               <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
               <p>{error}</p>
             </div>
@@ -119,10 +128,8 @@ export function LoginForm() {
             type="submit"
             disabled={loading}
             className={cn(
-              'w-full rounded-lg px-6 py-3 text-sm font-semibold transition-all',
-              loading
-                ? 'bg-primary/50 cursor-not-allowed'
-                : 'bg-primary text-primary-foreground hover:bg-primary/90',
+              'neo-button neo-button-primary neo-shadow-sm w-full px-6 py-3 text-sm',
+              loading ? 'cursor-not-allowed opacity-60' : '',
             )}
           >
             {loading ? (

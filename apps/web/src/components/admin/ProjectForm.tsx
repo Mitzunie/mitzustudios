@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Plus, X, Save, AlertCircle } from 'lucide-react'
 import { useTranslations } from '@/hooks/useTranslations'
+import { getTechIcon } from '@/shared'
 import { ImageUploadField } from './ImageUploadField'
 import { cn } from '@/lib/utils'
 
@@ -55,6 +56,9 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
   const handleTechnologyChange = (index: number, field: keyof TechnologyInput, value: string) => {
     const updated = [...technologies]
     updated[index] = { ...updated[index], [field]: value }
+    if (field === 'name') {
+      updated[index].icon = getTechIcon(value)
+    }
     setTechnologies(updated)
   }
 
@@ -72,10 +76,10 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
       'technologies',
       JSON.stringify(
         technologies
-          .filter((t) => t.name && t.icon)
+          .filter((t) => t.name)
           .map((t) => ({
             name: t.name,
-            icon: t.icon,
+            icon: t.icon || getTechIcon(t.name),
             url: t.url || undefined,
           })),
       ),
@@ -122,7 +126,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Title */}
       <div>
-        <label htmlFor="title" className="mb-2 block text-sm font-medium">
+        <label htmlFor="title" className="mb-2 block text-sm font-black uppercase tracking-wide">
           {t.admin.projects.form.title} <span className="text-destructive">*</span>
         </label>
         <input
@@ -132,20 +136,19 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
           onChange={(e) => setTitle(e.target.value)}
           placeholder={t.admin.projects.form.titlePlaceholder}
           className={cn(
-            'bg-card w-full rounded-lg border px-4 py-2.5 text-sm transition-colors',
-            'focus:ring-ring focus:outline-none focus:ring-2',
-            fieldErrors.title ? 'border-destructive' : 'border-input',
+            'neo-input w-full px-4 py-2.5 text-sm font-bold uppercase tracking-wide',
+            fieldErrors.title ? 'border-destructive' : '',
           )}
           required
         />
         {fieldErrors.title && (
-          <p className="text-destructive mt-1.5 text-xs">{fieldErrors.title[0]}</p>
+          <p className="text-destructive mt-1.5 text-xs font-bold uppercase">{fieldErrors.title[0]}</p>
         )}
       </div>
 
       {/* Description */}
       <div>
-        <label htmlFor="description" className="mb-2 block text-sm font-medium">
+        <label htmlFor="description" className="mb-2 block text-sm font-black uppercase tracking-wide">
           {t.admin.projects.form.description} <span className="text-destructive">*</span>
         </label>
         <textarea
@@ -155,53 +158,52 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
           placeholder={t.admin.projects.form.descriptionPlaceholder}
           rows={5}
           className={cn(
-            'bg-card w-full resize-y rounded-lg border px-4 py-2.5 text-sm transition-colors',
-            'focus:ring-ring focus:outline-none focus:ring-2',
-            fieldErrors.description ? 'border-destructive' : 'border-input',
+            'neo-input w-full resize-y px-4 py-2.5 text-sm font-bold uppercase tracking-wide',
+            fieldErrors.description ? 'border-destructive' : '',
           )}
           required
         />
         {fieldErrors.description && (
-          <p className="text-destructive mt-1.5 text-xs">{fieldErrors.description[0]}</p>
+          <p className="text-destructive mt-1.5 text-xs font-bold uppercase">{fieldErrors.description[0]}</p>
         )}
       </div>
 
       {/* Technologies */}
       <div>
-        <label className="mb-2 block text-sm font-medium">
+        <label className="mb-2 block text-sm font-black uppercase tracking-wide">
           {t.admin.projects.form.technologies} <span className="text-destructive">*</span>
         </label>
         <div className="space-y-3">
           {technologies.map((tech, index) => (
             <div key={index} className="flex items-start gap-2">
-              <div className="grid flex-1 grid-cols-3 gap-2">
-                <input
-                  type="text"
-                  value={tech.name}
-                  onChange={(e) => handleTechnologyChange(index, 'name', e.target.value)}
-                  placeholder={t.admin.projects.form.technologyName}
-                  className="border-input bg-card focus:ring-ring rounded-lg border px-3 py-2 text-sm focus:outline-none focus:ring-2"
-                />
-                <input
-                  type="text"
-                  value={tech.icon}
-                  onChange={(e) => handleTechnologyChange(index, 'icon', e.target.value)}
-                  placeholder={t.admin.projects.form.technologyIcon}
-                  className="border-input bg-card focus:ring-ring rounded-lg border px-3 py-2 text-sm focus:outline-none focus:ring-2"
-                />
+              <div className="grid flex-1 grid-cols-[1fr_1fr] gap-2">
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={tech.name}
+                    onChange={(e) => handleTechnologyChange(index, 'name', e.target.value)}
+                    placeholder={t.admin.projects.form.technologyName}
+                    className="neo-input w-full px-3 py-2 pr-8 text-sm font-bold uppercase tracking-wide"
+                  />
+                  {tech.name && (
+                    <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-sm">
+                      {tech.icon || getTechIcon(tech.name)}
+                    </span>
+                  )}
+                </div>
                 <input
                   type="url"
                   value={tech.url}
                   onChange={(e) => handleTechnologyChange(index, 'url', e.target.value)}
                   placeholder={t.admin.projects.form.technologyUrl}
-                  className="border-input bg-card focus:ring-ring rounded-lg border px-3 py-2 text-sm focus:outline-none focus:ring-2"
+                  className="neo-input px-3 py-2 text-sm font-bold uppercase tracking-wide"
                 />
               </div>
               {technologies.length > 1 && (
                 <button
                   type="button"
                   onClick={() => handleRemoveTechnology(index)}
-                  className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive rounded-lg p-2 transition-colors"
+                  className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive neo-border border-transparent hover:border-destructive p-2 transition-colors"
                   aria-label={t.admin.projects.form.removeTechnology}
                 >
                   <X className="h-4 w-4" />
@@ -210,13 +212,13 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
             </div>
           ))}
           {fieldErrors.technologies && (
-            <p className="text-destructive text-xs">{fieldErrors.technologies[0]}</p>
+            <p className="text-destructive text-xs font-bold uppercase">{fieldErrors.technologies[0]}</p>
           )}
         </div>
         <button
           type="button"
           onClick={handleAddTechnology}
-          className="text-muted-foreground hover:bg-secondary hover:text-foreground mt-2 inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm transition-colors"
+          className="text-muted-foreground hover:bg-secondary hover:text-foreground neo-border border-transparent hover:border-border mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-bold uppercase tracking-wide transition-colors"
         >
           <Plus className="h-4 w-4" />
           {t.admin.projects.form.addTechnology}
@@ -239,14 +241,14 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
 
       {/* Status */}
       <div>
-        <label htmlFor="status" className="mb-2 block text-sm font-medium">
+        <label htmlFor="status" className="mb-2 block text-sm font-black uppercase tracking-wide">
           {t.admin.projects.form.status}
         </label>
         <select
           id="status"
           value={status}
           onChange={(e) => setStatus(e.target.value as 'PUBLISHED' | 'HIDDEN' | 'DRAFT')}
-          className="border-input bg-card focus:ring-ring w-full rounded-lg border px-4 py-2.5 text-sm focus:outline-none focus:ring-2"
+          className="neo-input w-full px-4 py-2.5 text-sm font-bold uppercase tracking-wide"
         >
           <option value="DRAFT">{t.admin.projects.status.draft}</option>
           <option value="PUBLISHED">{t.admin.projects.status.published}</option>
@@ -256,7 +258,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
 
       {/* Error */}
       {error && (
-        <div className="border-destructive/50 bg-destructive/10 text-destructive flex items-start gap-2 rounded-lg border p-3 text-sm">
+        <div className="neo-border border-destructive bg-destructive/10 text-destructive flex items-start gap-2 p-3 text-sm font-bold">
           <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
           <p>{error}</p>
         </div>
@@ -268,15 +270,13 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
           type="submit"
           disabled={saving}
           className={cn(
-            'inline-flex items-center gap-2 rounded-lg px-6 py-2.5 text-sm font-semibold transition-all',
-            saving
-              ? 'bg-primary/50 cursor-not-allowed'
-              : 'bg-primary text-primary-foreground hover:bg-primary/90',
+            'neo-button neo-button-primary neo-shadow-sm inline-flex items-center gap-2 px-6 py-2.5 text-sm',
+            saving ? 'cursor-not-allowed opacity-60' : '',
           )}
         >
           {saving ? (
             <>
-              <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+              <div className="h-4 w-4 animate-spin border-2 border-current border-t-transparent" />
               {isEdit ? t.admin.projects.form.updating : t.admin.projects.form.creating}
             </>
           ) : (
@@ -289,7 +289,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
         <button
           type="button"
           onClick={() => router.push('/admin/projects')}
-          className="border-border hover:bg-secondary rounded-lg border px-6 py-2.5 text-sm font-medium transition-colors"
+          className="neo-border border-border hover:bg-secondary px-6 py-2.5 text-sm font-bold uppercase tracking-wide transition-colors"
         >
           {t.admin.projects.form.cancel}
         </button>

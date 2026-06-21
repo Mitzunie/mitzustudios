@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { ThemeInitializer } from '@/components/shared/ThemeInitializer'
 import { GoogleAnalytics } from '@/components/shared/GoogleAnalytics'
 import './globals.css'
 
@@ -31,9 +30,6 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className="dark" suppressHydrationWarning>
-      <head>
-        <ThemeInitializer />
-      </head>
       <body className="bg-background text-foreground min-h-screen antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <GoogleAnalytics />}

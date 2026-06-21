@@ -1,4 +1,7 @@
-import type { TechnologyDTO } from '@mitzustudios/shared'
+'use client'
+
+import type { TechnologyDTO } from '@/shared'
+import { getTechIcon } from '@/shared'
 import { cn } from '@/lib/utils'
 
 interface TechnologyBadgeProps {
@@ -6,16 +9,13 @@ interface TechnologyBadgeProps {
 }
 
 export function TechnologyBadge({ technology }: TechnologyBadgeProps) {
+  const icon = technology.icon || getTechIcon(technology.name)
+
   const content = (
-    <span
-      className={cn(
-        'border-border/50 bg-secondary/50 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium',
-        'hover:bg-secondary transition-colors',
-      )}
-    >
-      {technology.icon && (
+    <span className="neo-badge bg-secondary inline-flex items-center gap-1.5">
+      {icon && (
         <span className="text-sm" aria-hidden="true">
-          {technology.icon}
+          {icon}
         </span>
       )}
       {technology.name}

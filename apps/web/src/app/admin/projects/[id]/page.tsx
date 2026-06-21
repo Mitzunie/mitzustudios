@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
-import type { ProjectDTO } from '@mitzustudios/shared'
+import type { ProjectDTO } from '@/shared'
 import { useTranslations } from '@/hooks/useTranslations'
 import { ProjectForm } from '@/components/admin/ProjectForm'
 
@@ -36,26 +36,26 @@ export default function AdminEditProjectPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="border-primary h-8 w-8 animate-spin rounded-full border-4 border-t-transparent" />
+        <div className="neo-border border-primary h-8 w-8 animate-spin border-4 border-t-transparent bg-transparent" />
       </div>
     )
   }
 
   if (!project) {
-    return <div className="text-muted-foreground py-20 text-center">Proyecto no encontrado</div>
+    return <div className="text-muted-foreground py-20 text-center font-bold uppercase tracking-wide">Proyecto no encontrado</div>
   }
 
   return (
     <div>
       <button
         onClick={() => router.push('/admin/projects')}
-        className="text-muted-foreground hover:text-foreground mb-6 inline-flex items-center gap-2 text-sm transition-colors"
+        className="text-muted-foreground hover:text-foreground mb-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
         {t.admin.projects.title}
       </button>
 
-      <h1 className="mb-6 text-2xl font-bold">{t.admin.projects.editProject}</h1>
+      <h1 className="mb-6 text-2xl font-black uppercase tracking-wide">{t.admin.projects.editProject}</h1>
 
       <div className="max-w-2xl">
         <ProjectForm

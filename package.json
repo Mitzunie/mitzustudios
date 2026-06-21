@@ -3,23 +3,19 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "turbo dev",
-    "build": "turbo build",
-    "lint": "turbo lint",
-    "test": "turbo test",
-    "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,json,md}\"",
-    "db:generate": "cd packages/db && npx prisma generate",
-    "db:migrate:dev": "cd packages/db && npx prisma migrate dev",
-    "db:migrate:deploy": "cd packages/db && npx prisma migrate deploy",
-    "db:studio": "cd packages/db && npx prisma studio"
+    "dev": "cd apps/web && npm run dev",
+    "build": "cd apps/web && npm run build",
+    "lint": "cd apps/web && npm run lint",
+    "test": "cd apps/web && npm run test",
+    "format": "cd apps/web && npm run format",
+    "format:check": "cd apps/web && npm run format:check",
+    "db:generate": "cd apps/web && npm run db:generate",
+    "db:migrate:dev": "cd apps/web && npm run db:migrate:dev",
+    "db:migrate:deploy": "cd apps/web && npm run db:migrate:deploy",
+    "db:studio": "cd apps/web && npm run db:studio"
   },
   "devDependencies": {
-    "turbo": "^2.4.0",
-    "typescript": "^5.7.0",
-    "prettier": "^3.4.0",
-    "prettier-plugin-tailwindcss": "^0.6.0",
-    "@types/node": "^22.10.0"
-  },
-  "packageManager": "pnpm@10.0.0"
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
 }

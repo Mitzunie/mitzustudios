@@ -11,58 +11,69 @@ export const en = {
     logout: 'Sign Out',
   },
   hero: {
-    title: 'Turning your ideas into',
-    titleHighlight: 'professional software',
+    title: 'From your idea to',
+    titleHighlight: 'your next website',
     subtitle:
-      'Custom web development to grow your business. From landing pages to full web applications.',
+      'I build professional web applications for businesses that want to grow. Landing pages, online stores, or custom platforms — all built with modern technology and attention to detail.',
     cta: 'Get a Quote',
     secondaryCta: 'View Projects',
   },
   about: {
     title: 'About Me',
     content:
-      'Passionate web developer creating digital solutions that drive businesses. Specialized in full-stack development with modern technologies like Next.js, React, Node.js, and serverless databases. Turning ideas into functional, scalable, and carefully designed products.',
+      'Full-stack developer specialized in building digital solutions with Next.js, React, and Node.js. I turn ideas into functional, fast, and well-designed products. Every project has the same goal: to work well, look good, and bring real value to your business.',
   },
   services: {
     title: 'Services',
-    subtitle: 'Professional web development solutions for your business',
+    subtitle: 'What I can do for you and your business',
     items: [
       {
         title: 'Landing Pages',
         description:
-          'Professional single-page websites to showcase your business, product or service with stunning design optimized for conversion.',
+          'Professional single-page websites designed to impress and convert. Perfect for showcasing your business or launching a new product.',
       },
       {
         title: 'E-commerce Stores',
         description:
-          'Complete online stores with shopping cart, payment gateway, and admin panel to manage products and orders.',
+          'Your online store ready to sell. Shopping cart, payment gateway, and an admin panel to manage products and orders without the headache.',
       },
       {
         title: 'Web Applications',
         description:
-          'Interactive web platforms with admin panels, user authentication, and custom features for your business.',
+          'Interactive web platforms with everything your business needs: admin panels, user management, and custom features built your way.',
       },
       {
         title: 'APIs & Backend',
         description:
-          'Robust and scalable RESTful APIs to connect your applications with databases, external services, and automate processes.',
+          'Robust, scalable APIs to connect your applications with databases and external services. Your business logic working exactly as it should.',
       },
       {
         title: 'Web Redesign',
         description:
-          'Modernize your existing website with updated design, better performance, and optimized user experience across all devices.',
+          'Your current website deserves a fresh start. Updated design, better performance, and a smooth experience on every device.',
       },
     ],
   },
   projects: {
     title: 'Projects',
+    subtitle: 'Some projects I have worked on',
     viewMore: 'View Details',
     noProjects: 'No published projects yet.',
+    noImage: 'No image',
+    viewAll: 'View all projects',
+    page: {
+      title: 'All Projects',
+      description: 'Explore all the projects I have worked on',
+      previous: 'Previous',
+      next: 'Next',
+      page: 'Page',
+      of: 'of',
+    },
   },
   contact: {
     title: 'Contact Me',
     subtitle:
-      'Tell me about your project and I will get back to you shortly with a personalized quote.',
+      'Tell me about your project and I will send you a personalized quote within 48 hours.',
     form: {
       name: 'Name',
       namePlaceholder: 'Your name',
@@ -209,7 +220,7 @@ export const en = {
         technologies: 'Technologies',
         technologyName: 'Name',
         technologyIcon: 'Icon',
-        technologyUrl: 'URL (optional)',
+        technologyUrl: 'URL (web, GitHub...)',
         addTechnology: 'Add Technology',
         removeTechnology: 'Remove',
         image: 'Project Image',
@@ -260,7 +271,7 @@ export const en = {
   },
   footer: {
     copyright: `© ${new Date().getFullYear()} MitzuStudios. All rights reserved.`,
-    description: 'Professional web development. Turning your ideas into software.',
+    description: 'Professional web development. From your idea to your next website.',
     rights: 'All rights reserved.',
   },
   errors: {

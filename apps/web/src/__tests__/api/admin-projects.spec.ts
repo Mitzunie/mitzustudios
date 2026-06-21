@@ -18,7 +18,7 @@ const mockProjectFindUnique = vi.fn()
 const mockProjectUpdate = vi.fn()
 const mockProjectDelete = vi.fn()
 
-vi.mock('@mitzustudios/db', () => ({
+vi.mock('@/lib/db', () => ({
   prisma: {
     project: {
       findMany: (...args: any[]) => mockProjectFindMany(...args),

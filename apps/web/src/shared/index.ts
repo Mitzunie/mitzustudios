@@ -30,6 +30,9 @@ export type {
   UpdateProjectFormValues,
 } from './schemas'
 
+// Constants
+export { getTechIcon } from './constants/tech-icons'
+
 // i18n
 export { es, en } from './i18n'
 export type { Dictionary } from './i18n'

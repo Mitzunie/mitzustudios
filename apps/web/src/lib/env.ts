@@ -18,6 +18,7 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().optional(),
     NEXT_PUBLIC_CONTACT_EMAIL: z.string().optional(),
+    NEXT_PUBLIC_SITE_LOGO_URL: z.string().optional(),
   },
   runtimeEnv: process.env as Record<string, string | undefined>,
 })

@@ -8,7 +8,7 @@ export default function AdminRequestsPage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold">{t.admin.requests.title}</h1>
+      <h1 className="mb-6 text-2xl font-black uppercase tracking-wide">{t.admin.requests.title}</h1>
       <RequestsList />
     </div>
   )

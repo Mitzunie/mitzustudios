@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const technologySchema = z.object({
   name: z.string().min(1, 'Nombre requerido').max(50),
-  icon: z.string().min(1, 'Icono requerido').max(50),
+  icon: z.string().max(50).optional().or(z.literal('')),
   url: z.string().url('URL inválida').optional().or(z.literal('')),
 })
 

@@ -8,18 +8,16 @@ export function AboutSection() {
   const t = useTranslations()
 
   return (
-    <section id="about" className="border-border/50 border-t py-24">
+    <section id="about" className="neo-border py-24">
       <div className="container-custom mx-auto px-4">
         <SectionAnimation animation="fadeIn">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="border-primary/20 bg-primary/5 text-primary mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm">
-              <Sparkles className="h-4 w-4" />
-              <span>{t.about.title}</span>
-            </div>
-            <h2 className="mb-6 text-3xl font-bold sm:text-4xl">{t.about.title}</h2>
-            <div className="flex items-start justify-center gap-4 text-left">
-              <Code2 className="text-primary mt-1 h-6 w-6 shrink-0" />
-              <p className="text-muted-foreground text-lg leading-relaxed">{t.about.content}</p>
+            <h2 className="neo-section-title mb-8">{t.about.title}</h2>
+            <div className="neo-card bg-card flex items-start gap-4 p-6 text-left">
+              <Code2 className="text-primary mt-1 h-8 w-8 shrink-0" />
+              <p className="text-foreground text-lg font-bold leading-relaxed uppercase tracking-wide">
+                {t.about.content}
+              </p>
             </div>
           </div>
         </SectionAnimation>

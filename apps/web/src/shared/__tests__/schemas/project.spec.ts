@@ -4,6 +4,29 @@ import {
   createProjectSchema,
   updateProjectSchema,
 } from '../../schemas/project'
+import { getTechIcon } from '../../constants/tech-icons'
+
+describe('getTechIcon', () => {
+  it('devuelve icono conocido para react', () => {
+    expect(getTechIcon('React')).toBe('⚛️')
+  })
+
+  it('devuelve icono conocido para nextjs', () => {
+    expect(getTechIcon('Next.js')).toBe('▲')
+  })
+
+  it('ignora mayúsculas/minúsculas', () => {
+    expect(getTechIcon('NEXT.JS')).toBe('▲')
+  })
+
+  it('devuelve icono por defecto para tecnología desconocida', () => {
+    expect(getTechIcon('AlgunaTecnologiaDesconocida')).toBe('🛠️')
+  })
+
+  it('devuelve icono con coincidencia parcial', () => {
+    expect(getTechIcon('Tailwind CSS v4')).toBe('🎨')
+  })
+})
 
 describe('technologySchema', () => {
   it('acepta tecnología válida con url', () => {
@@ -40,12 +63,12 @@ describe('technologySchema', () => {
     expect(result.success).toBe(false)
   })
 
-  it('rechaza tecnología sin icono', () => {
+  it('acepta tecnología sin icono (se auto-detecta)', () => {
     const result = technologySchema.safeParse({
       name: 'React',
       icon: '',
     })
-    expect(result.success).toBe(false)
+    expect(result.success).toBe(true)
   })
 
   it('rechaza nombre con más de 50 caracteres', () => {

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { Pencil, Trash2 } from 'lucide-react'
-import type { ProjectDTO, PaginatedResponse } from '@mitzustudios/shared'
+import type { ProjectDTO, PaginatedResponse } from '@/shared'
 import { StatusBadge } from './StatusBadge'
 import { FilterBar } from './FilterBar'
 import { useTranslations } from '@/hooks/useTranslations'
@@ -72,7 +72,7 @@ export function ProjectsTable() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="border-primary h-8 w-8 animate-spin rounded-full border-4 border-t-transparent" />
+        <div className="neo-border border-primary h-8 w-8 animate-spin border-4 border-t-transparent bg-transparent" />
       </div>
     )
   }
@@ -94,25 +94,27 @@ export function ProjectsTable() {
       </div>
 
       {projects.length === 0 ? (
-        <div className="text-muted-foreground py-20 text-center">{t.admin.projects.noProjects}</div>
+        <div className="text-muted-foreground py-20 text-center font-bold uppercase tracking-wide">
+          {t.admin.projects.noProjects}
+        </div>
       ) : (
-        <div className="border-border/50 overflow-x-auto rounded-xl border">
+        <div className="neo-border overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-border/50 bg-muted/50 border-b">
-                <th className="text-muted-foreground px-4 py-3 text-left font-medium">
+              <tr className="neo-border border-b-3 border-t-0 border-l-0 border-r-0 bg-muted/50">
+                <th className="text-muted-foreground px-4 py-3 text-left font-black uppercase text-xs tracking-wide">
                   {t.admin.projects.table.title}
                 </th>
-                <th className="text-muted-foreground px-4 py-3 text-left font-medium">
+                <th className="text-muted-foreground px-4 py-3 text-left font-black uppercase text-xs tracking-wide">
                   {t.admin.projects.table.status}
                 </th>
-                <th className="text-muted-foreground hidden px-4 py-3 text-left font-medium lg:table-cell">
+                <th className="text-muted-foreground hidden px-4 py-3 text-left font-black uppercase text-xs tracking-wide lg:table-cell">
                   {t.admin.projects.table.technologies}
                 </th>
-                <th className="text-muted-foreground hidden px-4 py-3 text-left font-medium sm:table-cell">
+                <th className="text-muted-foreground hidden px-4 py-3 text-left font-black uppercase text-xs tracking-wide sm:table-cell">
                   {t.admin.projects.table.date}
                 </th>
-                <th className="text-muted-foreground px-4 py-3 text-right font-medium">
+                <th className="text-muted-foreground px-4 py-3 text-right font-black uppercase text-xs tracking-wide">
                   {t.admin.projects.table.actions}
                 </th>
               </tr>
@@ -121,41 +123,41 @@ export function ProjectsTable() {
               {projects.map((project) => (
                 <tr
                   key={project.id}
-                  className="border-border/25 hover:bg-muted/30 border-b transition-colors"
+                  className="neo-border border-b-3 border-t-0 border-l-0 border-r-0 hover:bg-muted/30 transition-colors last:border-b-0"
                 >
-                  <td className="px-4 py-3 font-medium">{project.title}</td>
+                  <td className="px-4 py-3 font-black uppercase tracking-wide text-sm">{project.title}</td>
                   <td className="px-4 py-3">
                     <StatusBadge status={project.status} variant="project" />
                   </td>
                   <td className="text-muted-foreground hidden px-4 py-3 lg:table-cell">
-                    <div className="flex flex-wrap gap-1">
+                    <div className="flex flex-wrap gap-1 font-bold uppercase tracking-wide text-xs">
                       {project.technologies.slice(0, 3).map((t) => (
                         <span key={t.id} className="text-xs">
                           {t.icon} {t.name}
                         </span>
                       ))}
                       {project.technologies.length > 3 && (
-                        <span className="text-muted-foreground text-xs">
+                        <span className="text-muted-foreground text-xs font-bold">
                           +{project.technologies.length - 3}
                         </span>
                       )}
                     </div>
                   </td>
-                  <td className="text-muted-foreground hidden px-4 py-3 sm:table-cell">
+                  <td className="text-muted-foreground hidden px-4 py-3 sm:table-cell font-bold uppercase tracking-wide text-xs">
                     {new Date(project.createdAt).toLocaleDateString()}
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-1">
                       <button
                         onClick={() => router.push(`/admin/projects/${project.id}`)}
-                        className="text-muted-foreground hover:bg-secondary hover:text-foreground rounded-lg p-2 transition-colors"
+                        className="text-muted-foreground hover:bg-secondary hover:text-foreground neo-border border-transparent hover:border-border p-2 transition-colors"
                         title={t.admin.projects.form.title}
                       >
                         <Pencil className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(project.id, project.title)}
-                        className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive rounded-lg p-2 transition-colors"
+                        className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive neo-border border-transparent hover:border-destructive p-2 transition-colors"
                         title={t.admin.projects.form.delete}
                       >
                         <Trash2 className="h-4 w-4" />

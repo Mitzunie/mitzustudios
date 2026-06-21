@@ -11,58 +11,69 @@ export const es = {
     logout: 'Cerrar Sesión',
   },
   hero: {
-    title: 'Transformamos tus ideas en',
-    titleHighlight: 'software profesional',
+    title: 'De tu idea a',
+    titleHighlight: 'tu próxima web',
     subtitle:
-      'Desarrollo web a medida para impulsar tu negocio. Desde landing pages hasta aplicaciones web completas.',
-    cta: 'Solicitar Cotización',
+      'Desarrollo aplicaciones web profesionales para negocios que buscan crecer. Landing pages, tiendas online o plataformas a medida — todo con tecnología moderna y bien hecho.',
+    cta: 'Cotiza tu Proyecto',
     secondaryCta: 'Ver Proyectos',
   },
   about: {
     title: 'Sobre Mí',
     content:
-      'Desarrollador web apasionado por crear soluciones digitales que impulsan negocios. Especializado en desarrollo full-stack con tecnologías modernas como Next.js, React, Node.js y bases de datos serverless. Transformo ideas en productos funcionales, escalables y con diseño cuidado.',
+      'Desarrollador full-stack especializado en construir soluciones digitales con Next.js, React y Node.js. Transformo ideas en productos funcionales, rápidos y con diseño cuidado. Cada proyecto lo abordo con el mismo objetivo: que funcione bien, se vea bien y le aporte valor real a tu negocio.',
   },
   services: {
     title: 'Servicios',
-    subtitle: 'Soluciones de desarrollo web profesionales para tu negocio',
+    subtitle: 'Lo que puedo hacer por ti y tu negocio',
     items: [
       {
         title: 'Landing Pages',
         description:
-          'Páginas web profesionales de una sola página para presentar tu negocio, producto o servicio con diseño impactante y optimizado para conversión.',
+          'Páginas profesionales de una sola página, diseñadas para causar una buena impresión y convertir visitantes en clientes. Ideal para presentar tu negocio o lanzar un producto.',
       },
       {
         title: 'Tiendas E-commerce',
         description:
-          'Tiendas online completas con carrito de compras, pasarela de pago y panel de administración para gestionar productos y pedidos.',
+          'Tu tienda online lista para vender. Con carrito de compras, pasarela de pago y un panel para que administres productos y pedidos sin complicaciones.',
       },
       {
         title: 'Aplicaciones Web',
         description:
-          'Plataformas web interactivas con panel de administración, autenticación de usuarios y funcionalidades a medida para tu negocio.',
+          'Plataformas web interactivas con todo lo que tu negocio necesita: panel de administración, gestión de usuarios y funciones hechas a tu medida.',
       },
       {
         title: 'APIs y Backend',
         description:
-          'APIs RESTful robustas y escalables para conectar tus aplicaciones con bases de datos, servicios externos y automatizar procesos.',
+          'APIs robustas y escalables para conectar tus aplicaciones con bases de datos y servicios externos. Tu lógica de negocio funcionando como debe.',
       },
       {
         title: 'Rediseño Web',
         description:
-          'Modernizamos tu sitio web existente con diseño actual, mejor rendimiento y experiencia de usuario optimizada para todos los dispositivos.',
+          'Tu sitio actual merece una segunda oportunidad. Lo renovamos con diseño moderno, mejor rendimiento y una experiencia impecable en cualquier dispositivo.',
       },
     ],
   },
   projects: {
     title: 'Proyectos',
+    subtitle: 'Algunos de los proyectos en los que he trabajado',
     viewMore: 'Ver detalle',
     noProjects: 'No hay proyectos publicados todavía.',
+    noImage: 'Sin imagen',
+    viewAll: 'Ver todos los proyectos',
+    page: {
+      title: 'Todos los Proyectos',
+      description: 'Explora todos los proyectos en los que he trabajado',
+      previous: 'Anterior',
+      next: 'Siguiente',
+      page: 'Página',
+      of: 'de',
+    },
   },
   contact: {
     title: 'Contáctame',
     subtitle:
-      'Cuéntame sobre tu proyecto y te responderé a la brevedad con una cotización personalizada.',
+      'Cuéntame sobre tu proyecto y te enviaré una cotización personalizada en menos de 48 horas.',
     form: {
       name: 'Nombre',
       namePlaceholder: 'Tu nombre',
@@ -209,7 +220,7 @@ export const es = {
         technologies: 'Tecnologías',
         technologyName: 'Nombre',
         technologyIcon: 'Icono',
-        technologyUrl: 'URL (opcional)',
+        technologyUrl: 'URL (web, GitHub...)',
         addTechnology: 'Agregar Tecnología',
         removeTechnology: 'Eliminar',
         image: 'Imagen del Proyecto',
@@ -261,7 +272,7 @@ export const es = {
   },
   footer: {
     copyright: `© ${new Date().getFullYear()} MitzuStudios. Todos los derechos reservados.`,
-    description: 'Desarrollo web profesional. Transformamos tus ideas en software.',
+    description: 'Desarrollo web profesional. De tu idea a tu próxima web.',
     rights: 'Todos los derechos reservados.',
   },
   errors: {

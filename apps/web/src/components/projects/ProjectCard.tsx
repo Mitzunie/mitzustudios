@@ -1,5 +1,8 @@
+'use client'
+
 import Image from 'next/image'
-import type { ProjectDTO } from '@mitzustudios/shared'
+import type { ProjectDTO } from '@/shared'
+import { useTranslations } from '@/hooks/useTranslations'
 import { TechnologyBadge } from './TechnologyBadge'
 import { cn } from '@/lib/utils'
 
@@ -8,44 +11,35 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
+  const t = useTranslations()
+
   return (
-    <article
-      className={cn(
-        'border-border/50 bg-card group overflow-hidden rounded-xl border',
-        'hover-lift hover:border-primary/30',
-        'transition-all duration-300',
-      )}
-    >
-      {/* Image */}
-      <div className="bg-muted relative aspect-video overflow-hidden">
+    <article className="neo-card bg-card group">
+      <div className="bg-muted relative aspect-video">
         {project.imageUrl ? (
           <Image
             src={project.imageUrl}
             alt={project.title}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
           <div className="flex h-full items-center justify-center">
             <div className="text-center">
               <div className="text-muted-foreground mb-2 text-4xl">📁</div>
-              <p className="text-muted-foreground text-sm">Sin imagen</p>
+              <p className="text-muted-foreground text-sm font-bold uppercase">{t.projects.noImage}</p>
             </div>
           </div>
         )}
       </div>
 
-      {/* Content */}
-      <div className="p-5">
-        <h3 className="group-hover:text-primary mb-2 text-lg font-semibold transition-colors">
-          {project.title}
-        </h3>
-        <p className="text-muted-foreground mb-4 line-clamp-2 text-sm leading-relaxed">
+      <div className="neo-border border-t-3 border-b-0 border-l-0 border-r-0 p-5">
+        <h3 className="mb-2 text-lg font-black uppercase tracking-wide">{project.title}</h3>
+        <p className="text-muted-foreground mb-4 line-clamp-2 text-sm font-bold uppercase leading-relaxed tracking-wide">
           {project.description}
         </p>
 
-        {/* Technologies */}
         {project.technologies.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {project.technologies.map((tech) => (

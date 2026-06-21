@@ -10,7 +10,7 @@ vi.mock('../../stores/language', () => ({
 
 import { useLanguageStore } from '../../stores/language'
 import { useTranslations } from '../../hooks/useTranslations'
-import { es, en } from '@mitzustudios/shared'
+import { es, en } from '@/shared'
 
 describe('useTranslations', () => {
   beforeEach(() => {
@@ -25,7 +25,7 @@ describe('useTranslations', () => {
 
     const t = useTranslations()
     expect(t.nav.hero).toBe('Inicio')
-    expect(t.hero.cta).toBe('Solicitar Cotización')
+    expect(t.hero.cta).toBe('Cotiza tu Proyecto')
   })
 
   it('devuelve diccionario inglés cuando language es "en"', () => {

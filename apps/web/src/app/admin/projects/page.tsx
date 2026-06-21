@@ -11,10 +11,10 @@ export default function AdminProjectsPage() {
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold">{t.admin.projects.title}</h1>
+        <h1 className="text-2xl font-black uppercase tracking-wide">{t.admin.projects.title}</h1>
         <Link
           href="/admin/projects/new"
-          className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors"
+          className="neo-button neo-button-primary neo-shadow-sm inline-flex items-center gap-2 px-4 py-2 text-sm"
         >
           <Plus className="h-4 w-4" />
           {t.admin.projects.newProject}

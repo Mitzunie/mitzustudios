@@ -56,10 +56,10 @@ export function ImageUploadField({
 
   return (
     <div>
-      <label className="mb-2 block text-sm font-medium">{t.admin.projects.form.image}</label>
+      <label className="mb-2 block text-sm font-black uppercase tracking-wide">{t.admin.projects.form.image}</label>
 
       {displayImage && !error ? (
-        <div className="border-border/50 relative mb-4 overflow-hidden rounded-lg border">
+        <div className="neo-border relative mb-4 overflow-hidden">
           <div className="relative aspect-video w-full max-w-md">
             <Image
               src={displayImage}
@@ -72,7 +72,7 @@ export function ImageUploadField({
           <button
             type="button"
             onClick={handleRemove}
-            className="bg-destructive/80 hover:bg-destructive absolute right-2 top-2 rounded-full p-1.5 text-white transition-colors"
+            className="bg-destructive text-destructive-foreground neo-border absolute right-2 top-2 p-1.5 transition-colors"
             aria-label={t.admin.projects.form.removeImage}
           >
             <X className="h-4 w-4" />
@@ -82,7 +82,7 @@ export function ImageUploadField({
         <div
           onClick={() => inputRef.current?.click()}
           className={cn(
-            'mb-4 flex aspect-video w-full max-w-md cursor-pointer items-center justify-center rounded-lg border-2 border-dashed transition-colors',
+            'neo-border mb-4 flex aspect-video w-full max-w-md cursor-pointer items-center justify-center border-dashed transition-colors',
             error
               ? 'border-destructive/50 bg-destructive/5'
               : 'border-border/50 hover:border-primary/50 hover:bg-primary/5',
@@ -90,10 +90,10 @@ export function ImageUploadField({
         >
           <div className="text-center">
             <Upload className="text-muted-foreground mx-auto mb-2 h-8 w-8" />
-            <p className="text-muted-foreground text-sm">
+            <p className="text-muted-foreground text-sm font-bold uppercase tracking-wide">
               {t.admin.projects.form.imagePlaceholder}
             </p>
-            <p className="text-muted-foreground/50 text-xs">Máximo 10MB</p>
+            <p className="text-muted-foreground/50 text-xs font-bold uppercase">Máximo 10MB</p>
           </div>
         </div>
       )}
@@ -111,14 +111,14 @@ export function ImageUploadField({
         <button
           type="button"
           onClick={() => inputRef.current?.click()}
-          className="border-border hover:bg-secondary rounded-lg border px-4 py-2 text-sm transition-colors"
+          className="neo-border border-border hover:bg-secondary px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors"
         >
           {t.admin.projects.form.imagePlaceholder}
         </button>
       )}
 
       {error && (
-        <p className="text-destructive mt-1.5 flex items-center gap-1.5 text-xs">
+        <p className="text-destructive mt-1.5 flex items-center gap-1.5 text-xs font-bold uppercase">
           <AlertCircle className="h-3 w-3" />
           {error}
         </p>

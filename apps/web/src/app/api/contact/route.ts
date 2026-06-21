@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@mitzustudios/db'
-import { contactSchema } from '@mitzustudios/shared'
+import { prisma } from '@/lib/db'
+import { contactSchema } from '@/shared'
 import { contactLimiter } from '@/lib/rate-limit'
 import { sendNotificationEmail } from '@/lib/resend'
 

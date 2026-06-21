@@ -20,13 +20,13 @@ export function AdminSidebar() {
 
   const sidebarContent = (
     <div className="flex h-full flex-col">
-      <div className="border-border/50 flex items-center justify-between border-b p-4">
-        <Link href="/admin/dashboard" className="gradient-text text-lg font-bold">
+      <div className="neo-border flex items-center justify-between border-t-0 border-l-0 border-r-0 p-4">
+        <Link href="/admin/dashboard" className="text-primary text-lg font-black uppercase tracking-wide">
           MitzuStudios
         </Link>
         <button
           onClick={() => setIsMobileOpen(false)}
-          className="hover:bg-secondary rounded-lg p-1 md:hidden"
+          className="neo-border hover:bg-secondary p-1 md:hidden"
           aria-label="Cerrar sidebar"
         >
           <X className="h-5 w-5" />
@@ -43,10 +43,10 @@ export function AdminSidebar() {
               href={link.href}
               onClick={() => setIsMobileOpen(false)}
               className={cn(
-                'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
+                'flex items-center gap-3 px-3 py-2.5 text-sm font-bold uppercase tracking-wide transition-colors',
                 isActive
-                  ? 'bg-primary/10 text-primary'
-                  : 'text-muted-foreground hover:bg-secondary hover:text-foreground',
+                  ? 'bg-primary text-primary-foreground neo-border'
+                  : 'text-muted-foreground hover:bg-secondary hover:text-foreground neo-border border-transparent hover:border-border',
               )}
             >
               <Icon className="h-4 w-4" />
@@ -56,10 +56,10 @@ export function AdminSidebar() {
         })}
       </nav>
 
-      <div className="border-border/50 border-t p-4">
+      <div className="neo-border border-b-0 border-l-0 border-r-0 p-4">
         <Link
           href="/"
-          className="text-muted-foreground hover:bg-secondary hover:text-foreground flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors"
+          className="text-muted-foreground hover:bg-secondary hover:text-foreground neo-border border-transparent hover:border-border flex items-center gap-2 px-3 py-2 text-sm font-bold uppercase tracking-wide transition-colors"
         >
           ← {t.nav.hero}
         </Link>
@@ -70,7 +70,7 @@ export function AdminSidebar() {
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="border-border/50 bg-card hidden w-64 shrink-0 border-r md:block">
+      <aside className="neo-border border-t-0 border-b-0 border-l-0 bg-card hidden w-64 shrink-0 md:block">
         {sidebarContent}
       </aside>
 
@@ -78,7 +78,7 @@ export function AdminSidebar() {
       {isMobileOpen && (
         <div className="fixed inset-0 z-50 md:hidden">
           <div
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/50"
             onClick={() => setIsMobileOpen(false)}
           />
           <aside className="bg-card relative h-full w-64">{sidebarContent}</aside>
@@ -88,7 +88,7 @@ export function AdminSidebar() {
       {/* Mobile toggle */}
       <button
         onClick={() => setIsMobileOpen(true)}
-        className="bg-primary text-primary-foreground fixed bottom-4 right-4 z-40 rounded-full p-3 shadow-lg md:hidden"
+        className="bg-primary text-primary-foreground neo-border neo-shadow-sm fixed bottom-4 right-4 z-40 p-3 md:hidden"
         aria-label="Abrir menú"
       >
         <svg

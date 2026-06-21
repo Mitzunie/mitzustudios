@@ -1,12 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
-import { prisma } from '@mitzustudios/db'
-import { registerSchema } from '@mitzustudios/shared'
+import { z } from 'zod'
+import { prisma } from '@/lib/db'
+
+const registerApiSchema = z.object({
+  name: z.string().min(1, 'El nombre es requerido').max(100),
+  email: z.string().email('Email inválido'),
+  password: z.string().min(8, 'Mínimo 8 caracteres'),
+})
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const parsed = registerSchema.safeParse(body)
+    const parsed = registerApiSchema.safeParse(body)
 
     if (!parsed.success) {
       return NextResponse.json(

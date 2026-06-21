@@ -9,7 +9,7 @@ import {
   PROJECT_TYPES,
   PROJECT_TYPE_LABELS,
   type ContactFormValues,
-} from '@mitzustudios/shared'
+} from '@/shared'
 import { useTranslations } from '@/hooks/useTranslations'
 import { SectionAnimation } from '@/components/shared/SectionAnimation'
 import { cn } from '@/lib/utils'
@@ -78,18 +78,18 @@ export function ContactSection() {
 
   if (submitState === 'success') {
     return (
-      <section id="contact" className="border-border/50 border-t py-24">
+      <section id="contact" className="neo-border py-24">
         <div className="container-custom mx-auto px-4">
           <SectionAnimation animation="fadeIn">
             <div className="mx-auto max-w-lg text-center">
-              <div className="bg-primary/10 text-primary mb-6 inline-flex rounded-full p-4">
+              <div className="bg-primary text-primary-foreground neo-border mx-auto mb-6 inline-flex p-4">
                 <CheckCircle2 className="h-10 w-10" />
               </div>
-              <h2 className="mb-4 text-2xl font-bold">{t.contact.form.success}</h2>
-              <p className="text-muted-foreground">{t.contact.form.quoteMessage}</p>
+              <h2 className="mb-4 text-2xl font-black uppercase tracking-wide">{t.contact.form.success}</h2>
+              <p className="text-muted-foreground font-bold uppercase tracking-wide">{t.contact.form.quoteMessage}</p>
               <button
                 onClick={() => setSubmitState('idle')}
-                className="bg-primary text-primary-foreground hover:bg-primary/90 mt-8 rounded-lg px-6 py-2 text-sm font-medium transition-colors"
+                className="neo-button neo-button-primary neo-shadow-sm mt-8 px-6 py-2 text-sm"
               >
                 Enviar otra solicitud
               </button>
@@ -101,12 +101,12 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="border-border/50 border-t py-24">
+    <section id="contact" className="neo-border py-24">
       <div className="container-custom mx-auto px-4">
         <SectionAnimation animation="fadeIn">
           <div className="mx-auto mb-16 max-w-2xl text-center">
-            <h2 className="mb-4 text-3xl font-bold sm:text-4xl">{t.contact.title}</h2>
-            <p className="text-muted-foreground text-lg">{t.contact.subtitle}</p>
+            <h2 className="neo-section-title mb-4">{t.contact.title}</h2>
+            <p className="text-muted-foreground text-lg font-bold uppercase tracking-wide">{t.contact.subtitle}</p>
           </div>
         </SectionAnimation>
 
@@ -123,10 +123,9 @@ export function ContactSection() {
                 placeholder={t.contact.form.namePlaceholder}
                 {...register('clientName')}
                 className={cn(
-                  'bg-card w-full rounded-lg border px-4 py-2.5 text-sm transition-colors',
+                  'neo-input w-full px-4 py-2.5 text-sm font-bold uppercase tracking-wide',
                   'placeholder:text-muted-foreground/50',
-                  'focus:ring-ring focus:outline-none focus:ring-2',
-                  errors.clientName ? 'border-destructive' : 'border-input',
+                  errors.clientName ? 'border-destructive' : '',
                 )}
                 aria-invalid={!!errors.clientName}
                 aria-describedby={errors.clientName ? 'clientName-error' : undefined}
@@ -149,10 +148,9 @@ export function ContactSection() {
                 placeholder={t.contact.form.emailPlaceholder}
                 {...register('clientEmail')}
                 className={cn(
-                  'bg-card w-full rounded-lg border px-4 py-2.5 text-sm transition-colors',
+                  'neo-input w-full px-4 py-2.5 text-sm font-bold uppercase tracking-wide',
                   'placeholder:text-muted-foreground/50',
-                  'focus:ring-ring focus:outline-none focus:ring-2',
-                  errors.clientEmail ? 'border-destructive' : 'border-input',
+                  errors.clientEmail ? 'border-destructive' : '',
                 )}
                 aria-invalid={!!errors.clientEmail}
                 aria-describedby={errors.clientEmail ? 'clientEmail-error' : undefined}
@@ -175,10 +173,9 @@ export function ContactSection() {
                 placeholder={t.contact.form.phonePlaceholder}
                 {...register('clientPhone')}
                 className={cn(
-                  'bg-card w-full rounded-lg border px-4 py-2.5 text-sm transition-colors',
+                  'neo-input w-full px-4 py-2.5 text-sm font-bold uppercase tracking-wide',
                   'placeholder:text-muted-foreground/50',
-                  'focus:ring-ring focus:outline-none focus:ring-2',
-                  errors.clientPhone ? 'border-destructive' : 'border-input',
+                  errors.clientPhone ? 'border-destructive' : '',
                 )}
                 aria-invalid={!!errors.clientPhone}
                 aria-describedby={errors.clientPhone ? 'clientPhone-error' : undefined}
@@ -199,9 +196,8 @@ export function ContactSection() {
                 id="projectType"
                 {...register('projectType')}
                 className={cn(
-                  'bg-card w-full rounded-lg border px-4 py-2.5 text-sm transition-colors',
-                  'focus:ring-ring focus:outline-none focus:ring-2',
-                  errors.projectType ? 'border-destructive' : 'border-input',
+                  'neo-input w-full px-4 py-2.5 text-sm font-bold uppercase tracking-wide',
+                  errors.projectType ? 'border-destructive' : '',
                 )}
                 aria-invalid={!!errors.projectType}
               >
@@ -228,10 +224,9 @@ export function ContactSection() {
                   placeholder={t.contact.form.otherTypePlaceholder}
                   {...register('otherType')}
                   className={cn(
-                    'bg-card w-full rounded-lg border px-4 py-2.5 text-sm transition-colors',
+                    'neo-input w-full px-4 py-2.5 text-sm font-bold uppercase tracking-wide',
                     'placeholder:text-muted-foreground/50',
-                    'focus:ring-ring focus:outline-none focus:ring-2',
-                    errors.otherType ? 'border-destructive' : 'border-input',
+                    errors.otherType ? 'border-destructive' : '',
                   )}
                   aria-invalid={!!errors.otherType}
                 />
@@ -252,10 +247,9 @@ export function ContactSection() {
                 placeholder={t.contact.form.descriptionPlaceholder}
                 {...register('description')}
                 className={cn(
-                  'bg-card w-full resize-y rounded-lg border px-4 py-2.5 text-sm transition-colors',
+                  'neo-input w-full resize-y px-4 py-2.5 text-sm font-bold uppercase tracking-wide',
                   'placeholder:text-muted-foreground/50',
-                  'focus:ring-ring focus:outline-none focus:ring-2',
-                  errors.description ? 'border-destructive' : 'border-input',
+                  errors.description ? 'border-destructive' : '',
                 )}
                 aria-invalid={!!errors.description}
                 aria-describedby={errors.description ? 'description-error' : undefined}
@@ -269,7 +263,7 @@ export function ContactSection() {
 
             {/* Error message */}
             {submitState === 'error' && (
-              <div className="border-destructive/50 bg-destructive/10 text-destructive flex items-start gap-2 rounded-lg border p-3 text-sm">
+              <div className="neo-border border-destructive bg-destructive/10 text-destructive flex items-start gap-2 p-3 text-sm font-bold">
                 <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
                 <p>{errorMessage || t.contact.form.error}</p>
               </div>
@@ -280,11 +274,8 @@ export function ContactSection() {
               type="submit"
               disabled={submitState === 'loading'}
               className={cn(
-                'inline-flex w-full items-center justify-center gap-2 rounded-lg px-8 py-3 text-base font-semibold transition-all',
-                'focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2',
-                submitState === 'loading'
-                  ? 'bg-primary/50 cursor-not-allowed'
-                  : 'bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-primary/25 hover:shadow-lg',
+                'neo-button neo-button-primary neo-shadow-sm inline-flex w-full items-center justify-center gap-2 px-8 py-3 text-base',
+                submitState === 'loading' ? 'cursor-not-allowed opacity-60' : '',
               )}
             >
               {submitState === 'loading' ? (

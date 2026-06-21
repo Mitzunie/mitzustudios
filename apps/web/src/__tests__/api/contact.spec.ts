@@ -5,7 +5,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { NextRequest } from 'next/server'
 
 // Mock Prisma
-vi.mock('@mitzustudios/db', () => ({
+vi.mock('@/lib/db', () => ({
   prisma: {
     serviceRequest: {
       create: vi.fn(),
@@ -28,7 +28,7 @@ vi.mock('../../lib/resend', () => ({
 }))
 
 import { POST } from '../../app/api/contact/route'
-import { prisma } from '@mitzustudios/db'
+import { prisma } from '@/lib/db'
 
 function createRequest(body: unknown, ip?: string): NextRequest {
   const headers = new Headers()

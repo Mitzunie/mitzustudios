@@ -63,8 +63,8 @@ export function ResponseForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="border-border/50 bg-card rounded-xl border p-6">
-      <h3 className="mb-4 text-lg font-semibold">{t.admin.requests.detail.respond}</h3>
+    <form onSubmit={handleSubmit} className="neo-card bg-card p-6">
+      <h3 className="mb-4 text-lg font-black uppercase tracking-wide">{t.admin.requests.detail.respond}</h3>
 
       {/* Channel selector */}
       <div className="mb-4 flex gap-2">
@@ -72,10 +72,10 @@ export function ResponseForm({
           type="button"
           onClick={() => setChannel('WHATSAPP')}
           className={cn(
-            'flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors',
+            'neo-border flex items-center gap-2 px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors',
             channel === 'WHATSAPP'
-              ? 'border border-green-500/30 bg-green-500/10 text-green-500'
-              : 'bg-secondary/50 text-muted-foreground border-border hover:bg-secondary border',
+              ? 'border-green-500 bg-green-500/10 text-green-500 neo-shadow-sm'
+              : 'bg-secondary/50 text-muted-foreground border-border hover:bg-secondary',
           )}
         >
           <MessageCircle className="h-4 w-4" />
@@ -85,10 +85,10 @@ export function ResponseForm({
           type="button"
           onClick={() => setChannel('EMAIL')}
           className={cn(
-            'flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors',
+            'neo-border flex items-center gap-2 px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors',
             channel === 'EMAIL'
-              ? 'border border-blue-500/30 bg-blue-500/10 text-blue-500'
-              : 'bg-secondary/50 text-muted-foreground border-border hover:bg-secondary border',
+              ? 'border-blue-500 bg-blue-500/10 text-blue-500 neo-shadow-sm'
+              : 'bg-secondary/50 text-muted-foreground border-border hover:bg-secondary',
           )}
         >
           <Mail className="h-4 w-4" />
@@ -102,24 +102,22 @@ export function ResponseForm({
         onChange={(e) => setContent(e.target.value)}
         placeholder={t.admin.requests.detail.responsePlaceholder}
         rows={4}
-        className="border-input bg-background placeholder:text-muted-foreground/50 focus:ring-ring mb-4 w-full resize-y rounded-lg border px-4 py-2.5 text-sm transition-colors focus:outline-none focus:ring-2"
+        className="neo-input bg-background placeholder:text-muted-foreground/50 mb-4 w-full resize-y px-4 py-2.5 text-sm font-bold uppercase tracking-wide"
       />
 
-      {error && <p className="text-destructive mb-4 text-sm">{error}</p>}
+      {error && <p className="text-destructive mb-4 text-sm font-bold uppercase">{error}</p>}
 
       <button
         type="submit"
         disabled={sending || !content.trim()}
         className={cn(
-          'inline-flex items-center gap-2 rounded-lg px-6 py-2.5 text-sm font-semibold transition-all',
-          sending || !content.trim()
-            ? 'bg-primary/50 cursor-not-allowed'
-            : 'bg-primary text-primary-foreground hover:bg-primary/90',
+          'neo-button neo-button-primary neo-shadow-sm inline-flex items-center gap-2 px-6 py-2.5 text-sm',
+          sending || !content.trim() ? 'cursor-not-allowed opacity-60' : '',
         )}
       >
         {sending ? (
           <>
-            <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+            <div className="h-4 w-4 animate-spin border-2 border-current border-t-transparent" />
             {t.admin.common.loading}
           </>
         ) : (
@@ -130,7 +128,7 @@ export function ResponseForm({
         )}
       </button>
 
-      <p className="text-muted-foreground mt-3 text-xs">
+      <p className="text-muted-foreground mt-3 text-xs font-bold uppercase tracking-wide">
         {channel === 'WHATSAPP'
           ? `Se abrirá WhatsApp con el número ${clientPhone}`
           : `Se enviará un email a ${clientEmail}`}

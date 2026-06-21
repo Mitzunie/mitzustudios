@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma, ProjectStatus } from '@mitzustudios/db'
-import { updateProjectSchema } from '@mitzustudios/shared'
+import { prisma, ProjectStatus } from '@/lib/db'
+import { updateProjectSchema, getTechIcon } from '@/shared'
 import { requireAdmin } from '@/lib/auth'
 import { uploadImage, deleteImage, extractPublicId } from '@/lib/cloudinary'
 
@@ -161,7 +161,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
                 deleteMany: {},
                 create: technologies.map((t) => ({
                   name: t.name,
-                  icon: t.icon,
+                  icon: t.icon || getTechIcon(t.name),
                   url: t.url || null,
                 })),
               },

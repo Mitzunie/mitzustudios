@@ -1,4 +1,4 @@
-import { prisma } from '@mitzustudios/db'
+import { prisma } from '@/lib/db'
 import { auth } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import { DashboardClient } from './dashboard-client'

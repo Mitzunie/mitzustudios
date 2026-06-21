@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma, ProjectStatus } from '@mitzustudios/db'
-import { createProjectSchema } from '@mitzustudios/shared'
+import { prisma, ProjectStatus } from '@/lib/db'
+import { createProjectSchema, getTechIcon } from '@/shared'
 import { requireAdmin } from '@/lib/auth'
 import { uploadImage } from '@/lib/cloudinary'
 
@@ -144,7 +144,7 @@ export async function POST(request: NextRequest) {
         technologies: {
           create: parsed.data.technologies.map((t) => ({
             name: t.name,
-            icon: t.icon,
+            icon: t.icon || getTechIcon(t.name),
             url: t.url || null,
           })),
         },

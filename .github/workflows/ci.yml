@@ -10,27 +10,19 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # Prisma
   DATABASE_URL: postgresql://test:test@localhost:5432/test
-  # Auth — valores dummy para CI, no secretos reales
   AUTH_SECRET: test-secret-at-least-32-chars-long-for-ci
   ADMIN_EMAILS: admin@mitzustudios.test
-  # Resend
   RESEND_API_KEY: re_test_dummy
   NOTIFICATION_EMAIL: test@mitzustudios.test
-  # Cloudinary
   CLOUDINARY_CLOUD_NAME: test
   CLOUDINARY_API_KEY: '000000'
   CLOUDINARY_API_SECRET: test-secret
-  # WhatsApp
   WHATSAPP_PYME_NUMBER: '56900000000'
-  # Contact
   NEXT_PUBLIC_CONTACT_EMAIL: test@mitzustudios.test
   NEXT_PUBLIC_GA_MEASUREMENT_ID: ''
-  # Rate limiting — desactivado en CI (ventana grande)
   RATE_LIMIT_MAX: '9999'
   RATE_LIMIT_WINDOW_MS: '60000'
-  # Node
   NODE_ENV: test
 
 jobs:
@@ -54,69 +46,47 @@ jobs:
           --health-timeout 5s
           --health-retries 10
 
+    defaults:
+      run:
+        working-directory: ./apps/web
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: pnpm
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
       - name: Generate Prisma client
-        run: pnpm db:generate
+        run: npx prisma generate
 
-      - name: Push DB schema (creates tables from schema)
-        run: pnpm --filter @mitzustudios/db exec prisma db push --skip-generate
+      - name: Push DB schema
+        run: npx prisma db push --skip-generate
         env:
           DATABASE_URL: postgresql://test:test@localhost:5432/test
 
-      - name: Cache Turborepo
-        uses: actions/cache@v4
-        with:
-          path: |
-            .turbo
-            apps/**/.turbo
-            packages/**/.turbo
-          key: turbo-${{ github.sha }}
-          restore-keys: |
-            turbo-${{ runner.os }}-
-
-      - name: Build (Turborepo)
-        run: pnpm build
-        env:
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+      - name: Build
+        run: npm run build
 
       - name: Lint
-        run: pnpm lint
-        env:
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+        run: npm run lint
 
       - name: Test
-        run: pnpm test -- --reporter=verbose
-        env:
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+        run: npm test -- --reporter=verbose
 
       - name: Upload coverage
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: coverage-${{ github.sha }}
-          path: |
-            apps/**/coverage/
-            packages/**/coverage/
+          path: apps/web/coverage/
 
   audit:
     name: Security audit
@@ -125,14 +95,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - name: Run pnpm audit
-        run: pnpm audit --audit-level high
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - name: Install dependencies
+        working-directory: ./apps/web
+        run: npm ci
+      - name: Run npm audit
+        working-directory: ./apps/web
+        run: npm audit --audit-level high
         continue-on-error: true

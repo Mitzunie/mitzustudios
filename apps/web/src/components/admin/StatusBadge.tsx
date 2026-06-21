@@ -6,15 +6,15 @@ interface StatusBadgeProps {
 }
 
 const projectStyles: Record<string, string> = {
-  PUBLISHED: 'bg-green-500/10 text-green-500 border-green-500/20',
-  HIDDEN: 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20',
-  DRAFT: 'bg-gray-500/10 text-gray-400 border-gray-500/20',
+  PUBLISHED: 'bg-green-500/10 text-green-500 border-green-500',
+  HIDDEN: 'bg-yellow-500/10 text-yellow-500 border-yellow-500',
+  DRAFT: 'bg-gray-500/10 text-gray-400 border-gray-500',
 }
 
 const requestStyles: Record<string, string> = {
-  UNREAD: 'bg-blue-500/10 text-blue-500 border-blue-500/20',
-  READ: 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20',
-  ANSWERED: 'bg-green-500/10 text-green-500 border-green-500/20',
+  UNREAD: 'bg-blue-500/10 text-blue-500 border-blue-500',
+  READ: 'bg-yellow-500/10 text-yellow-500 border-yellow-500',
+  ANSWERED: 'bg-green-500/10 text-green-500 border-green-500',
 }
 
 const projectLabels: Record<string, string> = {
@@ -36,7 +36,7 @@ export function StatusBadge({ status, variant }: StatusBadgeProps) {
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium',
+        'neo-border inline-flex items-center border-2 px-2.5 py-0.5 text-xs font-black uppercase tracking-wide',
         styles[status] || '',
       )}
     >

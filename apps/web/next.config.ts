@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  transpilePackages: ['@mitzustudios/db', '@mitzustudios/shared'],
+  transpilePackages: [],
 }
 
 export default nextConfig

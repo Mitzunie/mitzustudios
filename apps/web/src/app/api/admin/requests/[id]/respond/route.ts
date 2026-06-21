@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma, ResponseChannel } from '@mitzustudios/db'
+import { prisma, ResponseChannel } from '@/lib/db'
 import { requireAdmin } from '@/lib/auth'
 import { generateClientResponseLink } from '@/lib/whatsapp'
 import { sendResponseEmail } from '@/lib/resend'

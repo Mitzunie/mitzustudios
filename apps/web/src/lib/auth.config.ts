@@ -1,8 +1,8 @@
 import type { NextAuthConfig } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
-import { prisma } from '@mitzustudios/db'
-import { loginSchema } from '@mitzustudios/shared'
+import { prisma } from '@/lib/db'
+import { loginSchema } from '@/shared'
 import { loginLimiter } from './rate-limit'
 
 export const authConfig: NextAuthConfig = {

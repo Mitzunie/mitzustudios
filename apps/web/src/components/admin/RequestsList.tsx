@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff } from 'lucide-react'
-import type { ServiceRequestDTO, PaginatedResponse } from '@mitzustudios/shared'
+import type { ServiceRequestDTO, PaginatedResponse } from '@/shared'
 import { StatusBadge } from './StatusBadge'
 import { FilterBar } from './FilterBar'
 import { useTranslations } from '@/hooks/useTranslations'
@@ -68,7 +68,7 @@ export function RequestsList() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="border-primary h-8 w-8 animate-spin rounded-full border-4 border-t-transparent" />
+        <div className="neo-border border-primary h-8 w-8 animate-spin border-4 border-t-transparent bg-transparent" />
       </div>
     )
   }
@@ -90,31 +90,31 @@ export function RequestsList() {
       </div>
 
       {requests.length === 0 ? (
-        <div className="text-muted-foreground py-20 text-center">{t.admin.requests.noRequests}</div>
+        <div className="text-muted-foreground py-20 text-center font-bold uppercase tracking-wide">{t.admin.requests.noRequests}</div>
       ) : (
-        <div className="border-border/50 overflow-x-auto rounded-xl border">
+        <div className="neo-border overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-border/50 bg-muted/50 border-b">
-                <th className="text-muted-foreground px-4 py-3 text-left font-medium">
+              <tr className="neo-border border-b-3 border-t-0 border-l-0 border-r-0 bg-muted/50">
+                <th className="text-muted-foreground px-4 py-3 text-left font-black uppercase text-xs tracking-wide">
                   {t.admin.requests.table.client}
                 </th>
-                <th className="text-muted-foreground px-4 py-3 text-left font-medium">
+                <th className="text-muted-foreground px-4 py-3 text-left font-black uppercase text-xs tracking-wide">
                   {t.admin.requests.table.email}
                 </th>
-                <th className="text-muted-foreground hidden px-4 py-3 text-left font-medium md:table-cell">
+                <th className="text-muted-foreground hidden px-4 py-3 text-left font-black uppercase text-xs tracking-wide md:table-cell">
                   {t.admin.requests.table.phone}
                 </th>
-                <th className="text-muted-foreground hidden px-4 py-3 text-left font-medium lg:table-cell">
+                <th className="text-muted-foreground hidden px-4 py-3 text-left font-black uppercase text-xs tracking-wide lg:table-cell">
                   {t.admin.requests.table.projectType}
                 </th>
-                <th className="text-muted-foreground px-4 py-3 text-left font-medium">
+                <th className="text-muted-foreground px-4 py-3 text-left font-black uppercase text-xs tracking-wide">
                   {t.admin.requests.table.status}
                 </th>
-                <th className="text-muted-foreground hidden px-4 py-3 text-left font-medium sm:table-cell">
+                <th className="text-muted-foreground hidden px-4 py-3 text-left font-black uppercase text-xs tracking-wide sm:table-cell">
                   {t.admin.requests.table.date}
                 </th>
-                <th className="text-muted-foreground px-4 py-3 text-right font-medium">
+                <th className="text-muted-foreground px-4 py-3 text-right font-black uppercase text-xs tracking-wide">
                   {t.admin.requests.table.actions}
                 </th>
               </tr>
@@ -123,21 +123,21 @@ export function RequestsList() {
               {requests.map((req) => (
                 <tr
                   key={req.id}
-                  className="border-border/25 hover:bg-muted/30 cursor-pointer border-b transition-colors"
+                  className="neo-border border-b-3 border-t-0 border-l-0 border-r-0 hover:bg-muted/30 cursor-pointer transition-colors last:border-b-0"
                   onClick={() => router.push(`/admin/requests/${req.id}`)}
                 >
-                  <td className="px-4 py-3 font-medium">{req.clientName}</td>
-                  <td className="text-muted-foreground px-4 py-3">{req.clientEmail}</td>
-                  <td className="text-muted-foreground hidden px-4 py-3 md:table-cell">
+                  <td className="px-4 py-3 font-black uppercase tracking-wide text-sm">{req.clientName}</td>
+                  <td className="text-muted-foreground px-4 py-3 font-bold uppercase tracking-wide text-xs">{req.clientEmail}</td>
+                  <td className="text-muted-foreground hidden px-4 py-3 font-bold uppercase tracking-wide text-xs md:table-cell">
                     {req.clientPhone}
                   </td>
-                  <td className="text-muted-foreground hidden px-4 py-3 lg:table-cell">
+                  <td className="text-muted-foreground hidden px-4 py-3 font-bold uppercase tracking-wide text-xs lg:table-cell">
                     {req.projectType}
                   </td>
                   <td className="px-4 py-3">
                     <StatusBadge status={req.status} variant="request" />
                   </td>
-                  <td className="text-muted-foreground hidden px-4 py-3 sm:table-cell">
+                  <td className="text-muted-foreground hidden px-4 py-3 sm:table-cell font-bold uppercase tracking-wide text-xs">
                     {new Date(req.createdAt).toLocaleDateString()}
                   </td>
                   <td className="px-4 py-3 text-right">
@@ -147,7 +147,7 @@ export function RequestsList() {
                         handleToggleStatus(req.id, req.status)
                       }}
                       className={cn(
-                        'rounded-lg p-2 transition-colors',
+                        'neo-border p-2 transition-colors',
                         req.status === 'UNREAD'
                           ? 'text-blue-500 hover:bg-blue-500/10'
                           : 'text-muted-foreground hover:bg-secondary',

@@ -1,7 +1,7 @@
 'use client'
 
 import { useLanguageStore } from '@/stores/language'
-import { es, en, type Dictionary } from '@mitzustudios/shared'
+import { es, en, type Dictionary } from '@/shared'
 
 const dictionaries: Record<string, Dictionary> = {
   es: es as unknown as Dictionary,

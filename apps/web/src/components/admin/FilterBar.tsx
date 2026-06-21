@@ -21,10 +21,10 @@ export function FilterBar({ options, activeFilter, onFilterChange }: FilterBarPr
           key={option.value}
           onClick={() => onFilterChange(option.value)}
           className={cn(
-            'rounded-lg px-3 py-1.5 text-sm font-medium transition-colors',
+            'neo-border px-3 py-1.5 text-sm font-bold uppercase tracking-wide transition-colors',
             activeFilter === option.value
-              ? 'bg-primary text-primary-foreground'
-              : 'bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground',
+              ? 'bg-primary text-primary-foreground neo-shadow-sm'
+              : 'bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground border-transparent',
           )}
         >
           {option.label}

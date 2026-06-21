@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma, RequestStatus } from '@mitzustudios/db'
+import { prisma, RequestStatus } from '@/lib/db'
 import { requireAdmin } from '@/lib/auth'
 
 export async function GET(request: NextRequest) {

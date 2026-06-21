@@ -13,7 +13,7 @@ vi.mock('bcryptjs', () => ({
 }))
 
 // Mock Prisma
-vi.mock('@mitzustudios/db', () => ({
+vi.mock('@/lib/db', () => ({
   prisma: {
     user: {
       findUnique: vi.fn(),
@@ -23,7 +23,7 @@ vi.mock('@mitzustudios/db', () => ({
 }))
 
 import { POST } from '../../app/api/auth/register/route'
-import { prisma } from '@mitzustudios/db'
+import { prisma } from '@/lib/db'
 import bcrypt from 'bcryptjs'
 
 function createRequest(body: unknown): NextRequest {
@@ -126,16 +126,15 @@ describe('POST /api/auth/register', () => {
     expect(body.error.fieldErrors).toBeDefined()
   })
 
-  it('devuelve 400 si passwords no coinciden', async () => {
+  it('devuelve 201 aunque no se envíe confirmPassword', async () => {
     const req = createRequest({
-      ...validBody,
-      confirmPassword: 'differentPassword',
+      name: 'Admin User',
+      email: 'admin@mitzustudios.com',
+      password: 'securePassword123',
     })
     const res = await POST(req)
-    const body = await res.json()
 
-    expect(res.status).toBe(400)
-    expect(body.error.code).toBe('VALIDATION_ERROR')
+    expect(res.status).toBe(201)
   })
 
   it('devuelve 500 si Prisma falla', async () => {

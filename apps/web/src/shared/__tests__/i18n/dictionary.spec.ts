@@ -65,7 +65,7 @@ describe('i18n dictionaries', () => {
 
     it('es tiene hero con CTA', () => {
       expect(es.hero.title).toBeDefined()
-      expect(es.hero.cta).toBe('Solicitar Cotización')
+      expect(es.hero.cta).toBe('Cotiza tu Proyecto')
     })
 
     it('en tiene hero con CTA', () => {
