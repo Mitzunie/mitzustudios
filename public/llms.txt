@@ -1,0 +1,27 @@
+# MitzuStudios
+> Desarrollo web profesional. Transformamos ideas en software.
+
+MitzuStudios es una agencia de desarrollo web fundada por un desarrollador full-stack chileno especializado en Next.js, React y Node.js. Creamos landing pages, tiendas e-commerce, aplicaciones web, APIs y rediseños.
+
+## Key Pages
+- Homepage: https://mitzustudios.online/
+- Projects: https://mitzustudios.online/projects
+- Contact: https://mitzustudios.online/#contact
+
+## Services
+- **Landing Pages**: Páginas profesionales one-page para presentar negocios o lanzar productos.
+- **E-commerce**: Tiendas online con carrito, pasarela de pago y panel admin.
+- **Web Apps**: Plataformas interactivas con panel de administración y gestión de usuarios.
+- **APIs & Backend**: APIs escalables para conectar aplicaciones con bases de datos y servicios.
+- **Redesign**: Renovación de sitios existentes con diseño moderno y mejor rendimiento.
+
+## Tech Stack
+Next.js, React, TypeScript, Node.js, PostgreSQL, Prisma, Tailwind CSS, Cloudinary, Resend
+
+## Contact
+Email: team@mitzustudios.online
+Website: https://mitzustudios.online
+
+## Pricing
+Tarifas personalizadas según alcance del proyecto. Cotización gratuita en max 48h.
+https://mitzustudios.online/#contact

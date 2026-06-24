@@ -2,6 +2,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
 import { GoogleAnalytics } from '@/components/shared/GoogleAnalytics'
 import { SessionProvider } from '@/components/shared/SessionProvider'
+import { OrganizationJsonLd, WebSiteJsonLd } from '@/components/landing/JsonLd'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -36,6 +37,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SessionProvider>{children}</SessionProvider>
         {process.env.NODE_ENV === 'production' && <GoogleAnalytics />}
         {process.env.NODE_ENV === 'production' && <SpeedInsights />}
+        <OrganizationJsonLd />
+        <WebSiteJsonLd />
       </body>
     </html>
   )

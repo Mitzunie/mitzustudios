@@ -1,0 +1,31 @@
+# AI SEO - Allow all AI crawlers for citation
+User-agent: *
+Allow: /
+
+# Allow AI search/citation crawlers explicitly
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Block training-only crawlers
+User-agent: CCBot
+Disallow: /
+
+Sitemap: https://mitzustudios.online/sitemap.xml

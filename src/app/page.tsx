@@ -5,6 +5,7 @@ import { AboutSection } from '@/components/landing/AboutSection'
 import { ServicesSection } from '@/components/landing/ServicesSection'
 import { ProjectsSection } from '@/components/landing/ProjectsSection'
 import { ContactSection } from '@/components/landing/ContactSection'
+import { ServiceJsonLd, FaqJsonLd } from '@/components/landing/JsonLd'
 
 export const dynamic = 'force-dynamic'
 
@@ -20,6 +21,8 @@ export default function HomePage() {
         <ContactSection />
       </main>
       <Footer />
+      <ServiceJsonLd />
+      <FaqJsonLd />
     </>
   )
 }
