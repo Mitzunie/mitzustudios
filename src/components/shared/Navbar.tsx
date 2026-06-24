@@ -2,13 +2,17 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { useSession } from 'next-auth/react'
 import { useTranslations } from '@/hooks/useTranslations'
 import { LanguageToggle } from './LanguageToggle'
+import { Shield } from 'lucide-react'
 
 const navLinks = ['hero', 'about', 'services', 'projects', 'contact'] as const
 
 export function Navbar() {
+  const { data: session } = useSession()
   const t = useTranslations()
+  const isAdmin = session?.user?.role === 'admin'
 
   const scrollToSection = (section: string) => {
     const element = document.getElementById(section)
@@ -57,8 +61,17 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* Language toggle */}
-        <div className="flex items-center">
+        {/* Admin + Language */}
+        <div className="flex items-center gap-2">
+          {isAdmin && (
+            <Link
+              href="/admin/dashboard"
+              className="hover:bg-primary hover:text-primary-foreground neo-border flex items-center gap-1.5 px-3 py-1.5 text-sm font-bold uppercase tracking-wide transition-colors"
+            >
+              <Shield className="h-4 w-4" />
+              <span className="hidden sm:inline">{t.nav.admin}</span>
+            </Link>
+          )}
           <LanguageToggle />
         </div>
       </div>

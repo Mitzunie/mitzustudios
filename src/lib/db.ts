@@ -19,10 +19,12 @@ export type {
   Technology,
   ServiceRequest,
   Response,
+  Quote,
+  QuoteSplit,
   User,
   Account,
   Session,
   VerificationToken,
 } from '@prisma/client'
 
-export { ProjectStatus, RequestStatus, ResponseChannel } from '@prisma/client'
+export { ProjectStatus, RequestStatus, ResponseChannel, QuoteStatus } from '@prisma/client'

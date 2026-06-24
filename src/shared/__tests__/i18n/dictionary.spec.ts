@@ -139,7 +139,7 @@ describe('i18n dictionaries', () => {
   })
 
   describe('admin section completa', () => {
-    const adminSections = ['sidebar', 'login', 'register', 'requests', 'projects', 'dashboard', 'common'] as const
+    const adminSections = ['sidebar', 'login', 'quotes', 'requests', 'projects', 'dashboard', 'common'] as const
 
     for (const section of adminSections) {
       it(`es.admin.${section} está definido`, () => {

@@ -36,6 +36,11 @@ export const authMiddlewareConfig: NextAuthConfig = {
         token.email = user.email
         token.name = user.name
       }
+      if (token.email) {
+        const adminEmails =
+          process.env.ADMIN_EMAILS?.split(',').map((e) => e.trim().toLowerCase()) || []
+        token.role = adminEmails.includes(token.email.toLowerCase()) ? 'admin' : undefined
+      }
       return token
     },
     session({ session, token }) {
@@ -43,6 +48,7 @@ export const authMiddlewareConfig: NextAuthConfig = {
         session.user.id = token.id as string
         session.user.email = token.email as string
         session.user.name = token.name as string
+        session.user.role = token.role as string | undefined
       }
       return session
     },

@@ -118,3 +118,46 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     )
   }
 }
+
+export async function DELETE(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    await requireAdmin()
+    const { id } = await params
+
+    const existing = await prisma.serviceRequest.findUnique({
+      where: { id },
+      select: { id: true },
+    })
+
+    if (!existing) {
+      return NextResponse.json(
+        { success: false, error: { code: 'NOT_FOUND', message: 'Solicitud no encontrada' } },
+        { status: 404 },
+      )
+    }
+
+    await prisma.serviceRequest.delete({ where: { id } })
+
+    return NextResponse.json({ success: true, data: null })
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      (error.message === 'Unauthorized' || error.message === 'Forbidden')
+    ) {
+      const status = error.message === 'Unauthorized' ? 401 : 403
+      return NextResponse.json(
+        {
+          success: false,
+          error: { code: status === 401 ? 'UNAUTHORIZED' : 'FORBIDDEN' },
+        },
+        { status },
+      )
+    }
+
+    console.error('Admin request DELETE error:', error)
+    return NextResponse.json(
+      { success: false, error: { code: 'INTERNAL_ERROR', message: 'Error al eliminar la solicitud' } },
+      { status: 500 },
+    )
+  }
+}

@@ -26,6 +26,15 @@ enum ResponseChannel {
   EMAIL
 }
 
+enum QuoteStatus {
+  PENDING
+  APPROVED
+  PAID
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
 // ─── Models ──────────────────────────────────────
 
 model User {
@@ -130,4 +139,30 @@ model Response {
   createdAt        DateTime       @default(now())
 
   @@index([serviceRequestId])
+}
+
+model Quote {
+  id          String       @id @default(cuid())
+  clientName  String
+  clientEmail String
+  concept     String
+  totalAmount Decimal      @db.Decimal(12, 2)
+  status      QuoteStatus  @default(PENDING)
+  splits      QuoteSplit[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+model QuoteSplit {
+  id              String  @id @default(cuid())
+  quoteId         String
+  quote           Quote   @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  collaborator    String
+  percentage      Decimal @db.Decimal(5, 2)
+  createdAt       DateTime @default(now())
+
+  @@index([quoteId])
 }

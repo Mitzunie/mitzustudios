@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, Trash2 } from 'lucide-react'
 import type { ServiceRequestDTO, PaginatedResponse } from '@/shared'
 import { StatusBadge } from './StatusBadge'
 import { FilterBar } from './FilterBar'
@@ -47,6 +47,28 @@ export function RequestsList() {
   useEffect(() => {
     fetchRequests()
   }, [fetchRequests])
+
+  const handleDelete = async (id: string, clientName: string) => {
+    if (
+      !window.confirm(
+        `${t.admin.requests.deleteConfirm}\n\n"${clientName}"\n\n${t.admin.requests.deleteDescription}`,
+      )
+    ) {
+      return
+    }
+
+    try {
+      const res = await fetch(`/api/admin/requests/${id}`, {
+        method: 'DELETE',
+      })
+
+      if (res.ok) {
+        fetchRequests()
+      }
+    } catch (error) {
+      console.error('Error deleting request:', error)
+    }
+  }
 
   const handleToggleStatus = async (id: string, currentStatus: string) => {
     try {
@@ -141,29 +163,41 @@ export function RequestsList() {
                     {new Date(req.createdAt).toLocaleDateString()}
                   </td>
                   <td className="px-4 py-3 text-right">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        handleToggleStatus(req.id, req.status)
-                      }}
-                      className={cn(
-                        'neo-border p-2 transition-colors',
-                        req.status === 'UNREAD'
-                          ? 'text-blue-500 hover:bg-blue-500/10'
-                          : 'text-muted-foreground hover:bg-secondary',
-                      )}
-                      title={
-                        req.status === 'UNREAD'
-                          ? t.admin.requests.markAsRead
-                          : t.admin.requests.markAsUnread
-                      }
-                    >
-                      {req.status === 'UNREAD' ? (
-                        <Eye className="h-4 w-4" />
-                      ) : (
-                        <EyeOff className="h-4 w-4" />
-                      )}
-                    </button>
+                    <div className="flex items-center justify-end gap-1">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleToggleStatus(req.id, req.status)
+                        }}
+                        className={cn(
+                          'neo-border p-2 transition-colors',
+                          req.status === 'UNREAD'
+                            ? 'text-blue-500 hover:bg-blue-500/10'
+                            : 'text-muted-foreground hover:bg-secondary',
+                        )}
+                        title={
+                          req.status === 'UNREAD'
+                            ? t.admin.requests.markAsRead
+                            : t.admin.requests.markAsUnread
+                        }
+                      >
+                        {req.status === 'UNREAD' ? (
+                          <Eye className="h-4 w-4" />
+                        ) : (
+                          <EyeOff className="h-4 w-4" />
+                        )}
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleDelete(req.id, req.clientName)
+                        }}
+                        className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive neo-border border-transparent hover:border-destructive p-2 transition-colors"
+                        title={t.admin.common.delete}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

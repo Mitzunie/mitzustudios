@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Trash2 } from 'lucide-react'
 import type { ServiceRequestDTO, ResponseDTO } from '@/shared'
 import { useTranslations } from '@/hooks/useTranslations'
 import { RequestDetailCard } from '@/components/admin/RequestDetailCard'
@@ -35,6 +35,29 @@ export default function AdminRequestDetailPage() {
     fetchRequest()
   }, [params.id])
 
+  const handleDelete = async () => {
+    if (!request) return
+    if (
+      !window.confirm(
+        `${t.admin.requests.deleteConfirm}\n\n"${request.clientName}"\n\n${t.admin.requests.deleteDescription}`,
+      )
+    ) {
+      return
+    }
+
+    try {
+      const res = await fetch(`/api/admin/requests/${params.id}`, {
+        method: 'DELETE',
+      })
+
+      if (res.ok) {
+        router.push('/admin/requests')
+      }
+    } catch (error) {
+      console.error('Error deleting request:', error)
+    }
+  }
+
   const handleToggleStatus = async () => {
     if (!request) return
     const newStatus = request.status === 'UNREAD' ? 'READ' : 'UNREAD'
@@ -66,13 +89,22 @@ export default function AdminRequestDetailPage() {
 
   return (
     <div>
-      <button
-        onClick={() => router.push('/admin/requests')}
-        className="text-muted-foreground hover:text-foreground mb-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide transition-colors"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        {t.admin.requests.title}
-      </button>
+      <div className="mb-6 flex items-center justify-between">
+        <button
+          onClick={() => router.push('/admin/requests')}
+          className="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide transition-colors"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          {t.admin.requests.title}
+        </button>
+        <button
+          onClick={handleDelete}
+          className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive neo-border border-transparent hover:border-destructive inline-flex items-center gap-2 px-3 py-2 text-sm font-bold uppercase tracking-wide transition-colors"
+        >
+          <Trash2 className="h-4 w-4" />
+          {t.admin.common.delete}
+        </button>
+      </div>
 
       <h1 className="mb-6 text-2xl font-black uppercase tracking-wide">{t.admin.requests.detail.title}</h1>
 

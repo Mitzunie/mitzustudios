@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, MessageSquare, FolderKanban, X } from 'lucide-react'
+import { LayoutDashboard, MessageSquare, FolderKanban, Receipt, X } from 'lucide-react'
 import { useTranslations } from '@/hooks/useTranslations'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
@@ -11,6 +11,7 @@ const sidebarLinks = [
   { href: '/admin/dashboard', label: 'dashboard', icon: LayoutDashboard },
   { href: '/admin/requests', label: 'requests', icon: MessageSquare },
   { href: '/admin/projects', label: 'projects', icon: FolderKanban },
+  { href: '/admin/pos', label: 'pos', icon: Receipt },
 ] as const
 
 export function AdminSidebar() {
