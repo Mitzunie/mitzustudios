@@ -6,6 +6,7 @@ import { Plus, X, Save, AlertCircle } from 'lucide-react'
 import { useTranslations } from '@/hooks/useTranslations'
 import { getTechIcon } from '@/shared'
 import { ImageUploadField } from './ImageUploadField'
+import { MarkdownEditor } from '@/components/shared/MarkdownEditor'
 import { cn } from '@/lib/utils'
 
 interface TechnologyInput {
@@ -19,6 +20,7 @@ interface ProjectFormProps {
     id: string
     title: string
     description: string
+    content: string | null
     status: 'PUBLISHED' | 'HIDDEN' | 'DRAFT'
     imageUrl: string | null
     technologies: TechnologyInput[]
@@ -32,6 +34,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
 
   const [title, setTitle] = useState(initialData?.title || '')
   const [description, setDescription] = useState(initialData?.description || '')
+  const [content, setContent] = useState(initialData?.content || '')
   const [status, setStatus] = useState<'PUBLISHED' | 'HIDDEN' | 'DRAFT'>(
     initialData?.status || 'DRAFT',
   )
@@ -71,6 +74,7 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
     const formData = new FormData()
     formData.append('title', title)
     formData.append('description', description)
+    if (content) formData.append('content', content)
     formData.append('status', status)
     formData.append(
       'technologies',
@@ -166,6 +170,16 @@ export function ProjectForm({ initialData }: ProjectFormProps) {
         {fieldErrors.description && (
           <p className="text-destructive mt-1.5 text-xs font-bold uppercase">{fieldErrors.description[0]}</p>
         )}
+      </div>
+
+      {/* Content (Markdown) */}
+      <div>
+        <MarkdownEditor
+          value={content}
+          onChange={setContent}
+          minHeight={400}
+          label={t.admin.projects.form.content}
+        />
       </div>
 
       {/* Technologies */}

@@ -4,6 +4,9 @@ export type {
   TechnologyDTO,
   CreateProjectInput,
   UpdateProjectInput,
+  PostDTO,
+  CreatePostInput,
+  UpdatePostInput,
   ServiceRequestDTO,
   ResponseDTO,
   CreateServiceRequestInput,
@@ -22,6 +25,8 @@ export {
   loginSchema,
   createProjectSchema,
   updateProjectSchema,
+  createPostSchema,
+  updatePostSchema,
   technologySchema,
   PROJECT_TYPES,
   PROJECT_TYPE_LABELS,
@@ -31,6 +36,8 @@ export type {
   LoginFormValues,
   CreateProjectFormValues,
   UpdateProjectFormValues,
+  CreatePostFormValues,
+  UpdatePostFormValues,
 } from './schemas'
 
 // Constants

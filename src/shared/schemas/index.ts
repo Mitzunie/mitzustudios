@@ -6,3 +6,6 @@ export type { LoginFormValues } from './auth'
 
 export { createProjectSchema, updateProjectSchema, technologySchema } from './project'
 export type { CreateProjectFormValues, UpdateProjectFormValues } from './project'
+
+export { createPostSchema, updatePostSchema } from './post'
+export type { CreatePostFormValues, UpdatePostFormValues } from './post'

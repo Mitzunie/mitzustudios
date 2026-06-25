@@ -4,6 +4,7 @@ import { HeroSection } from '@/components/landing/HeroSection'
 import { AboutSection } from '@/components/landing/AboutSection'
 import { ServicesSection } from '@/components/landing/ServicesSection'
 import { ProjectsSection } from '@/components/landing/ProjectsSection'
+import { BlogSection } from '@/components/landing/BlogSection'
 import { ContactSection } from '@/components/landing/ContactSection'
 import { ServiceJsonLd, FaqJsonLd } from '@/components/landing/JsonLd'
 
@@ -18,6 +19,7 @@ export default function HomePage() {
         <AboutSection />
         <ServicesSection />
         <ProjectsSection />
+        <BlogSection />
         <ContactSection />
       </main>
       <Footer />

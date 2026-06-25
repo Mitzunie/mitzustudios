@@ -17,6 +17,7 @@ if (process.env.NODE_ENV !== 'production') {
 export type {
   Project,
   Technology,
+  Post,
   ServiceRequest,
   Response,
   Quote,

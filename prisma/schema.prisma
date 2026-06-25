@@ -47,6 +47,7 @@ model User {
   role          String?        // "admin" (reservado para futuros roles)
   accounts      Account[]
   sessions      Session[]
+  posts         Post[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 
@@ -91,13 +92,16 @@ model VerificationToken {
 model Project {
   id            String        @id @default(cuid())
   title         String
+  slug          String    @unique @default(cuid())
   description   String
+  content       String?
   imageUrl      String?
   status        ProjectStatus @default(DRAFT)
   technologies  Technology[]
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
+  @@index([slug])
   @@index([status])
   @@index([createdAt])
 }
@@ -165,4 +169,23 @@ model QuoteSplit {
   createdAt       DateTime @default(now())
 
   @@index([quoteId])
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  excerpt   String?
+  content   String
+  imageUrl  String?
+  published Boolean  @default(false)
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([published])
+  @@index([createdAt])
+  @@index([authorId])
 }

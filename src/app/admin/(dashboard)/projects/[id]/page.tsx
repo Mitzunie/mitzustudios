@@ -63,6 +63,7 @@ export default function AdminEditProjectPage() {
             id: project.id,
             title: project.title,
             description: project.description,
+            content: project.content,
             status: project.status,
             imageUrl: project.imageUrl,
             technologies: project.technologies.map((t) => ({

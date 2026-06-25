@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma, ProjectStatus } from '@/lib/db'
-import { createProjectSchema, getTechIcon } from '@/shared'
+import { prisma } from '@/lib/db'
+import { createPostSchema } from '@/shared'
 import { requireAdmin } from '@/lib/auth'
 import { uploadImage } from '@/lib/cloudinary'
 import slugify from 'slugify'
@@ -12,7 +12,7 @@ function generateSlug(title: string): string {
 async function ensureUniqueSlug(baseSlug: string): Promise<string> {
   let slug = baseSlug
   let counter = 1
-  while (await prisma.project.findUnique({ where: { slug } })) {
+  while (await prisma.post.findUnique({ where: { slug } })) {
     slug = `${baseSlug}-${counter}`
     counter++
   }
@@ -24,33 +24,33 @@ export async function GET(request: NextRequest) {
     await requireAdmin()
 
     const { searchParams } = new URL(request.url)
-    const statusParam = searchParams.get('status')
+    const publishedParam = searchParams.get('published')
     const page = Math.max(1, Number(searchParams.get('page')) || 1)
     const pageSize = 20
 
     const where: Record<string, unknown> = {}
-    if (statusParam && ['PUBLISHED', 'HIDDEN', 'DRAFT'].includes(statusParam)) {
-      where.status = statusParam as ProjectStatus
-    }
+    if (publishedParam === 'true') where.published = true
+    if (publishedParam === 'false') where.published = false
 
-    const [projects, total] = await Promise.all([
-      prisma.project.findMany({
+    const [posts, total] = await Promise.all([
+      prisma.post.findMany({
         where,
         orderBy: { createdAt: 'desc' },
-        include: { technologies: true },
+        include: {
+          author: { select: { id: true, name: true, image: true } },
+        },
         skip: (page - 1) * pageSize,
         take: pageSize,
       }),
-      prisma.project.count({ where }),
+      prisma.post.count({ where }),
     ])
 
     return NextResponse.json({
       success: true,
-      data: projects.map((p) => ({
+      data: posts.map((p) => ({
         ...p,
         createdAt: p.createdAt.toISOString(),
         updatedAt: p.updatedAt.toISOString(),
-        technologies: p.technologies.map((t) => ({ ...t, url: t.url })),
       })),
       pagination: {
         total,
@@ -73,7 +73,7 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    console.error('Admin projects GET error:', error)
+    console.error('Admin posts GET error:', error)
     return NextResponse.json(
       { success: false, error: { code: 'INTERNAL_ERROR', message: 'Error interno del servidor' } },
       { status: 500 },
@@ -83,38 +83,21 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    await requireAdmin()
+    const session = await requireAdmin()
 
     const formData = await request.formData()
 
     const title = formData.get('title') as string
-    const description = formData.get('description') as string
-    const content = formData.get('content') as string | null
-    const technologiesRaw = formData.get('technologies') as string
-    const status = (formData.get('status') as string) || 'DRAFT'
+    const excerpt = formData.get('excerpt') as string | null
+    const content = formData.get('content') as string
+    const published = formData.get('published') === 'true'
     const imageFile = formData.get('image') as File | null
 
-    let technologies: { name: string; icon: string; url?: string }[] = []
-    if (technologiesRaw) {
-      try {
-        technologies = JSON.parse(technologiesRaw)
-      } catch {
-        return NextResponse.json(
-          {
-            success: false,
-            error: { code: 'VALIDATION_ERROR', message: 'Formato de tecnologías inválido' },
-          },
-          { status: 400 },
-        )
-      }
-    }
-
-    const parsed = createProjectSchema.safeParse({
+    const parsed = createPostSchema.safeParse({
       title,
-      description,
-      content: content || undefined,
-      technologies,
-      status,
+      excerpt: excerpt || undefined,
+      content,
+      published,
     })
 
     if (!parsed.success) {
@@ -154,33 +137,28 @@ export async function POST(request: NextRequest) {
       imageUrl = uploadResult.url
     }
 
-    const project = await prisma.project.create({
+    const post = await prisma.post.create({
       data: {
         title: parsed.data.title,
         slug,
-        description: parsed.data.description,
-        content: parsed.data.content || null,
-        status: parsed.data.status as ProjectStatus,
+        excerpt: parsed.data.excerpt || null,
+        content: parsed.data.content,
+        published: parsed.data.published,
         imageUrl,
-        technologies: {
-          create: parsed.data.technologies.map((t) => ({
-            name: t.name,
-            icon: t.icon || getTechIcon(t.name),
-            url: t.url || null,
-          })),
-        },
+        authorId: session.user.id,
       },
-      include: { technologies: true },
+      include: {
+        author: { select: { id: true, name: true, image: true } },
+      },
     })
 
     return NextResponse.json(
       {
         success: true,
         data: {
-          ...project,
-          createdAt: project.createdAt.toISOString(),
-          updatedAt: project.updatedAt.toISOString(),
-          technologies: project.technologies.map((t) => ({ ...t, url: t.url })),
+          ...post,
+          createdAt: post.createdAt.toISOString(),
+          updatedAt: post.updatedAt.toISOString(),
         },
       },
       { status: 201 },
@@ -203,9 +181,9 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    console.error('Admin projects POST error:', error)
+    console.error('Admin posts POST error:', error)
     return NextResponse.json(
-      { success: false, error: { code: 'INTERNAL_ERROR', message: 'Error al crear el proyecto' } },
+      { success: false, error: { code: 'INTERNAL_ERROR', message: 'Error al crear el artículo' } },
       { status: 500 },
     )
   }

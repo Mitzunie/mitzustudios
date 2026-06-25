@@ -1,7 +1,9 @@
 export interface ProjectDTO {
   id: string
   title: string
+  slug: string
   description: string
+  content: string | null
   imageUrl: string | null
   status: 'PUBLISHED' | 'HIDDEN' | 'DRAFT'
   technologies: TechnologyDTO[]
@@ -19,6 +21,7 @@ export interface TechnologyDTO {
 export interface CreateProjectInput {
   title: string
   description: string
+  content?: string
   technologies: { name: string; icon: string; url?: string }[]
   status?: 'PUBLISHED' | 'HIDDEN' | 'DRAFT'
 }

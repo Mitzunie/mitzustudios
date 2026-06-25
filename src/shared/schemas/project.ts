@@ -9,6 +9,7 @@ export const technologySchema = z.object({
 export const createProjectSchema = z.object({
   title: z.string().min(1, 'Título requerido').max(200),
   description: z.string().min(1, 'Descripción requerida').max(5000),
+  content: z.string().optional(),
   technologies: z.array(technologySchema).min(1, 'Al menos 1 tecnología'),
   status: z.enum(['PUBLISHED', 'HIDDEN', 'DRAFT']).default('DRAFT'),
 })

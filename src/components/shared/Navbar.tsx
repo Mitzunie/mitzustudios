@@ -7,7 +7,7 @@ import { useTranslations } from '@/hooks/useTranslations'
 import { LanguageToggle } from './LanguageToggle'
 import { Shield } from 'lucide-react'
 
-const navLinks = ['hero', 'about', 'services', 'projects', 'contact'] as const
+const navLinks = ['hero', 'about', 'services', 'projects', 'blog', 'contact'] as const
 
 export function Navbar() {
   const { data: session } = useSession()
@@ -18,6 +18,8 @@ export function Navbar() {
     const element = document.getElementById(section)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      window.location.href = `/#${section}`
     }
   }
 

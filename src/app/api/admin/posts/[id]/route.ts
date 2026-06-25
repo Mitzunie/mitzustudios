@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma, ProjectStatus } from '@/lib/db'
-import { updateProjectSchema, getTechIcon } from '@/shared'
+import { prisma } from '@/lib/db'
+import { updatePostSchema } from '@/shared'
 import { requireAdmin } from '@/lib/auth'
 import { uploadImage, deleteImage, extractPublicId } from '@/lib/cloudinary'
 import slugify from 'slugify'
@@ -13,7 +13,7 @@ async function ensureUniqueSlug(baseSlug: string, excludeId: string): Promise<st
   let slug = baseSlug
   let counter = 1
   while (true) {
-    const existing = await prisma.project.findUnique({ where: { slug } })
+    const existing = await prisma.post.findUnique({ where: { slug } })
     if (!existing || existing.id === excludeId) break
     slug = `${baseSlug}-${counter}`
     counter++
@@ -26,14 +26,16 @@ export async function GET(_request: NextRequest, { params }: { params: Promise<{
     await requireAdmin()
     const { id } = await params
 
-    const project = await prisma.project.findUnique({
+    const post = await prisma.post.findUnique({
       where: { id },
-      include: { technologies: true },
+      include: {
+        author: { select: { id: true, name: true, image: true } },
+      },
     })
 
-    if (!project) {
+    if (!post) {
       return NextResponse.json(
-        { success: false, error: { code: 'NOT_FOUND', message: 'Proyecto no encontrado' } },
+        { success: false, error: { code: 'NOT_FOUND', message: 'Artículo no encontrado' } },
         { status: 404 },
       )
     }
@@ -41,11 +43,9 @@ export async function GET(_request: NextRequest, { params }: { params: Promise<{
     return NextResponse.json({
       success: true,
       data: {
-        ...project,
-        content: project.content,
-        createdAt: project.createdAt.toISOString(),
-        updatedAt: project.updatedAt.toISOString(),
-        technologies: project.technologies.map((t) => ({ ...t, url: t.url })),
+        ...post,
+        createdAt: post.createdAt.toISOString(),
+        updatedAt: post.updatedAt.toISOString(),
       },
     })
   } catch (error) {
@@ -66,7 +66,7 @@ export async function GET(_request: NextRequest, { params }: { params: Promise<{
       )
     }
 
-    console.error('Admin project GET error:', error)
+    console.error('Admin post GET error:', error)
     return NextResponse.json(
       { success: false, error: { code: 'INTERNAL_ERROR', message: 'Error interno del servidor' } },
       { status: 500 },
@@ -79,14 +79,10 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     await requireAdmin()
     const { id } = await params
 
-    const existing = await prisma.project.findUnique({
-      where: { id },
-      include: { technologies: true },
-    })
-
+    const existing = await prisma.post.findUnique({ where: { id } })
     if (!existing) {
       return NextResponse.json(
-        { success: false, error: { code: 'NOT_FOUND', message: 'Proyecto no encontrado' } },
+        { success: false, error: { code: 'NOT_FOUND', message: 'Artículo no encontrado' } },
         { status: 404 },
       )
     }
@@ -94,10 +90,9 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     const formData = await request.formData()
 
     const title = formData.get('title') as string | null
-    const description = formData.get('description') as string | null
+    const excerpt = formData.get('excerpt') as string | null
     const content = formData.get('content') as string | null
-    const technologiesRaw = formData.get('technologies') as string | null
-    const status = formData.get('status') as string | null
+    const published = formData.get('published') as string | null
     const imageFile = formData.get('image') as File | null
     const removeImage = formData.get('removeImage') as string | null
 
@@ -106,11 +101,9 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       updateData.title = title
       updateData.slug = await ensureUniqueSlug(generateSlug(title), id)
     }
-    if (description) updateData.description = description
-    if (content !== null) updateData.content = content || null
-    if (status && ['PUBLISHED', 'HIDDEN', 'DRAFT'].includes(status)) {
-      updateData.status = status as ProjectStatus
-    }
+    if (excerpt !== null) updateData.excerpt = excerpt || null
+    if (content) updateData.content = content
+    if (published !== null) updateData.published = published === 'true'
 
     // Handle image
     if (removeImage === 'true' && existing.imageUrl) {
@@ -137,7 +130,6 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       const uploadResult = await uploadImage(imageFile)
       updateData.imageUrl = uploadResult.url
 
-      // Delete old image
       if (existing.imageUrl) {
         const publicId = extractPublicId(existing.imageUrl)
         if (publicId) {
@@ -146,24 +138,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       }
     }
 
-    // Handle technologies
-    let technologies: { name: string; icon: string; url?: string }[] | null = null
-    if (technologiesRaw) {
-      try {
-        technologies = JSON.parse(technologiesRaw)
-      } catch {
-        return NextResponse.json(
-          {
-            success: false,
-            error: { code: 'VALIDATION_ERROR', message: 'Formato de tecnologías inválido' },
-          },
-          { status: 400 },
-        )
-      }
-    }
-
-    // Validate if we have update data
-    if (Object.keys(updateData).length === 0 && !technologies) {
+    if (Object.keys(updateData).length === 0) {
       return NextResponse.json(
         {
           success: false,
@@ -173,34 +148,20 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       )
     }
 
-    // Update project
-    const project = await prisma.project.update({
+    const post = await prisma.post.update({
       where: { id },
-      data: {
-        ...updateData,
-        ...(technologies
-          ? {
-              technologies: {
-                deleteMany: {},
-                create: technologies.map((t) => ({
-                  name: t.name,
-                  icon: t.icon || getTechIcon(t.name),
-                  url: t.url || null,
-                })),
-              },
-            }
-          : {}),
+      data: updateData,
+      include: {
+        author: { select: { id: true, name: true, image: true } },
       },
-      include: { technologies: true },
     })
 
     return NextResponse.json({
       success: true,
       data: {
-        ...project,
-        createdAt: project.createdAt.toISOString(),
-        updatedAt: project.updatedAt.toISOString(),
-        technologies: project.technologies.map((t) => ({ ...t, url: t.url })),
+        ...post,
+        createdAt: post.createdAt.toISOString(),
+        updatedAt: post.updatedAt.toISOString(),
       },
     })
   } catch (error) {
@@ -218,11 +179,11 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       )
     }
 
-    console.error('Admin project PATCH error:', error)
+    console.error('Admin post PATCH error:', error)
     return NextResponse.json(
       {
         success: false,
-        error: { code: 'INTERNAL_ERROR', message: 'Error al actualizar el proyecto' },
+        error: { code: 'INTERNAL_ERROR', message: 'Error al actualizar el artículo' },
       },
       { status: 500 },
     )
@@ -237,19 +198,18 @@ export async function DELETE(
     await requireAdmin()
     const { id } = await params
 
-    const existing = await prisma.project.findUnique({
+    const existing = await prisma.post.findUnique({
       where: { id },
       select: { id: true, imageUrl: true },
     })
 
     if (!existing) {
       return NextResponse.json(
-        { success: false, error: { code: 'NOT_FOUND', message: 'Proyecto no encontrado' } },
+        { success: false, error: { code: 'NOT_FOUND', message: 'Artículo no encontrado' } },
         { status: 404 },
       )
     }
 
-    // Delete image from Cloudinary
     if (existing.imageUrl) {
       const publicId = extractPublicId(existing.imageUrl)
       if (publicId) {
@@ -257,7 +217,7 @@ export async function DELETE(
       }
     }
 
-    await prisma.project.delete({ where: { id } })
+    await prisma.post.delete({ where: { id } })
 
     return NextResponse.json({ success: true, data: null })
   } catch (error) {
@@ -275,11 +235,11 @@ export async function DELETE(
       )
     }
 
-    console.error('Admin project DELETE error:', error)
+    console.error('Admin post DELETE error:', error)
     return NextResponse.json(
       {
         success: false,
-        error: { code: 'INTERNAL_ERROR', message: 'Error al eliminar el proyecto' },
+        error: { code: 'INTERNAL_ERROR', message: 'Error al eliminar el artículo' },
       },
       { status: 500 },
     )
