@@ -12,10 +12,12 @@ export const env = createEnv({
     CLOUDINARY_API_KEY: z.string().min(1),
     CLOUDINARY_API_SECRET: z.string().min(1),
     WHATSAPP_PYME_NUMBER: z.string().min(8),
+    TURNSTILE_SECRET_KEY: z.string().min(1),
     RATE_LIMIT_MAX: z.coerce.number().int().positive().default(10),
     RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(60000),
   },
   client: {
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY: z.string().min(1),
     NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().optional(),
     NEXT_PUBLIC_CONTACT_EMAIL: z.string().optional(),
     NEXT_PUBLIC_SITE_LOGO_URL: z.string().optional(),

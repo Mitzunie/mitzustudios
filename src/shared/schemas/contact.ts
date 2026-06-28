@@ -19,6 +19,7 @@ export const contactSchema = z
     projectType: z.enum(PROJECT_TYPES, {
       errorMap: () => ({ message: 'Selecciona un tipo de proyecto' }),
     }),
+    turnstileToken: z.string().min(1, 'Captcha requerido'),
     otherType: z.string().optional(),
     description: z
       .string()

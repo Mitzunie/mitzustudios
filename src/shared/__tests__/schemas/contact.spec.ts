@@ -7,6 +7,7 @@ describe('contactSchema', () => {
     clientEmail: 'juan@example.com',
     clientPhone: '+56912345678',
     projectType: 'landing',
+    turnstileToken: '0xAAAA...',
     description: 'Necesito una landing page para mi negocio de repostería.',
   }
 
@@ -147,6 +148,14 @@ describe('contactSchema', () => {
       }
     })
   })
+
+    it('rechaza turnstileToken vacío', () => {
+      const result = contactSchema.safeParse({ ...validData, turnstileToken: '' })
+      expect(result.success).toBe(false)
+      if (!result.success) {
+        expect(result.error.flatten().fieldErrors.turnstileToken).toBeDefined()
+      }
+    })
 
   describe('CB-01: errores específicos por campo', () => {
     it('devuelve fieldErrors con mensajes específicos', () => {

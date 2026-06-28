@@ -27,6 +27,17 @@ vi.mock('../../lib/resend', () => ({
   sendNotificationEmail: vi.fn().mockResolvedValue({ success: true }),
 }))
 
+// Mock env for Turnstile secret
+vi.mock('../../lib/env', () => ({
+  env: {
+    TURNSTILE_SECRET_KEY: '0x4AAAAAA-test-secret',
+  },
+}))
+
+// Mock global fetch for Turnstile verification
+const mockTurnstileFetch = vi.fn()
+global.fetch = mockTurnstileFetch
+
 import { POST } from '../../app/api/contact/route'
 import { prisma } from '@/lib/db'
 
@@ -48,6 +59,7 @@ describe('POST /api/contact', () => {
     clientEmail: 'juan@example.com',
     clientPhone: '+56912345678',
     projectType: 'landing',
+    turnstileToken: '0x4AAAAAA-test-token',
     description: 'Necesito una landing page para mi negocio de repostería.',
   }
 
@@ -59,6 +71,10 @@ describe('POST /api/contact', () => {
       allowed: true,
       remaining: 9,
       resetAt: Date.now() + 60000,
+    })
+    // Por defecto, Turnstile verification ok
+    mockTurnstileFetch.mockResolvedValue({
+      json: () => Promise.resolve({ success: true }),
     })
     // Mock Prisma create exitoso
     vi.mocked(prisma.serviceRequest.create).mockResolvedValue({
@@ -161,5 +177,18 @@ describe('POST /api/contact', () => {
 
     expect(res.status).toBe(500)
     expect(body.error.code).toBe('INTERNAL_ERROR')
+  })
+
+  it('devuelve 400 si captcha falla', async () => {
+    mockTurnstileFetch.mockResolvedValue({
+      json: () => Promise.resolve({ success: false }),
+    })
+
+    const req = createRequest(validBody, '192.168.1.1')
+    const res = await POST(req)
+    const body = await res.json()
+
+    expect(res.status).toBe(400)
+    expect(body.error.code).toBe('CAPTCHA_FAILED')
   })
 })

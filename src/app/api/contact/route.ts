@@ -3,6 +3,7 @@ import { prisma } from '@/lib/db'
 import { contactSchema } from '@/shared'
 import { contactLimiter } from '@/lib/rate-limit'
 import { sendNotificationEmail } from '@/lib/resend'
+import { env } from '@/lib/env'
 
 export async function POST(request: NextRequest) {
   try {
@@ -47,8 +48,33 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { clientName, clientEmail, clientPhone, projectType, otherType, description } =
+    const { clientName, clientEmail, clientPhone, projectType, otherType, description, turnstileToken } =
       parsed.data
+
+    // Verify Turnstile token
+    const turnstileFormData = new URLSearchParams()
+    turnstileFormData.append('secret', env.TURNSTILE_SECRET_KEY)
+    turnstileFormData.append('response', turnstileToken)
+
+    const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      body: turnstileFormData,
+    })
+
+    const turnstileResult = await turnstileRes.json()
+
+    if (!turnstileResult.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: {
+            code: 'CAPTCHA_FAILED',
+            message: 'Verificación de seguridad fallida. Intenta nuevamente.',
+          },
+        },
+        { status: 400 },
+      )
+    }
 
     // Save to database
     const serviceRequest = await prisma.serviceRequest.create({

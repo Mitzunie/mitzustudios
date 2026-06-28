@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react'
 import {
   contactSchema,
@@ -18,6 +19,8 @@ export function ContactSection() {
   const t = useTranslations()
   const [submitState, setSubmitState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [turnstileRef, setTurnstileRef] = useState<TurnstileInstance | null>(null)
 
   const {
     register,
@@ -39,7 +42,20 @@ export function ContactSection() {
 
   const selectedType = watch('projectType')
 
+  const handleTurnstileSuccess = useCallback((token: string) => {
+    setTurnstileToken(token)
+  }, [])
+
+  const handleTurnstileRef = useCallback((ref: TurnstileInstance | null) => {
+    setTurnstileRef(ref)
+  }, [])
+
   const onSubmit = async (data: ContactFormValues) => {
+    if (!turnstileToken) {
+      setErrorMessage('Completa la verificación de seguridad.')
+      return
+    }
+
     setSubmitState('loading')
     setErrorMessage('')
 
@@ -47,7 +63,7 @@ export function ContactSection() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, turnstileToken }),
       })
 
       if (!res.ok) {
@@ -57,6 +73,8 @@ export function ContactSection() {
         } else {
           setErrorMessage(body.error?.message || t.contact.form.error)
         }
+        turnstileRef?.reset()
+        setTurnstileToken(null)
         setSubmitState('error')
         return
       }
@@ -72,6 +90,8 @@ export function ContactSection() {
       }
     } catch {
       setErrorMessage(t.contact.form.error)
+      turnstileRef?.reset()
+      setTurnstileToken(null)
       setSubmitState('error')
     }
   }
@@ -259,6 +279,18 @@ export function ContactSection() {
                   {errors.description.message}
                 </p>
               )}
+            </div>
+
+            {/* Turnstile */}
+            <div className="flex justify-center">
+              <Turnstile
+                ref={handleTurnstileRef}
+                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                onSuccess={handleTurnstileSuccess}
+                options={{
+                  theme: 'light',
+                }}
+              />
             </div>
 
             {/* Error message */}
