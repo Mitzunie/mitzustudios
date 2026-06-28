@@ -1,5 +1,5 @@
-export { contactSchema, PROJECT_TYPES, PROJECT_TYPE_LABELS } from './contact'
-export type { ContactFormValues } from './contact'
+export { contactSchema, contactFormSchema, PROJECT_TYPES, PROJECT_TYPE_LABELS } from './contact'
+export type { ContactFormValues, ContactPayload } from './contact'
 
 export { loginSchema } from './auth'
 export type { LoginFormValues } from './auth'

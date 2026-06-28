@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react'
 import {
-  contactSchema,
+  contactFormSchema,
   PROJECT_TYPES,
   PROJECT_TYPE_LABELS,
   type ContactFormValues,
@@ -29,7 +29,7 @@ export function ContactSection() {
     reset,
     formState: { errors },
   } = useForm<ContactFormValues>({
-    resolver: zodResolver(contactSchema),
+    resolver: zodResolver(contactFormSchema),
     defaultValues: {
       clientName: '',
       clientEmail: '',

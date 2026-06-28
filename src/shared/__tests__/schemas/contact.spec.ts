@@ -1,24 +1,23 @@
 import { describe, it, expect } from 'vitest'
-import { contactSchema, PROJECT_TYPES, PROJECT_TYPE_LABELS } from '../../schemas/contact'
+import { contactFormSchema, contactSchema, PROJECT_TYPES, PROJECT_TYPE_LABELS } from '../../schemas/contact'
 
-describe('contactSchema', () => {
+describe('contactFormSchema', () => {
   const validData = {
     clientName: 'Juan Pérez',
     clientEmail: 'juan@example.com',
     clientPhone: '+56912345678',
     projectType: 'landing',
-    turnstileToken: '0xAAAA...',
     description: 'Necesito una landing page para mi negocio de repostería.',
   }
 
   describe('campos requeridos', () => {
     it('acepta datos válidos completos', () => {
-      const result = contactSchema.safeParse(validData)
+      const result = contactFormSchema.safeParse(validData)
       expect(result.success).toBe(true)
     })
 
     it('rechaza clientName vacío', () => {
-      const result = contactSchema.safeParse({ ...validData, clientName: '' })
+      const result = contactFormSchema.safeParse({ ...validData, clientName: '' })
       expect(result.success).toBe(false)
       if (!result.success) {
         expect(result.error.flatten().fieldErrors.clientName).toBeDefined()
@@ -26,7 +25,7 @@ describe('contactSchema', () => {
     })
 
     it('rechaza clientName con más de 100 caracteres', () => {
-      const result = contactSchema.safeParse({
+      const result = contactFormSchema.safeParse({
         ...validData,
         clientName: 'A'.repeat(101),
       })
@@ -34,7 +33,7 @@ describe('contactSchema', () => {
     })
 
     it('rechaza clientEmail inválido', () => {
-      const result = contactSchema.safeParse({ ...validData, clientEmail: 'no-es-email' })
+      const result = contactFormSchema.safeParse({ ...validData, clientEmail: 'no-es-email' })
       expect(result.success).toBe(false)
       if (!result.success) {
         expect(result.error.flatten().fieldErrors.clientEmail).toContain('Email inválido')
@@ -42,12 +41,12 @@ describe('contactSchema', () => {
     })
 
     it('rechaza clientEmail vacío', () => {
-      const result = contactSchema.safeParse({ ...validData, clientEmail: '' })
+      const result = contactFormSchema.safeParse({ ...validData, clientEmail: '' })
       expect(result.success).toBe(false)
     })
 
     it('rechaza clientPhone con menos de 7 caracteres', () => {
-      const result = contactSchema.safeParse({ ...validData, clientPhone: '123' })
+      const result = contactFormSchema.safeParse({ ...validData, clientPhone: '123' })
       expect(result.success).toBe(false)
       if (!result.success) {
         expect(result.error.flatten().fieldErrors.clientPhone).toBeDefined()
@@ -55,7 +54,7 @@ describe('contactSchema', () => {
     })
 
     it('rechaza clientPhone con más de 20 caracteres', () => {
-      const result = contactSchema.safeParse({
+      const result = contactFormSchema.safeParse({
         ...validData,
         clientPhone: '5'.repeat(21),
       })
@@ -63,7 +62,7 @@ describe('contactSchema', () => {
     })
 
     it('rechaza projectType inválido', () => {
-      const result = contactSchema.safeParse({
+      const result = contactFormSchema.safeParse({
         ...validData,
         projectType: 'invalid-type',
       })
@@ -71,7 +70,7 @@ describe('contactSchema', () => {
     })
 
     it('rechaza description con menos de 10 caracteres', () => {
-      const result = contactSchema.safeParse({ ...validData, description: 'Corto' })
+      const result = contactFormSchema.safeParse({ ...validData, description: 'Corto' })
       expect(result.success).toBe(false)
       if (!result.success) {
         expect(result.error.flatten().fieldErrors.description).toContain(
@@ -81,7 +80,7 @@ describe('contactSchema', () => {
     })
 
     it('rechaza description con más de 2000 caracteres', () => {
-      const result = contactSchema.safeParse({
+      const result = contactFormSchema.safeParse({
         ...validData,
         description: 'X'.repeat(2001),
       })
@@ -91,7 +90,7 @@ describe('contactSchema', () => {
 
   describe('projectType = "other"', () => {
     it('requiere otherType cuando projectType es "other"', () => {
-      const result = contactSchema.safeParse({
+      const result = contactFormSchema.safeParse({
         ...validData,
         projectType: 'other',
         otherType: undefined,
@@ -103,7 +102,7 @@ describe('contactSchema', () => {
     })
 
     it('acepta otherType cuando projectType es "other" y otherType tiene valor', () => {
-      const result = contactSchema.safeParse({
+      const result = contactFormSchema.safeParse({
         ...validData,
         projectType: 'other',
         otherType: 'Una aplicación de realidad aumentada',
@@ -112,7 +111,7 @@ describe('contactSchema', () => {
     })
 
     it('rechaza otherType vacío cuando projectType es "other"', () => {
-      const result = contactSchema.safeParse({
+      const result = contactFormSchema.safeParse({
         ...validData,
         projectType: 'other',
         otherType: '',
@@ -121,7 +120,7 @@ describe('contactSchema', () => {
     })
 
     it('acepta campos opcionales correctamente cuando projectType no es "other"', () => {
-      const result = contactSchema.safeParse({
+      const result = contactFormSchema.safeParse({
         ...validData,
         projectType: 'ecommerce',
         otherType: undefined,
@@ -149,17 +148,9 @@ describe('contactSchema', () => {
     })
   })
 
-    it('rechaza turnstileToken vacío', () => {
-      const result = contactSchema.safeParse({ ...validData, turnstileToken: '' })
-      expect(result.success).toBe(false)
-      if (!result.success) {
-        expect(result.error.flatten().fieldErrors.turnstileToken).toBeDefined()
-      }
-    })
-
   describe('CB-01: errores específicos por campo', () => {
     it('devuelve fieldErrors con mensajes específicos', () => {
-      const result = contactSchema.safeParse({
+      const result = contactFormSchema.safeParse({
         clientName: '',
         clientEmail: 'invalido',
         clientPhone: '12',
@@ -180,7 +171,7 @@ describe('contactSchema', () => {
 
   describe('CB-02: formulario vacío', () => {
     it('rechaza objeto vacío con errores en todos los campos requeridos', () => {
-      const result = contactSchema.safeParse({})
+      const result = contactFormSchema.safeParse({})
       expect(result.success).toBe(false)
       if (!result.success) {
         const fieldErrors = result.error.flatten().fieldErrors
@@ -191,5 +182,24 @@ describe('contactSchema', () => {
         expect(fieldErrors.description).toBeDefined()
       }
     })
+  })
+})
+
+describe('contactSchema', () => {
+  const validData = {
+    clientName: 'Juan Pérez',
+    clientEmail: 'juan@example.com',
+    clientPhone: '+56912345678',
+    projectType: 'landing',
+    turnstileToken: '0xAAAA...',
+    description: 'Necesito una landing page para mi negocio de repostería.',
+  }
+
+  it('rechaza turnstileToken vacío', () => {
+    const result = contactSchema.safeParse({ ...validData, turnstileToken: '' })
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.flatten().fieldErrors.turnstileToken).toBeDefined()
+    }
   })
 })

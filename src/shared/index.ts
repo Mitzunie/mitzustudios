@@ -22,6 +22,7 @@ export type {
 // Schemas
 export {
   contactSchema,
+  contactFormSchema,
   loginSchema,
   createProjectSchema,
   updateProjectSchema,
@@ -33,6 +34,7 @@ export {
 } from './schemas'
 export type {
   ContactFormValues,
+  ContactPayload,
   LoginFormValues,
   CreateProjectFormValues,
   UpdateProjectFormValues,
