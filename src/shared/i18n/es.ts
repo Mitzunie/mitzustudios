@@ -367,6 +367,18 @@ export const es = {
     es: 'Español',
     en: 'English',
   },
+  nfc: {
+    name: 'Vicente Valdés',
+    role: 'CEO & Fundador',
+    tagline: 'Desarrollo web profesional. De tu idea a tu próxima web.',
+    servicesTitle: 'Servicios',
+    projectsTitle: 'Proyectos',
+    whatsapp: 'WhatsApp',
+    instagram: 'Instagram',
+    website: 'Ir a la Web',
+    quote: 'Solicitar Cotización',
+    contactEmail: 'Email',
+  },
   footer: {
     copyright: `© ${new Date().getFullYear()} MitzuStudios. Todos los derechos reservados.`,
     description: 'Desarrollo web profesional. De tu idea a tu próxima web.',

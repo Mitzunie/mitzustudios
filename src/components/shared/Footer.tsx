@@ -1,6 +1,10 @@
 'use client'
 
+import { MessageCircle, Instagram, Mail } from 'lucide-react'
 import { useTranslations } from '@/hooks/useTranslations'
+
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP || '56921935205'
+const INSTAGRAM_HANDLE = process.env.NEXT_PUBLIC_INSTAGRAM || 'mitzustudios.online'
 
 export function Footer() {
   const t = useTranslations()
@@ -24,18 +28,33 @@ export function Footer() {
           </div>
           <div>
             <h3 className="mb-3 text-base font-black uppercase tracking-wide">{t.nav.contact}</h3>
-            {contactEmail && (
-              <ul className="text-muted-foreground space-y-2 text-sm font-bold uppercase tracking-wide">
-                <li>
-                  <a
-                    href={`mailto:${contactEmail}`}
-                    className="hover:text-primary transition-colors"
-                  >
-                    {contactEmail}
-                  </a>
-                </li>
-              </ul>
-            )}
+            <div className="flex flex-col gap-2">
+              <a
+                href="mailto:team@mitzustudios.online"
+                className="neo-button neo-button-secondary neo-shadow-sm inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wide transition-all hover:-translate-y-0.5"
+              >
+                <Mail className="h-4 w-4 shrink-0" />
+                team@mitzustudios.online
+              </a>
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="neo-button neo-button-secondary neo-shadow-sm inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wide transition-all hover:-translate-y-0.5"
+              >
+                <MessageCircle className="h-4 w-4 shrink-0" />
+                WhatsApp
+              </a>
+              <a
+                href={`https://instagram.com/${INSTAGRAM_HANDLE.replace(/^@/, '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="neo-button neo-button-secondary neo-shadow-sm inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wide transition-all hover:-translate-y-0.5"
+              >
+                <Instagram className="h-4 w-4 shrink-0" />
+                Instagram
+              </a>
+            </div>
           </div>
         </div>
         <div className="neo-border text-muted-foreground mt-8 border-t border-b-0 border-l-0 border-r-0 pt-8 text-center text-sm font-bold uppercase tracking-wide">
