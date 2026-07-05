@@ -13,7 +13,6 @@ export const env = createEnv({
     CLOUDINARY_API_SECRET: z.string().min(1),
     WHATSAPP_PYME_NUMBER: z.string().min(8),
     TURNSTILE_SECRET_KEY: z.string().min(1),
-    ZEROBOUNCE_API_KEY: z.string().optional(),
     RATE_LIMIT_MAX: z.coerce.number().int().positive().default(10),
     RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(60000),
   },
