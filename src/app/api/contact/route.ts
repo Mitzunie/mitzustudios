@@ -1,9 +1,42 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import { contactSchema } from '@/shared'
-import { contactLimiter } from '@/lib/rate-limit'
+import { contactLimiter, zeroBounceLimiter } from '@/lib/rate-limit'
 import { sendNotificationEmail } from '@/lib/resend'
 import { env } from '@/lib/env'
+
+async function verifyZeroBounce(email: string): Promise<{ valid: boolean; error?: string }> {
+  const monthly = zeroBounceLimiter.check()
+  if (!monthly.allowed) {
+    return { valid: false, error: 'Límite mensual de verificaciones alcanzado. Intenta el próximo mes.' }
+  }
+
+  if (!env.ZEROBOUNCE_API_KEY) {
+    return { valid: true }
+  }
+
+  try {
+    const url = new URL('https://api.zerobounce.net/v2/validate')
+    url.searchParams.set('api_key', env.ZEROBOUNCE_API_KEY)
+    url.searchParams.set('email', email)
+
+    const res = await fetch(url.toString(), { next: { revalidate: 0 } })
+    if (!res.ok) {
+      console.error('ZeroBounce API error:', res.status)
+      return { valid: true }
+    }
+
+    const data = await res.json()
+    if (data.status === 'Invalid') {
+      return { valid: false, error: 'El correo electrónico no es válido o no existe.' }
+    }
+
+    return { valid: true }
+  } catch (error) {
+    console.error('ZeroBounce request failed:', error)
+    return { valid: true }
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -70,6 +103,23 @@ export async function POST(request: NextRequest) {
           error: {
             code: 'CAPTCHA_FAILED',
             message: 'Verificación de seguridad fallida. Intenta nuevamente.',
+          },
+        },
+        { status: 400 },
+      )
+    }
+
+    // Verify email with ZeroBounce
+    const zbResult = await verifyZeroBounce(clientEmail)
+
+    if (!zbResult.valid) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: {
+            code: 'INVALID_EMAIL',
+            message: zbResult.error || 'El correo electrónico no es válido.',
+            field: 'clientEmail',
           },
         },
         { status: 400 },

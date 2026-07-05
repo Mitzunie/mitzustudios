@@ -35,9 +35,42 @@ class RateLimiter {
   }
 }
 
+class MonthlyLimiter {
+  private _count = 0
+  private monthKey = ''
+  private max: number
+
+  constructor(max: number) {
+    this.max = max
+  }
+
+  check(): { allowed: boolean; remaining: number } {
+    const now = new Date()
+    const key = `${now.getFullYear()}-${now.getMonth()}`
+
+    if (key !== this.monthKey) {
+      this._count = 0
+      this.monthKey = key
+    }
+
+    if (this._count >= this.max) {
+      return { allowed: false, remaining: 0 }
+    }
+
+    this._count++
+    return { allowed: true, remaining: this.max - this._count }
+  }
+
+  get count() {
+    return this._count
+  }
+}
+
 export const contactLimiter = new RateLimiter(
   Number(process.env.RATE_LIMIT_MAX) || 10,
   Number(process.env.RATE_LIMIT_WINDOW_MS) || 60000,
 )
 
 export const loginLimiter = new RateLimiter(5, 60000)
+
+export const zeroBounceLimiter = new MonthlyLimiter(90)

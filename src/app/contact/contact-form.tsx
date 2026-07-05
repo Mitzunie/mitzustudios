@@ -19,6 +19,7 @@ export function ContactForm() {
   const t = useTranslations()
   const [submitState, setSubmitState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const [turnstileRef, setTurnstileRef] = useState<TurnstileInstance | null>(null)
 
@@ -58,6 +59,7 @@ export function ContactForm() {
 
     setSubmitState('loading')
     setErrorMessage('')
+    setFieldErrors({})
 
     try {
       const res = await fetch('/api/contact', {
@@ -70,6 +72,9 @@ export function ContactForm() {
         const body = await res.json().catch(() => ({}))
         if (res.status === 429) {
           setErrorMessage('Demasiadas solicitudes. Intenta de nuevo en un minuto.')
+        } else if (body.error?.code === 'INVALID_EMAIL') {
+          setFieldErrors({ clientEmail: body.error.message })
+          setErrorMessage(body.error.message)
         } else {
           setErrorMessage(body.error?.message || t.contact.form.error)
         }
@@ -167,9 +172,9 @@ export function ContactForm() {
               aria-invalid={!!errors.clientEmail}
               aria-describedby={errors.clientEmail ? 'clientEmail-error' : undefined}
             />
-            {errors.clientEmail && (
+            {(errors.clientEmail || fieldErrors.clientEmail) && (
               <p id="clientEmail-error" className="text-destructive mt-1.5 text-xs">
-                {errors.clientEmail.message}
+                {fieldErrors.clientEmail || errors.clientEmail?.message}
               </p>
             )}
           </div>
