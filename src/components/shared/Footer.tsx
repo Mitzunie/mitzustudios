@@ -79,7 +79,7 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <div className="neo-border text-muted-foreground mt-8 flex items-center justify-center border-t border-b-0 border-l-0 border-r-0 pt-8 text-center text-sm font-bold uppercase tracking-wide">
+        <div className="neo-border text-muted-foreground mt-8 border-t border-b-0 border-l-0 border-r-0 py-8 text-center text-sm font-bold uppercase tracking-wide">
           <p>{t.footer.copyright}</p>
         </div>
       </div>
