@@ -27,8 +27,19 @@ async function verifyZeroBounce(email: string): Promise<{ valid: boolean; error?
     }
 
     const data = await res.json()
-    if (data.status === 'Invalid') {
+    const status: string = data.status || ''
+    const score: number = typeof data.score === 'number' ? data.score : 0
+
+    if (status === 'Invalid') {
       return { valid: false, error: 'El correo electrónico no es válido o no existe.' }
+    }
+
+    if (status === 'Unknown') {
+      return { valid: false, error: 'No se pudo verificar el correo. Revisá que esté bien escrito.' }
+    }
+
+    if (status === 'Catch-All' && score < 60) {
+      return { valid: false, error: 'El correo parece no ser válido. Usá uno de una cuenta real.' }
     }
 
     return { valid: true }
