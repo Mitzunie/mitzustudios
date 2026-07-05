@@ -91,6 +91,7 @@ export async function POST(request: NextRequest) {
     const excerpt = formData.get('excerpt') as string | null
     const content = formData.get('content') as string
     const published = formData.get('published') === 'true'
+    const locale = (formData.get('locale') as string) || 'es'
     const imageFile = formData.get('image') as File | null
 
     const parsed = createPostSchema.safeParse({
@@ -98,6 +99,7 @@ export async function POST(request: NextRequest) {
       excerpt: excerpt || undefined,
       content,
       published,
+      locale,
     })
 
     if (!parsed.success) {
@@ -144,6 +146,7 @@ export async function POST(request: NextRequest) {
         excerpt: parsed.data.excerpt || null,
         content: parsed.data.content,
         published: parsed.data.published,
+        locale: parsed.data.locale,
         imageUrl,
         authorId: session.user.id,
       },

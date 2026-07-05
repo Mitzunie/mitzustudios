@@ -93,6 +93,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     const excerpt = formData.get('excerpt') as string | null
     const content = formData.get('content') as string | null
     const published = formData.get('published') as string | null
+    const locale = formData.get('locale') as string | null
     const imageFile = formData.get('image') as File | null
     const removeImage = formData.get('removeImage') as string | null
 
@@ -104,6 +105,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     if (excerpt !== null) updateData.excerpt = excerpt || null
     if (content) updateData.content = content
     if (published !== null) updateData.published = published === 'true'
+    if (locale !== null) updateData.locale = locale
 
     // Handle image
     if (removeImage === 'true' && existing.imageUrl) {

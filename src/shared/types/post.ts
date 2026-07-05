@@ -6,6 +6,7 @@ export interface PostDTO {
   content: string
   imageUrl: string | null
   published: boolean
+  locale: string
   authorId: string
   author: { id: string; name: string | null; image: string | null }
   createdAt: string

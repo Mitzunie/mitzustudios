@@ -66,6 +66,7 @@ export default function AdminEditPostPage() {
             content: post.content,
             published: post.published,
             imageUrl: post.imageUrl,
+            locale: post.locale,
           }}
         />
       </div>

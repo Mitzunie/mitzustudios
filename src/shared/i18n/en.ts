@@ -382,6 +382,108 @@ export const en = {
     copyright: `© ${new Date().getFullYear()} MitzuStudios. All rights reserved.`,
     description: 'Professional web development. From your idea to your next website.',
     rights: 'All rights reserved.',
+    partners: 'Partners',
+  },
+  pages: {
+    about: {
+      title: 'About Me',
+      subtitle: 'Learn more about my journey and how I work',
+      intro:
+        'I am Vicente Valdés, a full-stack developer and founder of MitzuStudios. I have spent years turning ideas into functional, fast, and well-designed digital products.',
+      focus: {
+        title: 'My Approach',
+        items: [
+          'Clean, maintainable code as the foundation of every project',
+          'Performance and accessibility as a priority, not an afterthought',
+          'Constant communication with you, no runaround',
+          'Modern technology that scales when your business grows',
+        ],
+      },
+      tech: {
+        title: 'Technologies',
+        items: ['Next.js / React', 'Node.js / Express', 'PostgreSQL / Prisma', 'TypeScript', 'Tailwind CSS', 'Docker'],
+      },
+      cta: 'Get a Quote',
+    },
+    services: {
+      title: 'Services',
+      subtitle: 'Everything I can do for you and your business',
+      intro:
+        'Every project has the same goal: to work well, look good, and bring real value to your business.',
+      process: {
+        title: 'How I Work',
+        steps: [
+          {
+            title: '1. Talk',
+            description: 'We discuss your idea, goals, and needs. No commitment.',
+          },
+          {
+            title: '2. Proposal',
+            description: 'I send you a clear quote with scope, timeline, and cost.',
+          },
+          {
+            title: '3. Development',
+            description: 'I build your project with periodic deliveries so you can see progress.',
+          },
+          {
+            title: '4. Delivery',
+            description: 'Everything working, with post-launch support included.',
+          },
+        ],
+      },
+      cta: 'Get a Quote',
+    },
+    zeew: {
+      title: 'Zeew Space',
+      subtitle: 'Learn by building real projects',
+      description:
+        'Zeew Space is an educational platform where you learn development by building real projects from the very first class. Practical courses on JavaScript, TypeScript, React, Lua, Python and more, with an active community that supports you every step of the way.',
+      features: [
+        {
+          title: 'Learn by Doing',
+          description: 'No empty theory. Every course ends with a working project for your portfolio.',
+        },
+        {
+          title: 'Active Community',
+          description: 'A space to share progress, ask questions, and learn alongside other creators.',
+        },
+        {
+          title: 'Curated Courses',
+          description: 'Structured learning paths designed from real development experience.',
+        },
+        {
+          title: 'Human Support',
+          description: 'Project reviews and real feedback from people, not automation.',
+        },
+      ],
+      cta: 'Visit Zeew Space',
+    },
+    kamerrezz: {
+      title: 'KamerrEzz',
+      subtitle: 'Full-stack developer & builder-educator',
+      description:
+        'KamerrEzz is a full-stack developer, founder of Zeew Space, and creative entrepreneur who teaches what he learns while building it. Creator of tools like TeachMode Privacy Shield and MiniObserv, he shares his process, projects, and knowledge with a growing community.',
+      zeewCta: 'Discover Zeew Space — the educational platform he founded',
+      features: [
+        {
+          title: 'Real Projects',
+          description: 'Builds functional tools with real users, not textbook exercises.',
+        },
+        {
+          title: 'Practical Education',
+          description: 'Teaches programming from experience, with a 75% self-taught, hands-on approach.',
+        },
+        {
+          title: 'Community Growth',
+          description: 'Leads a community where people learn by creating real things and sharing the process.',
+        },
+        {
+          title: 'Open Source',
+          description: 'Shares tools and projects on GitHub so others can learn and contribute.',
+        },
+      ],
+      cta: 'Visit KamerrEzz',
+    },
   },
   errors: {
     notFound: {

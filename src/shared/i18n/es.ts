@@ -383,6 +383,108 @@ export const es = {
     copyright: `© ${new Date().getFullYear()} MitzuStudios. Todos los derechos reservados.`,
     description: 'Desarrollo web profesional. De tu idea a tu próxima web.',
     rights: 'Todos los derechos reservados.',
+    partners: 'Socios',
+  },
+  pages: {
+    about: {
+      title: 'Sobre Mí',
+      subtitle: 'Conoce más sobre mi trayectoria y mi forma de trabajar',
+      intro:
+        'Soy Vicente Valdés, desarrollador full-stack y fundador de MitzuStudios. Llevo años transformando ideas en productos digitales funcionales, rápidos y con diseño cuidado.',
+      focus: {
+        title: 'Mi Enfoque',
+        items: [
+          'Código limpio y mantenible como base de cada proyecto',
+          'Rendimiento y accesibilidad como prioridad, no después',
+          'Comunicación constante contigo, sin vueltas',
+          'Tecnología moderna que escala cuando tu negocio crece',
+        ],
+      },
+      tech: {
+        title: 'Tecnologías',
+        items: ['Next.js / React', 'Node.js / Express', 'PostgreSQL / Prisma', 'TypeScript', 'Tailwind CSS', 'Docker'],
+      },
+      cta: 'Cotiza tu Proyecto',
+    },
+    services: {
+      title: 'Servicios',
+      subtitle: 'Todo lo que puedo hacer por ti y tu negocio',
+      intro:
+        'Cada proyecto lo abordo con el mismo objetivo: que funcione bien, se vea bien y le aporte valor real a tu negocio.',
+      process: {
+        title: 'Cómo Trabajo',
+        steps: [
+          {
+            title: '1. Conversación',
+            description: 'Hablamos sobre tu idea, objetivos y lo que necesitas. Sin compromiso.',
+          },
+          {
+            title: '2. Propuesta',
+            description: 'Te envío una cotización clara con alcance, tiempos y costo.',
+          },
+          {
+            title: '3. Desarrollo',
+            description: 'Construyo tu proyecto con entregas periódicas para que veas el avance.',
+          },
+          {
+            title: '4. Entrega',
+            description: 'Te entrego todo funcionando, con soporte post-lanzamiento incluido.',
+          },
+        ],
+      },
+      cta: 'Cotiza tu Proyecto',
+    },
+    zeew: {
+      title: 'Zeew Space',
+      subtitle: 'Aprende creando proyectos reales',
+      description:
+        'Zeew Space es una plataforma educativa donde aprendes desarrollo construyendo proyectos reales desde la primera clase. Cursos prácticos de JavaScript, TypeScript, React, Lua, Python y más, con una comunidad activa que te acompaña en todo el proceso.',
+      features: [
+        {
+          title: 'Aprende Haciendo',
+          description: 'Nada de teoría vacía. Cada curso termina con un proyecto funcional para tu portafolio.',
+        },
+        {
+          title: 'Comunidad Activa',
+          description: 'Un espacio donde compartir avances, resolver dudas y aprender junto a otros creadores.',
+        },
+        {
+          title: 'Cursos Curados',
+          description: 'Rutas de aprendizaje estructuradas, diseñadas desde la experiencia real del desarrollo.',
+        },
+        {
+          title: 'Acompañamiento Humano',
+          description: 'Revisión de proyectos y feedback real de personas, no de automatizaciones.',
+        },
+      ],
+      cta: 'Visitar Zeew Space',
+    },
+    kamerrezz: {
+      title: 'KamerrEzz',
+      subtitle: 'Full-stack developer & builder-educator',
+      description:
+        'KamerrEzz es un desarrollador full-stack, fundador de Zeew Space y emprendedor creativo que enseña lo que aprende mientras lo construye. Creador de herramientas como TeachMode Privacy Shield y MiniObserv, comparte su proceso, proyectos y conocimiento con una comunidad que crece día a día.',
+      zeewCta: 'Conoce Zeew Space — la plataforma educativa que fundó',
+      features: [
+        {
+          title: 'Proyectos Reales',
+          description: 'Construye herramientas funcionales con usuarios reales, no ejercicios de manual.',
+        },
+        {
+          title: 'Educación Práctica',
+          description: 'Enseña programación desde la experiencia, con un enfoque 75% autodidacta y aplicado.',
+        },
+        {
+          title: 'Comunidad y Crecimiento',
+          description: 'Lidera una comunidad donde se aprende creando cosas reales y compartiendo el proceso.',
+        },
+        {
+          title: 'Open Source',
+          description: 'Comparte sus herramientas y proyectos en GitHub para que otros puedan aprender y contribuir.',
+        },
+      ],
+      cta: 'Visitar KamerrEzz',
+    },
   },
   errors: {
     notFound: {

@@ -1,10 +1,14 @@
 import { z } from 'zod'
 
+export const LOCALES = ['es', 'en'] as const
+export type Locale = (typeof LOCALES)[number]
+
 export const createPostSchema = z.object({
   title: z.string().min(1, 'Título requerido').max(200),
   excerpt: z.string().max(500).optional().or(z.literal('')),
   content: z.string().min(1, 'Contenido requerido'),
   published: z.boolean().default(false),
+  locale: z.enum(LOCALES).default('es'),
 })
 
 export const updatePostSchema = createPostSchema.partial().extend({

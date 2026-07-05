@@ -31,6 +31,7 @@ export {
   technologySchema,
   PROJECT_TYPES,
   PROJECT_TYPE_LABELS,
+  LOCALES,
 } from './schemas'
 export type {
   ContactFormValues,
@@ -40,6 +41,7 @@ export type {
   UpdateProjectFormValues,
   CreatePostFormValues,
   UpdatePostFormValues,
+  Locale,
 } from './schemas'
 
 // Constants

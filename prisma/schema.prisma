@@ -179,6 +179,7 @@ model Post {
   content   String
   imageUrl  String?
   published Boolean  @default(false)
+  locale    String   @default("es")
   authorId  String
   author    User     @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())
@@ -186,6 +187,7 @@ model Post {
 
   @@index([slug])
   @@index([published])
+  @@index([locale])
   @@index([createdAt])
   @@index([authorId])
 }

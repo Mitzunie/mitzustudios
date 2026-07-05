@@ -5,7 +5,7 @@ import { Navbar } from '@/components/shared/Navbar'
 import { Footer } from '@/components/shared/Footer'
 import { SectionAnimation } from '@/components/shared/SectionAnimation'
 import Image from 'next/image'
-import { es } from '@/shared'
+import { es, en, LOCALES } from '@/shared'
 
 export const dynamic = 'force-dynamic'
 
@@ -14,9 +14,22 @@ export const metadata: Metadata = {
   description: 'Artículos sobre desarrollo web, tecnología y proyectos',
 }
 
-export default async function BlogPage() {
+interface BlogPageProps {
+  searchParams: Promise<{ locale?: string }>
+}
+
+export default async function BlogPage({ searchParams }: BlogPageProps) {
+  const params = await searchParams
+  const activeLocale = params.locale || 'es'
+  const dict = activeLocale === 'en' ? en : es
+
+  const where: Record<string, unknown> = { published: true }
+  if (LOCALES.includes(activeLocale as typeof LOCALES[number])) {
+    where.locale = activeLocale
+  }
+
   const posts = await prisma.post.findMany({
-    where: { published: true },
+    where,
     orderBy: { createdAt: 'desc' },
     include: {
       author: { select: { id: true, name: true, image: true } },
@@ -29,18 +42,35 @@ export default async function BlogPage() {
       <main className="min-h-screen pt-16">
         <section className="neo-border py-24">
           <div className="container-custom mx-auto px-4">
-            <div className="mx-auto mb-16 max-w-2xl text-center">
+            <div className="mx-auto mb-8 max-w-2xl text-center">
               <SectionAnimation animation="fadeIn">
-                <h1 className="neo-section-title mb-4">{es.blog.title}</h1>
+                <h1 className="neo-section-title mb-4">{dict.blog.title}</h1>
                 <p className="text-muted-foreground text-lg font-bold uppercase tracking-wide">
-                  {es.blog.subtitle}
+                  {dict.blog.subtitle}
                 </p>
               </SectionAnimation>
             </div>
 
+            {/* Locale filter */}
+            <div className="mb-12 flex justify-center gap-2">
+              {LOCALES.map((loc) => (
+                <Link
+                  key={loc}
+                  href={loc === 'es' ? '/blog' : `/blog?locale=${loc}`}
+                  className={`neo-border px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors ${
+                    activeLocale === loc
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-card text-foreground hover:bg-muted'
+                  }`}
+                >
+                  {loc === 'es' ? 'Español' : 'English'}
+                </Link>
+              ))}
+            </div>
+
             {posts.length === 0 ? (
               <div className="text-muted-foreground text-center">
-                <p>{es.blog.noPosts}</p>
+                <p>{dict.blog.noPosts}</p>
               </div>
             ) : (
               <>
@@ -70,11 +100,11 @@ export default async function BlogPage() {
                             )}
                             <div className="text-muted-foreground flex items-center gap-2 text-xs font-bold uppercase tracking-wide">
                               <span>
-                                {es.blog.by} {post.author.name || '—'}
+                                {dict.blog.by} {post.author.name || '—'}
                               </span>
                               <span>·</span>
                               <span>
-                                {new Date(post.createdAt).toLocaleDateString('es-CL', {
+                                {new Date(post.createdAt).toLocaleDateString(activeLocale === 'en' ? 'en-US' : 'es-CL', {
                                   year: 'numeric',
                                   month: 'long',
                                   day: 'numeric',
@@ -93,7 +123,7 @@ export default async function BlogPage() {
                     href="/"
                     className="neo-button neo-button-secondary neo-shadow-sm inline-flex items-center gap-2 px-8 py-3 text-base font-bold uppercase tracking-wide"
                   >
-                    Volver al inicio
+                    {dict.blog.backToBlog}
                   </Link>
                 </div>
               </>

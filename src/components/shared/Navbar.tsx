@@ -7,21 +7,19 @@ import { useTranslations } from '@/hooks/useTranslations'
 import { LanguageToggle } from './LanguageToggle'
 import { Shield } from 'lucide-react'
 
-const navLinks = ['hero', 'about', 'services', 'projects', 'blog', 'contact'] as const
+const navItems = [
+  { key: 'hero', href: '/' },
+  { key: 'about', href: '/about' },
+  { key: 'services', href: '/services' },
+  { key: 'projects', href: '/projects' },
+  { key: 'blog', href: '/blog' },
+  { key: 'contact', href: '/contact' },
+] as const
 
 export function Navbar() {
   const { data: session } = useSession()
   const t = useTranslations()
   const isAdmin = session?.user?.role === 'admin'
-
-  const scrollToSection = (section: string) => {
-    const element = document.getElementById(section)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    } else {
-      window.location.href = `/#${section}`
-    }
-  }
 
   return (
     <nav
@@ -52,14 +50,14 @@ export function Navbar() {
 
         {/* Desktop nav */}
         <div className="hidden items-center md:flex">
-          {navLinks.map((section) => (
-            <button
-              key={section}
-              onClick={() => scrollToSection(section)}
+          {navItems.map((item) => (
+            <Link
+              key={item.key}
+              href={item.href}
               className="hover:bg-primary hover:text-primary-foreground neo-border ml-2 px-4 py-1.5 text-sm font-bold uppercase tracking-wide transition-colors"
             >
-              {t.nav[section]}
-            </button>
+              {t.nav[item.key]}
+            </Link>
           ))}
         </div>
 

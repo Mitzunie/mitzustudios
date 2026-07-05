@@ -6,6 +6,7 @@ import { Save, AlertCircle } from 'lucide-react'
 import { useTranslations } from '@/hooks/useTranslations'
 import { ImageUploadField } from './ImageUploadField'
 import { MarkdownEditor } from '@/components/shared/MarkdownEditor'
+import { LOCALES, type Locale } from '@/shared'
 import { cn } from '@/lib/utils'
 
 interface PostFormProps {
@@ -16,6 +17,7 @@ interface PostFormProps {
     content: string
     published: boolean
     imageUrl: string | null
+    locale?: string
   }
 }
 
@@ -28,6 +30,7 @@ export function PostForm({ initialData }: PostFormProps) {
   const [excerpt, setExcerpt] = useState(initialData?.excerpt || '')
   const [content, setContent] = useState(initialData?.content || '')
   const [published, setPublished] = useState(initialData?.published ?? true)
+  const [locale, setLocale] = useState<Locale>((initialData?.locale as Locale) || 'es')
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [removeImage, setRemoveImage] = useState(false)
   const [currentImageUrl] = useState(initialData?.imageUrl || null)
@@ -46,6 +49,7 @@ export function PostForm({ initialData }: PostFormProps) {
     if (excerpt) formData.append('excerpt', excerpt)
     formData.append('content', content)
     formData.append('published', String(published))
+    formData.append('locale', locale)
 
     if (imageFile) {
       formData.append('image', imageFile)
@@ -164,6 +168,30 @@ export function PostForm({ initialData }: PostFormProps) {
             {t.admin.blog.form.published}
           </span>
         </label>
+      </div>
+
+      {/* Locale */}
+      <div>
+        <label className="mb-2 block text-sm font-black uppercase tracking-wide">
+          Idioma
+        </label>
+        <div className="flex gap-3">
+          {LOCALES.map((loc) => (
+            <label key={loc} className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="locale"
+                value={loc}
+                checked={locale === loc}
+                onChange={() => setLocale(loc)}
+                className="neo-border h-5 w-5 accent-primary"
+              />
+              <span className="text-sm font-bold uppercase tracking-wide">
+                {loc === 'es' ? 'Español' : 'English'}
+              </span>
+            </label>
+          ))}
+        </div>
       </div>
 
       {/* Error */}

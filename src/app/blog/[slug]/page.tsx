@@ -7,7 +7,7 @@ import { prisma } from '@/lib/db'
 import { Navbar } from '@/components/shared/Navbar'
 import { Footer } from '@/components/shared/Footer'
 import { MarkdownRenderer } from '@/components/shared/MarkdownRenderer'
-import { es } from '@/shared'
+import { es, en } from '@/shared'
 
 export const dynamic = 'force-dynamic'
 
@@ -42,21 +42,23 @@ export default async function PostDetailPage({ params }: PostPageProps) {
     notFound()
   }
 
+  const dict = post.locale === 'en' ? en : es
+  const dateLocale = post.locale === 'en' ? 'en-US' : 'es-CL'
+
   return (
     <>
       <Navbar />
       <main className="min-h-screen pt-16">
         <article className="container-custom mx-auto px-4 py-24">
           <Link
-            href="/blog"
+            href={post.locale === 'en' ? '/blog?locale=en' : '/blog'}
             className="text-muted-foreground hover:text-foreground mb-8 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
-            {es.blog.backToBlog}
+            {dict.blog.backToBlog}
           </Link>
 
           <div className="mx-auto max-w-3xl">
-            {/* Header */}
             <header className="mb-12">
               {post.imageUrl && (
                 <div className="relative mb-8 aspect-video w-full overflow-hidden neo-border">
@@ -74,12 +76,12 @@ export default async function PostDetailPage({ params }: PostPageProps) {
 
               <div className="text-muted-foreground flex items-center gap-2 text-sm font-bold uppercase tracking-wide">
                 <span>
-                  {es.blog.by} {post.author.name || '—'}
+                  {dict.blog.by} {post.author.name || '—'}
                 </span>
                 <span>·</span>
                 <span>
-                  {es.blog.publishedOn}{' '}
-                  {new Date(post.createdAt).toLocaleDateString('es-CL', {
+                  {dict.blog.publishedOn}{' '}
+                  {new Date(post.createdAt).toLocaleDateString(dateLocale, {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
@@ -94,7 +96,6 @@ export default async function PostDetailPage({ params }: PostPageProps) {
               )}
             </header>
 
-            {/* Content */}
             <div className="prose prose-invert prose-lg max-w-none">
               <MarkdownRenderer content={post.content} />
             </div>
