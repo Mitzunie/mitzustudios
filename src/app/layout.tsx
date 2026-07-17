@@ -25,11 +25,23 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'MitzuStudios' }],
   metadataBase: new URL('https://mitzustudios.online'),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'MitzuStudios | Desarrollo Web Profesional',
     description: 'Desarrollo web a medida. Transformamos tus ideas en software profesional.',
+    url: '/',
     type: 'website',
     locale: 'es_CL',
+    ...(process.env.NEXT_PUBLIC_SITE_LOGO_URL
+      ? { images: [{ url: process.env.NEXT_PUBLIC_SITE_LOGO_URL }] }
+      : {}),
+  },
+  twitter: {
+    card: 'summary',
+    title: 'MitzuStudios | Desarrollo Web Profesional',
+    description: 'Desarrollo web a medida. Transformamos tus ideas en software profesional.',
   },
 }
 

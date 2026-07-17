@@ -6,6 +6,9 @@ import { Footer } from '@/components/shared/Footer'
 export const metadata: Metadata = {
   title: 'Contacto',
   description: 'Contáctame para cotizar tu proyecto. Te responderé en menos de 48 horas con una propuesta personalizada.',
+  alternates: {
+    canonical: '/contact',
+  },
 }
 
 export default function ContactPage() {

@@ -2,12 +2,15 @@ import type { Metadata } from 'next'
 import { prisma } from '@/lib/db'
 import { NfcClient } from '@/components/nfc/NfcClient'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'MitzuStudios | NFC',
   description:
     'Desarrollo web profesional. Transformamos tus ideas en software profesional.',
+  alternates: {
+    canonical: '/nfc',
+  },
   openGraph: {
     title: 'MitzuStudios',
     description: 'Desarrollo web profesional. De tu idea a tu próxima web.',

@@ -9,6 +9,9 @@ import { es } from '@/shared'
 export const metadata: Metadata = {
   title: 'Sobre Mí',
   description: 'Conoce más sobre Vicente Valdés y MitzuStudios. Desarrollador full-stack apasionado por crear soluciones digitales de calidad.',
+  alternates: {
+    canonical: '/about',
+  },
 }
 
 const t = es.pages.about

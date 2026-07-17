@@ -12,6 +12,9 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Blog',
   description: 'Artículos sobre desarrollo web, tecnología y proyectos',
+  alternates: {
+    canonical: '/blog',
+  },
 }
 
 interface BlogPageProps {

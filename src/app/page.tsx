@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { Navbar } from '@/components/shared/Navbar'
 import { Footer } from '@/components/shared/Footer'
 import { HeroSection } from '@/components/landing/HeroSection'
@@ -8,7 +9,13 @@ import { BlogSection } from '@/components/landing/BlogSection'
 import { ContactSection } from '@/components/landing/ContactSection'
 import { ServiceJsonLd, FaqJsonLd } from '@/components/landing/JsonLd'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: '/',
+  },
+}
 
 export default function HomePage() {
   return (

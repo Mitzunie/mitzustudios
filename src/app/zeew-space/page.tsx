@@ -9,6 +9,9 @@ import { es } from '@/shared'
 export const metadata: Metadata = {
   title: 'Zeew Space',
   description: 'Zeew Space — Aprende creando proyectos reales. Cursos prácticos de JavaScript, React, Lua y más. Comunidad activa y aprendizaje basado en proyectos.',
+  alternates: {
+    canonical: '/zeew-space',
+  },
 }
 
 const t = es.pages.zeew
