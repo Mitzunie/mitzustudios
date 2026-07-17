@@ -9,6 +9,9 @@ import { es } from '@/shared'
 export const metadata: Metadata = {
   title: 'Servicios',
   description: 'Desarrollo web profesional. Landing pages, e-commerce, aplicaciones web, APIs y rediseño. Transformamos tus ideas en software.',
+  alternates: {
+    canonical: '/services',
+  },
 }
 
 const servicesList = es.services.items

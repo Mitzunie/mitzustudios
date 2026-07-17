@@ -1,10 +1,12 @@
 export function OrganizationJsonLd() {
+  const logoUrl = process.env.NEXT_PUBLIC_SITE_LOGO_URL
+
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'MitzuStudios',
     url: 'https://mitzustudios.online',
-    logo: 'https://mitzustudios.online/logo.png',
+    ...(logoUrl ? { logo: logoUrl } : {}),
     description:
       'Desarrollo web profesional. Transformamos ideas en software. Landing pages, e-commerce, aplicaciones web y más.',
     email: 'team@mitzustudios.online',

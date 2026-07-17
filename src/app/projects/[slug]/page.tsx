@@ -9,7 +9,7 @@ import { Footer } from '@/components/shared/Footer'
 import { MarkdownRenderer } from '@/components/shared/MarkdownRenderer'
 import { es } from '@/shared'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>
@@ -26,6 +26,9 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   return {
     title: project.title,
     description: project.description,
+    alternates: {
+      canonical: `/projects/${slug}`,
+    },
   }
 }
 

@@ -9,6 +9,9 @@ import { es } from '@/shared'
 export const metadata: Metadata = {
   title: 'Kamerr Ezz',
   description: 'KamerrEzz — Full-stack developer & builder-educator. Enseña lo que aprende mientras lo construye. Proyectos, educación práctica y comunidad.',
+  alternates: {
+    canonical: '/kamerrezz',
+  },
 }
 
 const t = es.pages.kamerrezz

@@ -13,6 +13,9 @@ const PROJECTS_PER_PAGE = 9
 export const metadata: Metadata = {
   title: 'Todos los Proyectos',
   description: 'Explora todos los proyectos en los que he trabajado',
+  alternates: {
+    canonical: '/projects',
+  },
 }
 
 interface ProjectsPageProps {
