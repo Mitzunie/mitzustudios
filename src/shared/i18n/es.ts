@@ -21,7 +21,7 @@ export const es = {
   about: {
     title: 'Sobre Mí',
     content:
-      'Desarrollador full-stack especializado en construir soluciones digitales con Next.js, React y Node.js. Transformo ideas en productos funcionales, rápidos y con diseño cuidado. Cada proyecto lo abordo con el mismo objetivo: que funcione bien, se vea bien y le aporte valor real a tu negocio.',
+      'Desarrollador full-stack en Santiago, Chile, especializado en construir soluciones digitales con Next.js, React y Node.js. Transformo ideas en productos funcionales, rápidos y con diseño cuidado. Cada proyecto lo abordo con el mismo objetivo: que funcione bien, se vea bien y le aporte valor real a tu negocio.',
   },
   services: {
     title: 'Servicios',
@@ -390,7 +390,7 @@ export const es = {
       title: 'Sobre Mí',
       subtitle: 'Conoce más sobre mi trayectoria y mi forma de trabajar',
       intro:
-        'Soy Vicente Valdés, desarrollador full-stack y fundador de MitzuStudios. Llevo años transformando ideas en productos digitales funcionales, rápidos y con diseño cuidado.',
+        'Soy Vicente Valdés, desarrollador full-stack con base en Santiago, Chile, y fundador de MitzuStudios. Llevo años transformando ideas en productos digitales funcionales, rápidos y con diseño cuidado.',
       focus: {
         title: 'Mi Enfoque',
         items: [

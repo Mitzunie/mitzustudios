@@ -51,6 +51,40 @@ export function OrganizationJsonLd() {
   )
 }
 
+export function LocalBusinessJsonLd() {
+  const logoUrl = process.env.NEXT_PUBLIC_SITE_LOGO_URL
+  const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP || '56921935205'
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: 'MitzuStudios',
+    url: 'https://mitzustudios.online',
+    ...(logoUrl ? { image: logoUrl } : {}),
+    description:
+      'Desarrollo web profesional en Santiago, Chile. Transformamos ideas en software. Landing pages, e-commerce, aplicaciones web y más.',
+    email: 'team@mitzustudios.online',
+    telephone: `+${whatsapp.replace(/[^0-9]/g, '')}`,
+    areaServed: [
+      {
+        '@type': 'City',
+        name: 'Santiago',
+      },
+      {
+        '@type': 'Country',
+        name: 'Chile',
+      },
+    ],
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
 export function WebSiteJsonLd() {
   const schema = {
     '@context': 'https://schema.org',
