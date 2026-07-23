@@ -6,17 +6,17 @@ import { Navbar } from '@/components/shared/Navbar'
 import { Footer } from '@/components/shared/Footer'
 import { ProjectCard } from '@/components/projects/ProjectCard'
 import { SectionAnimation } from '@/components/shared/SectionAnimation'
+import { buildPageMetadata } from '@/lib/metadata'
 export const dynamic = 'force-dynamic'
 
 const PROJECTS_PER_PAGE = 9
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Todos los Proyectos',
-  description: 'Explora todos los proyectos en los que he trabajado',
-  alternates: {
-    canonical: '/projects',
-  },
-}
+  description:
+    'Explora los proyectos web que he desarrollado: landing pages, tiendas online y apps a medida con Next.js y React. Cotiza tu proyecto y hagámoslo realidad.',
+  path: '/projects',
+})
 
 interface ProjectsPageProps {
   searchParams: Promise<{ page?: string }>

@@ -4,15 +4,14 @@ import { Code2, Users, BookOpen, MessageSquareText, ExternalLink, ArrowLeft } fr
 import { Navbar } from '@/components/shared/Navbar'
 import { Footer } from '@/components/shared/Footer'
 import { SectionAnimation } from '@/components/shared/SectionAnimation'
+import { buildPageMetadata } from '@/lib/metadata'
 import { es } from '@/shared'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Zeew Space',
   description: 'Zeew Space — Aprende creando proyectos reales. Cursos prácticos de JavaScript, React, Lua y más. Comunidad activa y aprendizaje basado en proyectos.',
-  alternates: {
-    canonical: '/zeew-space',
-  },
-}
+  path: '/zeew-space',
+})
 
 const t = es.pages.zeew
 

@@ -4,15 +4,14 @@ import { Code2, Cog, Lightbulb, MessageSquareMore, ArrowLeft } from 'lucide-reac
 import { Navbar } from '@/components/shared/Navbar'
 import { Footer } from '@/components/shared/Footer'
 import { SectionAnimation } from '@/components/shared/SectionAnimation'
+import { buildPageMetadata } from '@/lib/metadata'
 import { es } from '@/shared'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Sobre Mí',
   description: 'Conoce más sobre Vicente Valdés y MitzuStudios. Desarrollador full-stack apasionado por crear soluciones digitales de calidad.',
-  alternates: {
-    canonical: '/about',
-  },
-}
+  path: '/about',
+})
 
 const t = es.pages.about
 

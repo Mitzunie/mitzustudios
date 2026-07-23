@@ -5,7 +5,7 @@ import { NfcClient } from '@/components/nfc/NfcClient'
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: 'MitzuStudios | NFC',
+  title: 'NFC',
   description:
     'Desarrollo web profesional. Transformamos tus ideas en software profesional.',
   alternates: {

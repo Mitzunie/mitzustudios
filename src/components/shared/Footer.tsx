@@ -76,6 +76,15 @@ export function Footer() {
                   KamerrEzz
                 </a>
               </li>
+              <li>
+                <a
+                  href="/nfc"
+                  className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
+                >
+                  <ExternalLink className="h-3 w-3" />
+                  Tarjeta NFC
+                </a>
+              </li>
             </ul>
           </div>
         </div>
