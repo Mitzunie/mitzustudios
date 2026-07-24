@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import type { ProjectDTO } from '@/shared'
 import { useTranslations } from '@/hooks/useTranslations'
+import { trackEvent } from '@/lib/analytics'
 import { TechnologyBadge } from './TechnologyBadge'
 
 interface ProjectCardProps {
@@ -16,12 +17,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const t = useTranslations()
 
   const handleClick = useCallback(() => {
+    trackEvent('project_card_clicked', { project_slug: project.slug, location: 'projects_grid' })
     router.push(`/projects/${project.slug}`)
   }, [router, project.slug])
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === 'Enter') {
+        trackEvent('project_card_clicked', { project_slug: project.slug, location: 'projects_grid' })
         router.push(`/projects/${project.slug}`)
       }
     },

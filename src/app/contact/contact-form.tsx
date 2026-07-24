@@ -14,6 +14,7 @@ import {
 import { useTranslations } from '@/hooks/useTranslations'
 import { SectionAnimation } from '@/components/shared/SectionAnimation'
 import { cn } from '@/lib/utils'
+import { trackEvent } from '@/lib/analytics'
 
 export function ContactForm() {
   const t = useTranslations()
@@ -82,11 +83,8 @@ export function ContactForm() {
       setSubmitState('success')
       reset()
 
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        ;(window as any).gtag('event', 'contact_form_submit', {
-          project_type: data.projectType,
-        })
-      }
+      // NOTE: this submit flow is duplicated in src/components/landing/ContactSection.tsx
+      trackEvent('form_submitted', { form_type: 'contact', project_type: data.projectType })
     } catch {
       setErrorMessage(t.contact.form.error)
       turnstileRef?.reset()

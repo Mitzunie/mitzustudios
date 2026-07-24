@@ -17,6 +17,7 @@ import {
 } from 'lucide-react'
 import { useTranslations } from '@/hooks/useTranslations'
 import { cn } from '@/lib/utils'
+import { trackEvent } from '@/lib/analytics'
 import type { ProjectDTO } from '@/shared'
 
 const serviceIcons = [Globe, ShoppingCart, Code, Server, RefreshCw]
@@ -212,6 +213,7 @@ export function NfcClient({ projects }: NfcClientProps) {
               href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent('whatsapp_click', { location: 'nfc' })}
               className="neo-button neo-button-secondary neo-shadow-sm flex w-full items-center justify-center gap-3 px-6 py-4 text-sm font-bold uppercase tracking-wide transition-all hover:-translate-y-0.5 active:translate-y-0"
             >
               <MessageCircle className="h-5 w-5" />
