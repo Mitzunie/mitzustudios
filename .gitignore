@@ -27,3 +27,6 @@ Thumbs.db
 
 # TypeScript
 *.tsbuildinfo
+.claude
+.agents
+skills-lock.json
