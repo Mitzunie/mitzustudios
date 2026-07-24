@@ -50,7 +50,7 @@ export const es = {
       {
         title: 'Rediseño Web',
         description:
-          'Tu sitio actual merece una segunda oportunidad. Lo renovamos con diseño moderno, mejor rendimiento y una experiencia impecable en cualquier dispositivo.',
+          'Tu sitio actual merece una segunda oportunidad. Lo renuevo con diseño moderno, mejor rendimiento y una experiencia impecable en cualquier dispositivo.',
       },
     ],
   },
@@ -390,14 +390,14 @@ export const es = {
       title: 'Sobre Mí',
       subtitle: 'Conoce más sobre mi trayectoria y mi forma de trabajar',
       intro:
-        'Soy Vicente Valdés, desarrollador full-stack con base en Santiago, Chile, y fundador de MitzuStudios. Llevo años transformando ideas en productos digitales funcionales, rápidos y con diseño cuidado.',
+        'Soy Vicente Valdés, desarrollador full-stack con base en Santiago, Chile, y fundador de MitzuStudios. Llevo años transformando ideas en productos digitales funcionales, rápidos y con diseño cuidado. Cada proyecto lo construyo con Next.js y React, no con plantillas de WordPress que se vuelven lentas y difíciles de mantener con el tiempo — así consigues un sitio más rápido, con mejor SEO técnico y sin plugins que se rompen en cada actualización.',
       focus: {
         title: 'Mi Enfoque',
         items: [
-          'Código limpio y mantenible como base de cada proyecto',
-          'Rendimiento y accesibilidad como prioridad, no después',
-          'Comunicación constante contigo, sin vueltas',
-          'Tecnología moderna que escala cuando tu negocio crece',
+          'Next.js y React en cada proyecto — sitios rápidos y con SEO técnico sólido desde el día uno',
+          'Cotización clara y personalizada en menos de 48 horas',
+          'Precio de partida publicado desde el primer contacto, sin cotizar a ciegas',
+          'Soporte y mantenimiento post-lanzamiento disponible desde $50 USD al mes',
         ],
       },
       tech: {
@@ -410,7 +410,7 @@ export const es = {
       title: 'Servicios',
       subtitle: 'Todo lo que puedo hacer por ti y tu negocio',
       intro:
-        'Cada proyecto lo abordo con el mismo objetivo: que funcione bien, se vea bien y le aporte valor real a tu negocio.',
+        'Cada proyecto lo abordo con el mismo objetivo: que funcione bien, se vea bien y le aporte valor real a tu negocio. Los precios de partida están publicados desde el primer contacto, para que sepas qué esperar antes de escribirme.',
       process: {
         title: 'Cómo Trabajo',
         steps: [

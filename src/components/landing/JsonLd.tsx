@@ -188,7 +188,7 @@ export function FaqJsonLd() {
         name: '¿Cuánto cuesta desarrollar una landing page?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'El costo de una landing page profesional parte desde los $500 USD, dependiendo de la complejidad y las funcionalidades requeridas. Incluye diseño responsive, optimización SEO básica y formulario de contacto.',
+          text: 'El costo de una landing page profesional parte desde los $500 USD, dependiendo de la complejidad y las funcionalidades requeridas. Incluye desarrollo a medida con Next.js y React (sin plantillas genéricas), diseño responsive, optimización SEO básica y formulario de contacto integrado.',
         },
       },
       {
@@ -201,10 +201,10 @@ export function FaqJsonLd() {
       },
       {
         '@type': 'Question',
-        name: '¿Ofrecen mantenimiento después del desarrollo?',
+        name: '¿Ofreces mantenimiento después del desarrollo?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Sí, ofrecemos planes de mantenimiento desde $50 USD al mes que incluyen actualizaciones, backups, monitoreo y correcciones menores. También podemos hacer mantenimiento por demanda según necesites.',
+          text: 'Sí, ofrezco planes de mantenimiento desde $50 USD al mes que incluyen actualizaciones, backups, monitoreo y correcciones menores. También puedo hacer mantenimiento por demanda según lo que necesites.',
         },
       },
       {
@@ -212,15 +212,15 @@ export function FaqJsonLd() {
         name: '¿Cómo puedo solicitar una cotización?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Puedes solicitar una cotización completamente gratuita a través del formulario de contacto en nuestra web. Cuéntanos sobre tu proyecto y te enviaremos una cotización personalizada en menos de 48 horas.',
+          text: 'Puedes solicitar una cotización completamente gratuita a través del formulario de contacto en mi web. Cuéntame sobre tu proyecto y te enviaré una cotización personalizada en menos de 48 horas.',
         },
       },
       {
         '@type': 'Question',
-        name: '¿Trabajan con tecnologías modernas?',
+        name: '¿Trabajas con tecnologías modernas?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Sí, utilizamos tecnologías modernas como Next.js, React, TypeScript, Node.js, PostgreSQL y Tailwind CSS para construir aplicaciones rápidas, escalables y con excelente experiencia de usuario.',
+          text: 'Sí, utilizo tecnologías modernas como Next.js, React, TypeScript, Node.js, PostgreSQL y Tailwind CSS para construir aplicaciones rápidas, escalables y con excelente experiencia de usuario.',
         },
       },
     ],

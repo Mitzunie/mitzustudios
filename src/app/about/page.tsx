@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Code2, Cog, Lightbulb, MessageSquareMore, ArrowLeft } from 'lucide-react'
+import { Code2, Clock, Tag, LifeBuoy, ArrowLeft } from 'lucide-react'
 import { Navbar } from '@/components/shared/Navbar'
 import { Footer } from '@/components/shared/Footer'
 import { SectionAnimation } from '@/components/shared/SectionAnimation'
@@ -15,7 +15,7 @@ export const metadata: Metadata = buildPageMetadata({
 
 const t = es.pages.about
 
-const focusIcons = [Lightbulb, Cog, MessageSquareMore, Code2]
+const focusIcons = [Code2, Clock, Tag, LifeBuoy]
 
 export default function AboutPage() {
   return (
