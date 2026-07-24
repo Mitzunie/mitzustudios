@@ -4,15 +4,14 @@ import { LayoutDashboard, ShoppingCart, Globe, Server, Paintbrush, ArrowLeft } f
 import { Navbar } from '@/components/shared/Navbar'
 import { Footer } from '@/components/shared/Footer'
 import { SectionAnimation } from '@/components/shared/SectionAnimation'
+import { buildPageMetadata } from '@/lib/metadata'
 import { es } from '@/shared'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Servicios',
   description: 'Desarrollo web profesional. Landing pages, e-commerce, aplicaciones web, APIs y rediseño. Transformamos tus ideas en software.',
-  alternates: {
-    canonical: '/services',
-  },
-}
+  path: '/services',
+})
 
 const servicesList = es.services.items
 const processSteps = es.pages.services.process.steps

@@ -6,16 +6,16 @@ import { Footer } from '@/components/shared/Footer'
 import { SectionAnimation } from '@/components/shared/SectionAnimation'
 import Image from 'next/image'
 import { es, en, LOCALES } from '@/shared'
+import { buildPageMetadata } from '@/lib/metadata'
 
 export const dynamic = 'force-dynamic'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Blog',
-  description: 'Artículos sobre desarrollo web, tecnología y proyectos',
-  alternates: {
-    canonical: '/blog',
-  },
-}
+  description:
+    'Artículos sobre desarrollo web, tecnología y buenas prácticas de programación. Aprende conmigo y descubre cómo llevo cada proyecto de la idea al producto final.',
+  path: '/blog',
+})
 
 interface BlogPageProps {
   searchParams: Promise<{ locale?: string }>

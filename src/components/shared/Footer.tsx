@@ -2,6 +2,7 @@
 
 import { MessageCircle, Instagram, Mail, ExternalLink } from 'lucide-react'
 import { useTranslations } from '@/hooks/useTranslations'
+import { trackEvent } from '@/lib/analytics'
 
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP || '56921935205'
 const INSTAGRAM_HANDLE = process.env.NEXT_PUBLIC_INSTAGRAM || 'mitzustudios.online'
@@ -39,6 +40,7 @@ export function Footer() {
                 href={`https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent('whatsapp_click', { location: 'footer' })}
                 className="neo-button neo-button-secondary neo-shadow-sm inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wide transition-all hover:-translate-y-0.5"
               >
                 <MessageCircle className="h-4 w-4 shrink-0" />
@@ -74,6 +76,15 @@ export function Footer() {
                 >
                   <ExternalLink className="h-3 w-3" />
                   KamerrEzz
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/nfc"
+                  className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
+                >
+                  <ExternalLink className="h-3 w-3" />
+                  Tarjeta NFC
                 </a>
               </li>
             </ul>

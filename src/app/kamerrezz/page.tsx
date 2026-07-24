@@ -4,15 +4,14 @@ import { Code2, GraduationCap, Users, Github, ExternalLink, ArrowLeft } from 'lu
 import { Navbar } from '@/components/shared/Navbar'
 import { Footer } from '@/components/shared/Footer'
 import { SectionAnimation } from '@/components/shared/SectionAnimation'
+import { buildPageMetadata } from '@/lib/metadata'
 import { es } from '@/shared'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Kamerr Ezz',
   description: 'KamerrEzz — Full-stack developer & builder-educator. Enseña lo que aprende mientras lo construye. Proyectos, educación práctica y comunidad.',
-  alternates: {
-    canonical: '/kamerrezz',
-  },
-}
+  path: '/kamerrezz',
+})
 
 const t = es.pages.kamerrezz
 

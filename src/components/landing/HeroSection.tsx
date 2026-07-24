@@ -3,11 +3,13 @@
 import { ArrowRight } from 'lucide-react'
 import { useTranslations } from '@/hooks/useTranslations'
 import { SectionAnimation } from '@/components/shared/SectionAnimation'
+import { trackEvent } from '@/lib/analytics'
 
 export function HeroSection() {
   const t = useTranslations()
 
   const scrollToContact = () => {
+    trackEvent('cta_clicked', { button_text: t.hero.cta, location: 'hero' })
     const element = document.getElementById('contact')
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
@@ -15,6 +17,7 @@ export function HeroSection() {
   }
 
   const scrollToProjects = () => {
+    trackEvent('cta_clicked', { button_text: t.hero.secondaryCta, location: 'hero' })
     const element = document.getElementById('projects')
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })

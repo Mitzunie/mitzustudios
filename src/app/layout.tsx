@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { GoogleAnalytics } from '@/components/shared/GoogleAnalytics'
 import { SessionProvider } from '@/components/shared/SessionProvider'
-import { OrganizationJsonLd, WebSiteJsonLd } from '@/components/landing/JsonLd'
+import { OrganizationJsonLd, WebSiteJsonLd, LocalBusinessJsonLd } from '@/components/landing/JsonLd'
 import './globals.css'
 
 const GTM_ID = 'GTM-TWTZBHR3'
@@ -71,6 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {process.env.NODE_ENV === 'production' && <SpeedInsights />}
         <OrganizationJsonLd />
         <WebSiteJsonLd />
+        <LocalBusinessJsonLd />
       </body>
     </html>
   )

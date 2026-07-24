@@ -3,6 +3,10 @@ import { prisma } from '@/lib/db'
 
 const BASE_URL = 'https://mitzustudios.online'
 
+// Fixed date for static pages (content that rarely changes) instead of a dynamic
+// `new Date()` call, so this route stays cache/build-stable.
+const STATIC_PAGES_LAST_MODIFIED = new Date('2026-07-23')
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [projects, posts] = await Promise.all([
     prisma.project.findMany({
@@ -16,15 +20,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ])
 
   const staticPages = [
-    { url: BASE_URL, changeFrequency: 'monthly' as const, priority: 1.0 },
-    { url: `${BASE_URL}/projects`, changeFrequency: 'weekly' as const, priority: 0.8 },
-    { url: `${BASE_URL}/blog`, changeFrequency: 'weekly' as const, priority: 0.7 },
-    { url: `${BASE_URL}/services`, changeFrequency: 'monthly' as const, priority: 0.7 },
-    { url: `${BASE_URL}/about`, changeFrequency: 'monthly' as const, priority: 0.6 },
-    { url: `${BASE_URL}/contact`, changeFrequency: 'monthly' as const, priority: 0.6 },
-    { url: `${BASE_URL}/zeew-space`, changeFrequency: 'monthly' as const, priority: 0.5 },
-    { url: `${BASE_URL}/kamerrezz`, changeFrequency: 'monthly' as const, priority: 0.5 },
-    { url: `${BASE_URL}/nfc`, changeFrequency: 'monthly' as const, priority: 0.3 },
+    { url: BASE_URL, lastModified: STATIC_PAGES_LAST_MODIFIED, changeFrequency: 'monthly' as const, priority: 1.0 },
+    { url: `${BASE_URL}/projects`, lastModified: STATIC_PAGES_LAST_MODIFIED, changeFrequency: 'weekly' as const, priority: 0.8 },
+    { url: `${BASE_URL}/blog`, lastModified: STATIC_PAGES_LAST_MODIFIED, changeFrequency: 'weekly' as const, priority: 0.7 },
+    { url: `${BASE_URL}/services`, lastModified: STATIC_PAGES_LAST_MODIFIED, changeFrequency: 'monthly' as const, priority: 0.7 },
+    { url: `${BASE_URL}/about`, lastModified: STATIC_PAGES_LAST_MODIFIED, changeFrequency: 'monthly' as const, priority: 0.6 },
+    { url: `${BASE_URL}/contact`, lastModified: STATIC_PAGES_LAST_MODIFIED, changeFrequency: 'monthly' as const, priority: 0.6 },
+    { url: `${BASE_URL}/zeew-space`, lastModified: STATIC_PAGES_LAST_MODIFIED, changeFrequency: 'monthly' as const, priority: 0.5 },
+    { url: `${BASE_URL}/kamerrezz`, lastModified: STATIC_PAGES_LAST_MODIFIED, changeFrequency: 'monthly' as const, priority: 0.5 },
+    { url: `${BASE_URL}/nfc`, lastModified: STATIC_PAGES_LAST_MODIFIED, changeFrequency: 'monthly' as const, priority: 0.3 },
   ]
 
   const projectPages = projects.map((project) => ({

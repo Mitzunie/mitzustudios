@@ -21,7 +21,7 @@ export const en = {
   about: {
     title: 'About Me',
     content:
-      'Full-stack developer specialized in building digital solutions with Next.js, React, and Node.js. I turn ideas into functional, fast, and well-designed products. Every project has the same goal: to work well, look good, and bring real value to your business.',
+      'Full-stack developer based in Santiago, Chile, specialized in building digital solutions with Next.js, React, and Node.js. I turn ideas into functional, fast, and well-designed products. Every project has the same goal: to work well, look good, and bring real value to your business.',
   },
   services: {
     title: 'Services',
@@ -389,14 +389,14 @@ export const en = {
       title: 'About Me',
       subtitle: 'Learn more about my journey and how I work',
       intro:
-        'I am Vicente Valdés, a full-stack developer and founder of MitzuStudios. I have spent years turning ideas into functional, fast, and well-designed digital products.',
+        'I am Vicente Valdés, a full-stack developer based in Santiago, Chile, and founder of MitzuStudios. I have spent years turning ideas into functional, fast, and well-designed digital products. Every project is built with Next.js and React, not WordPress templates that get slow and hard to maintain over time — so you get a faster site, stronger technical SEO, and no plugins breaking with every update.',
       focus: {
         title: 'My Approach',
         items: [
-          'Clean, maintainable code as the foundation of every project',
-          'Performance and accessibility as a priority, not an afterthought',
-          'Constant communication with you, no runaround',
-          'Modern technology that scales when your business grows',
+          'Next.js and React on every project — fast sites with solid technical SEO from day one',
+          'Clear, personalized quote in under 48 hours',
+          'Starting price published upfront, no blind quote requests',
+          'Post-launch support and maintenance available from $50 USD/month',
         ],
       },
       tech: {
@@ -409,7 +409,7 @@ export const en = {
       title: 'Services',
       subtitle: 'Everything I can do for you and your business',
       intro:
-        'Every project has the same goal: to work well, look good, and bring real value to your business.',
+        'Every project has the same goal: to work well, look good, and bring real value to your business. Starting prices are published upfront, so you know what to expect before you even reach out.',
       process: {
         title: 'How I Work',
         steps: [

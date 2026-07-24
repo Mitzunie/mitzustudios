@@ -2,14 +2,13 @@ import type { Metadata } from 'next'
 import { ContactForm } from './contact-form'
 import { Navbar } from '@/components/shared/Navbar'
 import { Footer } from '@/components/shared/Footer'
+import { buildPageMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Contacto',
   description: 'Contáctame para cotizar tu proyecto. Te responderé en menos de 48 horas con una propuesta personalizada.',
-  alternates: {
-    canonical: '/contact',
-  },
-}
+  path: '/contact',
+})
 
 export default function ContactPage() {
   return (

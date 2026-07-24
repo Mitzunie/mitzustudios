@@ -51,6 +51,40 @@ export function OrganizationJsonLd() {
   )
 }
 
+export function LocalBusinessJsonLd() {
+  const logoUrl = process.env.NEXT_PUBLIC_SITE_LOGO_URL
+  const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP || '56921935205'
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: 'MitzuStudios',
+    url: 'https://mitzustudios.online',
+    ...(logoUrl ? { image: logoUrl } : {}),
+    description:
+      'Desarrollo web profesional en Santiago, Chile. Transformamos ideas en software. Landing pages, e-commerce, aplicaciones web y más.',
+    email: 'team@mitzustudios.online',
+    telephone: `+${whatsapp.replace(/[^0-9]/g, '')}`,
+    areaServed: [
+      {
+        '@type': 'City',
+        name: 'Santiago',
+      },
+      {
+        '@type': 'Country',
+        name: 'Chile',
+      },
+    ],
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
 export function WebSiteJsonLd() {
   const schema = {
     '@context': 'https://schema.org',
@@ -154,7 +188,7 @@ export function FaqJsonLd() {
         name: '¿Cuánto cuesta desarrollar una landing page?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'El costo de una landing page profesional parte desde los $500 USD, dependiendo de la complejidad y las funcionalidades requeridas. Incluye diseño responsive, optimización SEO básica y formulario de contacto.',
+          text: 'El costo de una landing page profesional parte desde los $500 USD, dependiendo de la complejidad y las funcionalidades requeridas. Incluye desarrollo a medida con Next.js y React (sin plantillas genéricas), diseño responsive, optimización SEO básica y formulario de contacto integrado.',
         },
       },
       {
@@ -167,10 +201,10 @@ export function FaqJsonLd() {
       },
       {
         '@type': 'Question',
-        name: '¿Ofrecen mantenimiento después del desarrollo?',
+        name: '¿Ofreces mantenimiento después del desarrollo?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Sí, ofrecemos planes de mantenimiento desde $50 USD al mes que incluyen actualizaciones, backups, monitoreo y correcciones menores. También podemos hacer mantenimiento por demanda según necesites.',
+          text: 'Sí, ofrezco planes de mantenimiento desde $50 USD al mes que incluyen actualizaciones, backups, monitoreo y correcciones menores. También puedo hacer mantenimiento por demanda según lo que necesites.',
         },
       },
       {
@@ -178,15 +212,15 @@ export function FaqJsonLd() {
         name: '¿Cómo puedo solicitar una cotización?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Puedes solicitar una cotización completamente gratuita a través del formulario de contacto en nuestra web. Cuéntanos sobre tu proyecto y te enviaremos una cotización personalizada en menos de 48 horas.',
+          text: 'Puedes solicitar una cotización completamente gratuita a través del formulario de contacto en mi web. Cuéntame sobre tu proyecto y te enviaré una cotización personalizada en menos de 48 horas.',
         },
       },
       {
         '@type': 'Question',
-        name: '¿Trabajan con tecnologías modernas?',
+        name: '¿Trabajas con tecnologías modernas?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Sí, utilizamos tecnologías modernas como Next.js, React, TypeScript, Node.js, PostgreSQL y Tailwind CSS para construir aplicaciones rápidas, escalables y con excelente experiencia de usuario.',
+          text: 'Sí, utilizo tecnologías modernas como Next.js, React, TypeScript, Node.js, PostgreSQL y Tailwind CSS para construir aplicaciones rápidas, escalables y con excelente experiencia de usuario.',
         },
       },
     ],
