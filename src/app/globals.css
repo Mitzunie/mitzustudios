@@ -231,3 +231,34 @@ textarea.neo-input {
   background: var(--color-primary);
   border: 2px solid var(--color-border);
 }
+
+/* Reduced motion — Apple principle: no springs, no parallax, no overshoot */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Reduced transparency — make translucent surfaces solid */
+@media (prefers-reduced-transparency: reduce) {
+  .bg-background\/80,
+  [class*="backdrop-blur"] {
+    background-color: var(--color-background) !important;
+    backdrop-filter: none !important;
+  }
+}
+
+/* High contrast — near-solid backgrounds with defined borders */
+@media (prefers-contrast: more) {
+  .neo-card,
+  .neo-button,
+  .neo-input {
+    border-width: 3px;
+    border-color: var(--color-foreground);
+  }
+}

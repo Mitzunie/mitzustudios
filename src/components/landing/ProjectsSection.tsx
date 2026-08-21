@@ -31,7 +31,7 @@ export async function ProjectsSection() {
           <>
             <div className="mx-auto grid max-w-6xl gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {projects.map((project, index) => (
-                <SectionAnimation key={project.id} animation="fadeIn" threshold={0.1 * (index + 1)}>
+                <SectionAnimation key={project.id} animation="fadeIn" delay={0.1 * (index + 1)}>
                   <ProjectCard
                     project={{
                       ...project,
@@ -49,11 +49,11 @@ export async function ProjectsSection() {
             </div>
 
             {totalProjects > 3 && (
-              <SectionAnimation animation="fadeIn" threshold={0.1 * (projects.length + 1)}>
+              <SectionAnimation animation="fadeIn" delay={0.1 * (projects.length + 1)}>
                 <div className="mt-12 text-center">
                   <Link
                     href="/projects"
-                    className="neo-button neo-button-secondary neo-shadow-sm inline-flex items-center gap-2 px-8 py-3 text-base font-bold uppercase tracking-wide"
+                    className="neo-button neo-button-secondary neo-shadow-sm inline-flex items-center gap-2 px-8 py-3 text-base font-bold tracking-wide uppercase"
                   >
                     Ver todos los proyectos
                   </Link>

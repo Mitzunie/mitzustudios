@@ -105,8 +105,12 @@ export function ContactSection() {
               <div className="bg-primary text-primary-foreground neo-border mx-auto mb-6 inline-flex p-4">
                 <CheckCircle2 className="h-10 w-10" />
               </div>
-              <h2 className="mb-4 text-2xl font-black uppercase tracking-wide">{t.contact.form.success}</h2>
-              <p className="text-muted-foreground font-bold uppercase tracking-wide">{t.contact.form.quoteMessage}</p>
+              <h2 className="mb-4 text-2xl font-black tracking-wide uppercase">
+                {t.contact.form.success}
+              </h2>
+              <p className="text-muted-foreground font-bold tracking-wide uppercase">
+                {t.contact.form.quoteMessage}
+              </p>
               <button
                 onClick={() => setSubmitState('idle')}
                 className="neo-button neo-button-primary neo-shadow-sm mt-8 px-6 py-2 text-sm"
@@ -126,11 +130,13 @@ export function ContactSection() {
         <SectionAnimation animation="fadeIn">
           <div className="mx-auto mb-16 max-w-2xl text-center">
             <h2 className="neo-section-title mb-4">{t.contact.title}</h2>
-            <p className="text-muted-foreground text-lg font-bold uppercase tracking-wide">{t.contact.subtitle}</p>
+            <p className="text-muted-foreground text-lg font-bold tracking-wide uppercase">
+              {t.contact.subtitle}
+            </p>
           </div>
         </SectionAnimation>
 
-        <SectionAnimation animation="fadeIn" threshold={0.3}>
+        <SectionAnimation animation="fadeIn" threshold={0.3} delay={0.1}>
           <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-xl space-y-6" noValidate>
             {/* Name */}
             <div>
@@ -143,7 +149,7 @@ export function ContactSection() {
                 placeholder={t.contact.form.namePlaceholder}
                 {...register('clientName')}
                 className={cn(
-                  'neo-input w-full px-4 py-2.5 text-sm font-bold uppercase tracking-wide',
+                  'neo-input w-full px-4 py-2.5 text-sm font-bold tracking-wide uppercase',
                   'placeholder:text-muted-foreground/50',
                   errors.clientName ? 'border-destructive' : '',
                 )}
@@ -168,7 +174,7 @@ export function ContactSection() {
                 placeholder={t.contact.form.emailPlaceholder}
                 {...register('clientEmail')}
                 className={cn(
-                  'neo-input w-full px-4 py-2.5 text-sm font-bold uppercase tracking-wide',
+                  'neo-input w-full px-4 py-2.5 text-sm font-bold tracking-wide uppercase',
                   'placeholder:text-muted-foreground/50',
                   errors.clientEmail ? 'border-destructive' : '',
                 )}
@@ -193,7 +199,7 @@ export function ContactSection() {
                 placeholder={t.contact.form.phonePlaceholder}
                 {...register('clientPhone')}
                 className={cn(
-                  'neo-input w-full px-4 py-2.5 text-sm font-bold uppercase tracking-wide',
+                  'neo-input w-full px-4 py-2.5 text-sm font-bold tracking-wide uppercase',
                   'placeholder:text-muted-foreground/50',
                   errors.clientPhone ? 'border-destructive' : '',
                 )}
@@ -216,7 +222,7 @@ export function ContactSection() {
                 id="projectType"
                 {...register('projectType')}
                 className={cn(
-                  'neo-input w-full px-4 py-2.5 text-sm font-bold uppercase tracking-wide',
+                  'neo-input w-full px-4 py-2.5 text-sm font-bold tracking-wide uppercase',
                   errors.projectType ? 'border-destructive' : '',
                 )}
                 aria-invalid={!!errors.projectType}
@@ -244,7 +250,7 @@ export function ContactSection() {
                   placeholder={t.contact.form.otherTypePlaceholder}
                   {...register('otherType')}
                   className={cn(
-                    'neo-input w-full px-4 py-2.5 text-sm font-bold uppercase tracking-wide',
+                    'neo-input w-full px-4 py-2.5 text-sm font-bold tracking-wide uppercase',
                     'placeholder:text-muted-foreground/50',
                     errors.otherType ? 'border-destructive' : '',
                   )}
@@ -267,7 +273,7 @@ export function ContactSection() {
                 placeholder={t.contact.form.descriptionPlaceholder}
                 {...register('description')}
                 className={cn(
-                  'neo-input w-full resize-y px-4 py-2.5 text-sm font-bold uppercase tracking-wide',
+                  'neo-input w-full resize-y px-4 py-2.5 text-sm font-bold tracking-wide uppercase',
                   'placeholder:text-muted-foreground/50',
                   errors.description ? 'border-destructive' : '',
                 )}

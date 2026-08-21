@@ -1,5 +1,5 @@
 export const en = {
-    nav: {
+  nav: {
     blog: 'Blog',
     hero: 'Home',
     about: 'About',
@@ -54,34 +54,34 @@ export const en = {
       },
     ],
   },
-    projects: {
-      title: 'Projects',
-      subtitle: 'Some projects I have worked on',
-      viewMore: 'View Details',
-      viewProject: 'View Project',
-      noProjects: 'No published projects yet.',
-      noImage: 'No image',
-      backToProjects: 'Back to projects',
-      viewAll: 'View all projects',
-      page: {
-        title: 'All Projects',
-        description: 'Explore all the projects I have worked on',
-        previous: 'Previous',
-        next: 'Next',
-        page: 'Page',
-        of: 'of',
-      },
+  projects: {
+    title: 'Projects',
+    subtitle: 'Some projects I have worked on',
+    viewMore: 'View Details',
+    viewProject: 'View Project',
+    noProjects: 'No published projects yet.',
+    noImage: 'No image',
+    backToProjects: 'Back to projects',
+    viewAll: 'View all projects',
+    page: {
+      title: 'All Projects',
+      description: 'Explore all the projects I have worked on',
+      previous: 'Previous',
+      next: 'Next',
+      page: 'Page',
+      of: 'of',
     },
-    blog: {
-      title: 'Blog',
-      subtitle: 'Articles about web development, technology and projects',
-      noPosts: 'No published articles yet.',
-      readMore: 'Read more',
-      backToBlog: 'Back to blog',
-      viewAll: 'View all articles',
-      by: 'by',
-      publishedOn: 'Published on',
-    },
+  },
+  blog: {
+    title: 'Blog',
+    subtitle: 'Articles about web development, technology and projects',
+    noPosts: 'No published articles yet.',
+    readMore: 'Read more',
+    backToBlog: 'Back to blog',
+    viewAll: 'View all articles',
+    by: 'by',
+    publishedOn: 'Published on',
+  },
   contact: {
     title: 'Contact Me',
     subtitle:
@@ -124,7 +124,7 @@ export const en = {
       descriptionMax: 'Maximum 2000 characters',
     },
   },
-    admin: {
+  admin: {
     sidebar: {
       dashboard: 'Dashboard',
       requests: 'Requests',
@@ -169,11 +169,11 @@ export const en = {
       },
       markAsRead: 'Mark as Read',
       markAsUnread: 'Mark as Unread',
-    deleteConfirm: 'Delete this request?',
-    deleteDescription:
-      'This action cannot be undone. The request and all its responses will be permanently deleted.',
-    detail: {
-      title: 'Request Detail',
+      deleteConfirm: 'Delete this request?',
+      deleteDescription:
+        'This action cannot be undone. The request and all its responses will be permanently deleted.',
+      detail: {
+        title: 'Request Detail',
         clientInfo: 'Client Information',
         projectInfo: 'Project Information',
         responses: 'Responses',
@@ -323,14 +323,14 @@ export const en = {
       totalAllocated: 'Allocated',
       remaining: 'Remaining',
       mustTotal100: 'Percentages must add up to 100%',
-        statuses: {
-          PENDING: 'Pending',
-          APPROVED: 'Approved',
-          PAID: 'Paid - Awaiting Development',
-          IN_PROGRESS: 'In Progress',
-          COMPLETED: 'Completed - Finalized',
-          CANCELLED: 'Cancelled',
-        },
+      statuses: {
+        PENDING: 'Pending',
+        APPROVED: 'Approved',
+        PAID: 'Paid - Awaiting Development',
+        IN_PROGRESS: 'In Progress',
+        COMPLETED: 'Completed - Finalized',
+        CANCELLED: 'Cancelled',
+      },
       form: {
         create: 'Create Quote',
         update: 'Update Quote',
@@ -343,7 +343,8 @@ export const en = {
         deleteConfirm: 'Delete this quote?',
         deleteDescription: 'This action cannot be undone. The quote will be permanently deleted.',
         completeConfirm: 'Are you sure you want to mark this as completed?',
-        completeDescription: 'This action cannot be undone and you will not be able to update the quote again.',
+        completeDescription:
+          'This action cannot be undone and you will not be able to update the quote again.',
         paidEmailSent: 'Receipt sent to client',
       },
     },
@@ -401,7 +402,14 @@ export const en = {
       },
       tech: {
         title: 'Technologies',
-        items: ['Next.js / React', 'Node.js / Express', 'PostgreSQL / Prisma', 'TypeScript', 'Tailwind CSS', 'Docker'],
+        items: [
+          'Next.js / React',
+          'Node.js / Express',
+          'PostgreSQL / Prisma',
+          'TypeScript',
+          'Tailwind CSS',
+          'Docker',
+        ],
       },
       cta: 'Get a Quote',
     },
@@ -441,11 +449,13 @@ export const en = {
       features: [
         {
           title: 'Learn by Doing',
-          description: 'No empty theory. Every course ends with a working project for your portfolio.',
+          description:
+            'No empty theory. Every course ends with a working project for your portfolio.',
         },
         {
           title: 'Active Community',
-          description: 'A space to share progress, ask questions, and learn alongside other creators.',
+          description:
+            'A space to share progress, ask questions, and learn alongside other creators.',
         },
         {
           title: 'Curated Courses',
@@ -471,11 +481,13 @@ export const en = {
         },
         {
           title: 'Practical Education',
-          description: 'Teaches programming from experience, with a 75% self-taught, hands-on approach.',
+          description:
+            'Teaches programming from experience, with a 75% self-taught, hands-on approach.',
         },
         {
           title: 'Community Growth',
-          description: 'Leads a community where people learn by creating real things and sharing the process.',
+          description:
+            'Leads a community where people learn by creating real things and sharing the process.',
         },
         {
           title: 'Open Source',
@@ -483,6 +495,35 @@ export const en = {
         },
       ],
       cta: 'Visit KamerrEzz',
+    },
+    mextyra: {
+      title: 'Mextyra',
+      subtitle: 'Software and application development ecosystem',
+      description:
+        'Mextyra is a comprehensive ecosystem for application and software development, built for businesses that need reliable infrastructure and custom development solutions. Split into Mextyra Cloud and Mextyra Studio.',
+      features: [
+        {
+          title: 'Mextyra Cloud',
+          description:
+            'Enterprise-grade hosting for games and applications with high-performance, scalable infrastructure available 24/7.',
+        },
+        {
+          title: 'Mextyra Studio',
+          description:
+            'Custom application and software development studio. From web platforms to internal tools built for your business.',
+        },
+        {
+          title: 'Reliable Infrastructure',
+          description:
+            'Optimized servers with guaranteed uptime, active technical support, and architecture designed to scale with demand.',
+        },
+        {
+          title: 'Enterprise Focus',
+          description:
+            'Solutions built for serious businesses. SLAs, continuous monitoring, and a team that understands downtime is not an option.',
+        },
+      ],
+      cta: 'Visit Mextyra',
     },
   },
   errors: {

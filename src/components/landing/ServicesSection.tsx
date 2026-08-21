@@ -3,7 +3,6 @@
 import { Code, ShoppingCart, Globe, Server, RefreshCw } from 'lucide-react'
 import { useTranslations } from '@/hooks/useTranslations'
 import { SectionAnimation } from '@/components/shared/SectionAnimation'
-import { cn } from '@/lib/utils'
 
 const serviceIcons = [Globe, ShoppingCart, Code, Server, RefreshCw]
 
@@ -16,7 +15,7 @@ export function ServicesSection() {
         <SectionAnimation animation="fadeIn">
           <div className="mx-auto mb-16 max-w-2xl text-center">
             <h2 className="neo-section-title mb-4">{t.services.title}</h2>
-            <p className="text-muted-foreground text-lg font-bold uppercase tracking-wide">
+            <p className="text-muted-foreground text-lg font-bold tracking-wide uppercase">
               {t.services.subtitle}
             </p>
           </div>
@@ -26,15 +25,15 @@ export function ServicesSection() {
           {t.services.items.map((service, index) => {
             const Icon = serviceIcons[index] || Code
             return (
-              <SectionAnimation key={service.title} animation="fadeIn" threshold={0.15 * index}>
+              <SectionAnimation key={service.title} animation="fadeIn" delay={0.08 * index}>
                 <div className="neo-card bg-card p-6">
                   <div className="bg-primary text-primary-foreground neo-border mb-4 inline-flex p-3">
                     <Icon className="h-6 w-6" />
                   </div>
-                  <h3 className="mb-2 text-base font-black uppercase tracking-wide">
+                  <h3 className="mb-2 text-base font-black tracking-wide uppercase">
                     {service.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm font-bold leading-relaxed uppercase tracking-wide">
+                  <p className="text-muted-foreground text-sm leading-relaxed font-bold tracking-wide uppercase">
                     {service.description}
                   </p>
                 </div>

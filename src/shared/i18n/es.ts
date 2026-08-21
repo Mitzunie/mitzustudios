@@ -1,5 +1,5 @@
 export const es = {
-    nav: {
+  nav: {
     blog: 'Blog',
     hero: 'Inicio',
     about: 'Sobre Mí',
@@ -54,34 +54,34 @@ export const es = {
       },
     ],
   },
-    projects: {
-      title: 'Proyectos',
-      subtitle: 'Algunos de los proyectos en los que he trabajado',
-      viewMore: 'Ver detalle',
-      viewProject: 'Ver Proyecto',
-      noProjects: 'No hay proyectos publicados todavía.',
-      noImage: 'Sin imagen',
-      backToProjects: 'Volver a proyectos',
-      viewAll: 'Ver todos los proyectos',
-      page: {
-        title: 'Todos los Proyectos',
-        description: 'Explora todos los proyectos en los que he trabajado',
-        previous: 'Anterior',
-        next: 'Siguiente',
-        page: 'Página',
-        of: 'de',
-      },
+  projects: {
+    title: 'Proyectos',
+    subtitle: 'Algunos de los proyectos en los que he trabajado',
+    viewMore: 'Ver detalle',
+    viewProject: 'Ver Proyecto',
+    noProjects: 'No hay proyectos publicados todavía.',
+    noImage: 'Sin imagen',
+    backToProjects: 'Volver a proyectos',
+    viewAll: 'Ver todos los proyectos',
+    page: {
+      title: 'Todos los Proyectos',
+      description: 'Explora todos los proyectos en los que he trabajado',
+      previous: 'Anterior',
+      next: 'Siguiente',
+      page: 'Página',
+      of: 'de',
     },
-    blog: {
-      title: 'Blog',
-      subtitle: 'Artículos sobre desarrollo web, tecnología y proyectos',
-      noPosts: 'No hay artículos publicados todavía.',
-      readMore: 'Leer más',
-      backToBlog: 'Volver al blog',
-      viewAll: 'Ver todos los artículos',
-      by: 'por',
-      publishedOn: 'Publicado el',
-    },
+  },
+  blog: {
+    title: 'Blog',
+    subtitle: 'Artículos sobre desarrollo web, tecnología y proyectos',
+    noPosts: 'No hay artículos publicados todavía.',
+    readMore: 'Leer más',
+    backToBlog: 'Volver al blog',
+    viewAll: 'Ver todos los artículos',
+    by: 'por',
+    publishedOn: 'Publicado el',
+  },
   contact: {
     title: 'Contáctame',
     subtitle:
@@ -124,7 +124,7 @@ export const es = {
       descriptionMax: 'Máximo 2000 caracteres',
     },
   },
-    admin: {
+  admin: {
     sidebar: {
       dashboard: 'Dashboard',
       requests: 'Solicitudes',
@@ -169,11 +169,11 @@ export const es = {
       },
       markAsRead: 'Marcar como Leída',
       markAsUnread: 'Marcar como No Leída',
-    deleteConfirm: '¿Eliminar esta solicitud?',
-    deleteDescription:
-      'Esta acción no se puede deshacer. La solicitud y todas sus respuestas se eliminarán permanentemente.',
-    detail: {
-      title: 'Detalle de Solicitud',
+      deleteConfirm: '¿Eliminar esta solicitud?',
+      deleteDescription:
+        'Esta acción no se puede deshacer. La solicitud y todas sus respuestas se eliminarán permanentemente.',
+      detail: {
+        title: 'Detalle de Solicitud',
         clientInfo: 'Información del Cliente',
         projectInfo: 'Información del Proyecto',
         responses: 'Respuestas',
@@ -283,7 +283,8 @@ export const es = {
         success: 'Artículo guardado exitosamente',
         error: 'Error al guardar el artículo',
         deleteConfirm: '¿Eliminar este artículo?',
-        deleteDescription: 'Esta acción no se puede deshacer. El artículo se eliminará permanentemente.',
+        deleteDescription:
+          'Esta acción no se puede deshacer. El artículo se eliminará permanentemente.',
         delete: 'Eliminar',
         cancel: 'Cancelar',
       },
@@ -324,14 +325,14 @@ export const es = {
       totalAllocated: 'Asignado',
       remaining: 'Restante',
       mustTotal100: 'Los porcentajes deben sumar 100%',
-        statuses: {
-          PENDING: 'Pendiente',
-          APPROVED: 'Aprobada',
-          PAID: 'Pagada - Pendiente de desarrollo',
-          IN_PROGRESS: 'En Desarrollo',
-          COMPLETED: 'Finalizada - Completada',
-          CANCELLED: 'Cancelada',
-        },
+      statuses: {
+        PENDING: 'Pendiente',
+        APPROVED: 'Aprobada',
+        PAID: 'Pagada - Pendiente de desarrollo',
+        IN_PROGRESS: 'En Desarrollo',
+        COMPLETED: 'Finalizada - Completada',
+        CANCELLED: 'Cancelada',
+      },
       form: {
         create: 'Crear Cotización',
         update: 'Actualizar Cotización',
@@ -342,9 +343,11 @@ export const es = {
         emailError: 'Error al enviar el correo',
         error: 'Error al guardar la cotización',
         deleteConfirm: '¿Eliminar esta cotización?',
-        deleteDescription: 'Esta acción no se puede deshacer. La cotización se eliminará permanentemente.',
+        deleteDescription:
+          'Esta acción no se puede deshacer. La cotización se eliminará permanentemente.',
         completeConfirm: '¿Seguro que quieres marcarla como finalizada?',
-        completeDescription: 'Esta acción no se puede deshacer y no podrás actualizar la cotización nuevamente.',
+        completeDescription:
+          'Esta acción no se puede deshacer y no podrás actualizar la cotización nuevamente.',
         paidEmailSent: 'Comprobante enviado al cliente',
       },
     },
@@ -402,7 +405,14 @@ export const es = {
       },
       tech: {
         title: 'Tecnologías',
-        items: ['Next.js / React', 'Node.js / Express', 'PostgreSQL / Prisma', 'TypeScript', 'Tailwind CSS', 'Docker'],
+        items: [
+          'Next.js / React',
+          'Node.js / Express',
+          'PostgreSQL / Prisma',
+          'TypeScript',
+          'Tailwind CSS',
+          'Docker',
+        ],
       },
       cta: 'Cotiza tu Proyecto',
     },
@@ -442,15 +452,18 @@ export const es = {
       features: [
         {
           title: 'Aprende Haciendo',
-          description: 'Nada de teoría vacía. Cada curso termina con un proyecto funcional para tu portafolio.',
+          description:
+            'Nada de teoría vacía. Cada curso termina con un proyecto funcional para tu portafolio.',
         },
         {
           title: 'Comunidad Activa',
-          description: 'Un espacio donde compartir avances, resolver dudas y aprender junto a otros creadores.',
+          description:
+            'Un espacio donde compartir avances, resolver dudas y aprender junto a otros creadores.',
         },
         {
           title: 'Cursos Curados',
-          description: 'Rutas de aprendizaje estructuradas, diseñadas desde la experiencia real del desarrollo.',
+          description:
+            'Rutas de aprendizaje estructuradas, diseñadas desde la experiencia real del desarrollo.',
         },
         {
           title: 'Acompañamiento Humano',
@@ -468,22 +481,55 @@ export const es = {
       features: [
         {
           title: 'Proyectos Reales',
-          description: 'Construye herramientas funcionales con usuarios reales, no ejercicios de manual.',
+          description:
+            'Construye herramientas funcionales con usuarios reales, no ejercicios de manual.',
         },
         {
           title: 'Educación Práctica',
-          description: 'Enseña programación desde la experiencia, con un enfoque 75% autodidacta y aplicado.',
+          description:
+            'Enseña programación desde la experiencia, con un enfoque 75% autodidacta y aplicado.',
         },
         {
           title: 'Comunidad y Crecimiento',
-          description: 'Lidera una comunidad donde se aprende creando cosas reales y compartiendo el proceso.',
+          description:
+            'Lidera una comunidad donde se aprende creando cosas reales y compartiendo el proceso.',
         },
         {
           title: 'Open Source',
-          description: 'Comparte sus herramientas y proyectos en GitHub para que otros puedan aprender y contribuir.',
+          description:
+            'Comparte sus herramientas y proyectos en GitHub para que otros puedan aprender y contribuir.',
         },
       ],
       cta: 'Visitar KamerrEzz',
+    },
+    mextyra: {
+      title: 'Mextyra',
+      subtitle: 'Ecosistema de desarrollo de software y aplicaciones',
+      description:
+        'Mextyra es un ecosistema integral para el desarrollo de aplicaciones y software, diseñado para empresas que buscan infraestructura confiable y soluciones de desarrollo a medida. Dividido en Mextyra Cloud y Mextyra Studio.',
+      features: [
+        {
+          title: 'Mextyra Cloud',
+          description:
+            'Hosting empresarial para juegos y aplicaciones con infraestructura de alto rendimiento, escalable y disponible las 24/7.',
+        },
+        {
+          title: 'Mextyra Studio',
+          description:
+            'Estudio de desarrollo de aplicaciones y software a medida. Desde plataformas web hasta herramientas internas para tu negocio.',
+        },
+        {
+          title: 'Infraestructura Confiable',
+          description:
+            'Servidores optimizados con uptime garantizado, soporte técnico activo y arquitectura diseñada para escalar con la demanda.',
+        },
+        {
+          title: 'Enfoque Empresarial',
+          description:
+            'Soluciones pensadas para negocios serios. SLA, monitoreo continuo y un equipo que entiende que el tiempo de inactividad no es opcional.',
+        },
+      ],
+      cta: 'Visitar Mextyra',
     },
   },
   errors: {

@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
@@ -20,19 +21,24 @@ export function Navbar() {
   const { data: session } = useSession()
   const t = useTranslations()
   const isAdmin = session?.user?.role === 'admin'
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
     <nav
-      className="neo-border bg-background fixed left-0 right-0 top-0 z-50 border-b"
+      className={`neo-border fixed top-0 right-0 left-0 z-50 border-b transition-colors duration-300 ${
+        scrolled ? 'bg-background/90 backdrop-blur-md' : 'bg-background'
+      }`}
       role="navigation"
       aria-label="Main navigation"
     >
       <div className="container-custom mx-auto flex h-16 items-center justify-between">
-        <Link
-          href="/"
-          className="flex items-center gap-2"
-          aria-label="MitzuStudios Home"
-        >
+        <Link href="/" className="flex items-center gap-2" aria-label="MitzuStudios Home">
           {process.env.NEXT_PUBLIC_SITE_LOGO_URL ? (
             <Image
               src={process.env.NEXT_PUBLIC_SITE_LOGO_URL}
@@ -43,7 +49,7 @@ export function Navbar() {
               priority
             />
           ) : null}
-          <span className="text-primary text-xl font-black uppercase tracking-tight">
+          <span className="text-primary text-xl font-black tracking-tight uppercase">
             MitzuStudios
           </span>
         </Link>
@@ -54,7 +60,7 @@ export function Navbar() {
             <Link
               key={item.key}
               href={item.href}
-              className="hover:bg-primary hover:text-primary-foreground neo-border ml-2 px-4 py-1.5 text-sm font-bold uppercase tracking-wide transition-colors"
+              className="hover:bg-primary hover:text-primary-foreground neo-border ml-2 px-4 py-1.5 text-sm font-bold tracking-wide uppercase transition-colors"
             >
               {t.nav[item.key]}
             </Link>
@@ -66,7 +72,7 @@ export function Navbar() {
           {isAdmin && (
             <Link
               href="/admin/dashboard"
-              className="hover:bg-primary hover:text-primary-foreground neo-border flex items-center gap-1.5 px-3 py-1.5 text-sm font-bold uppercase tracking-wide transition-colors"
+              className="hover:bg-primary hover:text-primary-foreground neo-border flex items-center gap-1.5 px-3 py-1.5 text-sm font-bold tracking-wide uppercase transition-colors"
             >
               <Shield className="h-4 w-4" />
               <span className="hidden sm:inline">{t.nav.admin}</span>

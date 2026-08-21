@@ -8,17 +8,11 @@ export function HeroSection() {
   const t = useTranslations()
 
   const scrollToContact = () => {
-    const element = document.getElementById('contact')
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
   }
 
   const scrollToProjects = () => {
-    const element = document.getElementById('projects')
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
+    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
@@ -27,12 +21,12 @@ export function HeroSection() {
       className="neo-border flex min-h-screen items-center justify-center border-b-0"
     >
       {/* Decorative block */}
-      <div className="bg-primary absolute right-8 top-32 hidden h-24 w-24 md:block" />
+      <div className="bg-primary absolute top-32 right-8 hidden h-24 w-24 md:block" />
       <div className="bg-secondary absolute bottom-32 left-8 hidden h-16 w-16 md:block" />
 
       <div className="container-custom mx-auto px-4 py-32 text-center">
-        <SectionAnimation animation="fadeIn">
-          <h1 className="mb-6 text-5xl font-black leading-none tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl uppercase">
+        <SectionAnimation animation="fadeIn" delay={0.1}>
+          <h1 className="mb-6 text-5xl leading-none font-black tracking-tighter uppercase sm:text-6xl md:text-7xl lg:text-8xl">
             {t.hero.title}{' '}
             <span className="bg-primary text-primary-foreground neo-border inline-block px-4 py-1">
               {t.hero.titleHighlight}
@@ -40,13 +34,13 @@ export function HeroSection() {
           </h1>
         </SectionAnimation>
 
-        <SectionAnimation animation="fadeIn" threshold={0.3}>
-          <p className="text-muted-foreground mx-auto mb-10 max-w-2xl text-lg font-bold sm:text-xl uppercase tracking-wide">
+        <SectionAnimation animation="fadeIn" delay={0.2}>
+          <p className="text-muted-foreground mx-auto mb-10 max-w-2xl text-lg font-bold tracking-wide uppercase sm:text-xl">
             {t.hero.subtitle}
           </p>
         </SectionAnimation>
 
-        <SectionAnimation animation="fadeIn" threshold={0.5}>
+        <SectionAnimation animation="fadeIn" delay={0.3}>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <button
               onClick={scrollToContact}

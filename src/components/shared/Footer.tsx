@@ -14,23 +14,27 @@ export function Footer() {
       <div className="container-custom mx-auto px-4 py-12">
         <div className="grid gap-8 md:grid-cols-4">
           <div>
-            <h3 className="text-primary mb-3 text-lg font-black uppercase tracking-wide">MitzuStudios</h3>
-            <p className="text-muted-foreground text-sm font-bold uppercase tracking-wide">{t.footer.description}</p>
+            <h3 className="text-primary mb-3 text-lg font-black tracking-wide uppercase">
+              MitzuStudios
+            </h3>
+            <p className="text-muted-foreground text-sm font-bold tracking-wide uppercase">
+              {t.footer.description}
+            </p>
           </div>
           <div>
-            <h3 className="mb-3 text-base font-black uppercase tracking-wide">{t.nav.services}</h3>
-            <ul className="text-muted-foreground space-y-2 text-sm font-bold uppercase tracking-wide">
+            <h3 className="mb-3 text-base font-black tracking-wide uppercase">{t.nav.services}</h3>
+            <ul className="text-muted-foreground space-y-2 text-sm font-bold tracking-wide uppercase">
               {t.services.items.map((item) => (
                 <li key={item.title}>{item.title}</li>
               ))}
             </ul>
           </div>
           <div>
-            <h3 className="mb-3 text-base font-black uppercase tracking-wide">{t.nav.contact}</h3>
+            <h3 className="mb-3 text-base font-black tracking-wide uppercase">{t.nav.contact}</h3>
             <div className="flex flex-col gap-2">
               <a
                 href="mailto:team@mitzustudios.online"
-                className="neo-button neo-button-secondary neo-shadow-sm inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wide transition-all hover:-translate-y-0.5"
+                className="neo-button neo-button-secondary neo-shadow-sm inline-flex items-center gap-2 px-4 py-2 text-xs font-bold tracking-wide uppercase transition-all hover:-translate-y-0.5"
               >
                 <Mail className="h-4 w-4 shrink-0" />
                 team@mitzustudios.online
@@ -39,7 +43,7 @@ export function Footer() {
                 href={`https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="neo-button neo-button-secondary neo-shadow-sm inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wide transition-all hover:-translate-y-0.5"
+                className="neo-button neo-button-secondary neo-shadow-sm inline-flex items-center gap-2 px-4 py-2 text-xs font-bold tracking-wide uppercase transition-all hover:-translate-y-0.5"
               >
                 <MessageCircle className="h-4 w-4 shrink-0" />
                 WhatsApp
@@ -48,7 +52,7 @@ export function Footer() {
                 href={`https://instagram.com/${INSTAGRAM_HANDLE.replace(/^@/, '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="neo-button neo-button-secondary neo-shadow-sm inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wide transition-all hover:-translate-y-0.5"
+                className="neo-button neo-button-secondary neo-shadow-sm inline-flex items-center gap-2 px-4 py-2 text-xs font-bold tracking-wide uppercase transition-all hover:-translate-y-0.5"
               >
                 <Instagram className="h-4 w-4 shrink-0" />
                 Instagram
@@ -56,12 +60,14 @@ export function Footer() {
             </div>
           </div>
           <div>
-            <h3 className="mb-3 text-base font-black uppercase tracking-wide">{t.footer.partners}</h3>
-            <ul className="text-muted-foreground space-y-2 text-sm font-bold uppercase tracking-wide">
+            <h3 className="mb-3 text-base font-black tracking-wide uppercase">
+              {t.footer.partners}
+            </h3>
+            <ul className="text-muted-foreground space-y-2 text-sm font-bold tracking-wide uppercase">
               <li>
                 <a
                   href="/zeew-space"
-                  className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
+                  className="hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
                 >
                   <ExternalLink className="h-3 w-3" />
                   Zeew Space
@@ -70,16 +76,25 @@ export function Footer() {
               <li>
                 <a
                   href="/kamerrezz"
-                  className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
+                  className="hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
                 >
                   <ExternalLink className="h-3 w-3" />
                   KamerrEzz
                 </a>
               </li>
+              <li>
+                <a
+                  href="/mextyra"
+                  className="hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
+                >
+                  <ExternalLink className="h-3 w-3" />
+                  Mextyra
+                </a>
+              </li>
             </ul>
           </div>
         </div>
-        <div className="neo-border text-muted-foreground mt-8 border-t border-b-0 border-l-0 border-r-0 py-8 text-center text-sm font-bold uppercase tracking-wide">
+        <div className="neo-border text-muted-foreground mt-8 border-t border-r-0 border-b-0 border-l-0 py-8 text-center text-sm font-bold tracking-wide uppercase">
           <p>{t.footer.copyright}</p>
         </div>
       </div>

@@ -26,7 +26,7 @@ export async function BlogSection() {
         <SectionAnimation animation="fadeIn">
           <div className="mx-auto mb-16 max-w-2xl text-center">
             <h2 className="neo-section-title mb-4">{es.blog.title}</h2>
-            <p className="text-muted-foreground text-lg font-bold uppercase tracking-wide">
+            <p className="text-muted-foreground text-lg font-bold tracking-wide uppercase">
               {es.blog.subtitle}
             </p>
           </div>
@@ -34,9 +34,9 @@ export async function BlogSection() {
 
         <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, index) => (
-            <SectionAnimation key={post.id} animation="fadeIn" threshold={0.1 * (index + 1)}>
+            <SectionAnimation key={post.id} animation="fadeIn" delay={0.1 * (index + 1)}>
               <Link href={`/blog/${post.slug}`} className="group block h-full">
-                <article className="neo-border bg-card flex h-full flex-col transition-colors hover:bg-muted/50">
+                <article className="neo-border bg-card hover:bg-muted/50 flex h-full flex-col transition-colors">
                   {post.imageUrl ? (
                     <div className="relative aspect-video w-full overflow-hidden">
                       <Image
@@ -52,15 +52,15 @@ export async function BlogSection() {
                     </div>
                   )}
                   <div className="flex flex-1 flex-col p-5">
-                    <h3 className="group-hover:text-primary mb-2 text-lg font-black uppercase tracking-wide transition-colors">
+                    <h3 className="group-hover:text-primary mb-2 text-lg font-black tracking-wide uppercase transition-colors">
                       {post.title}
                     </h3>
                     {post.excerpt && (
-                      <p className="text-muted-foreground mb-4 line-clamp-2 text-sm font-bold uppercase tracking-wide">
+                      <p className="text-muted-foreground mb-4 line-clamp-2 text-sm font-bold tracking-wide uppercase">
                         {post.excerpt}
                       </p>
                     )}
-                    <div className="text-muted-foreground mt-auto flex items-center gap-2 text-xs font-bold uppercase tracking-wide">
+                    <div className="text-muted-foreground mt-auto flex items-center gap-2 text-xs font-bold tracking-wide uppercase">
                       <span>
                         {es.blog.by} {post.author.name || '—'}
                       </span>
@@ -81,11 +81,11 @@ export async function BlogSection() {
         </div>
 
         {totalPosts > 3 && (
-          <SectionAnimation animation="fadeIn" threshold={0.1 * (posts.length + 1)}>
+          <SectionAnimation animation="fadeIn" delay={0.1 * (posts.length + 1)}>
             <div className="mt-12 text-center">
               <Link
                 href="/blog"
-                className="neo-button neo-button-secondary neo-shadow-sm inline-flex items-center gap-2 px-8 py-3 text-base font-bold uppercase tracking-wide"
+                className="neo-button neo-button-secondary neo-shadow-sm inline-flex items-center gap-2 px-8 py-3 text-base font-bold tracking-wide uppercase"
               >
                 {es.blog.viewAll}
               </Link>
